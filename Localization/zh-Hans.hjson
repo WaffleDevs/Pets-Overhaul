@@ -1,0 +1,694 @@
+Mods: {
+	PetsOverhaul: {
+		Config: {
+			// Personalization: Personalization
+			// JunimoLevelupLabel: Disable Junimo levelup notification
+			// JunimoLevelupTooltip: Disables Junimo Pet's both Level-up text and sound effect notifications upon increasing a class's level. Does not disable the level mechanic.
+			// JunimoExpLabel: Disable Junimo Exp gain while you don't have it
+			// JunimoExpTooltip: Disables Junimo Pet's all Experience gains if you don't have Stardrop in any of your Inventories or it's not in your Pet Item slot.
+			// NoticeLabel: Disable Pets Overhaul's notice
+			// NoticeTooltip: Disables message sent by Pets Overhaul upon logging into the world. Notices may contain brief information about latest updates.
+			// TooltipShiftToggleLabel: Enable Pet/Item tooltips to be toggleable
+			// TooltipShiftToggleTooltip: Enables all added Pet and Item tooltips to be only visible while the Down (as in your downward input, generally S) button is being held.
+			// TooltipShiftToggleInGame: Hold the Down button to show the Pet tooltip
+			// HurtSoundLabel: Disable custom hurt sounds
+			// HurtSoundTooltip: Disables custom sound effects added by Pets when the Player receives damage.
+			// DeathSoundLabel: Disable custom death sounds
+			// DeathSoundTooltip: Disables custom sound effects added by Pets when the Player dies.
+			// PassiveSoundLabel: Disable passive Pet sounds
+			// PassiveSoundTooltip: Disables Pet sound effects that play randomly without any actions similar to Ambient sound effects.
+			// AbilitySoundLabel: Disable ability sounds
+			// AbilitySoundTooltip: Disables Pet sound effects that play upon ability proccing, cooldown refreshing, etc. (not recommended, these sounds can help with your awareness.)
+			// LowCooldownSoundLabel: Disable short timer sound
+			// LowCooldownSoundTooltip: Disables cooldown refreshing sound effect if Pet's abilities cooldown is lower than 1 second.
+			// MoreDifficultLabel: Disable the Player being weaker
+			// MoreDifficultTooltip: Disables the Player dealing 5% less damage and receiving 5% more damage, which is implemented to counteract the Mod adding extra power creep.
+			// SwapCooldownLabel: Disable Pet Swap cooldown
+			// SwapCooldownTooltip: Disables Player gaining Oblivious Pet Debuff upon swapping a Pet. Which prevents any Combat-related perks to be active during the time. (not recommended)
+		}
+
+		PetItemTooltips: {
+			Seaweed:
+				'''
+				[c/0ea80e:防御型宠物]
+				防御提高10%,击退抗性提高80%.
+				移动速度降低12%,伤害降低5%.
+				'''
+			AmberMosquito:
+				'''
+				[c/96A8B0:挖掘型宠物]
+				挖掘宝石或可提炼物有15%几率获得随机矿石或宝石.
+				挖掘矿石有30%几率获得随机宝石.
+				'''
+			EatersBone:
+				'''
+				[c/ccf5f5:移动型宠物]
+				移动速度提高15%.
+				非常轻微增加跳跃高度.
+				允许自动跳跃.
+				'''
+			BoneRattle:
+				'''
+				[c/0ea80e:防御型宠物]
+				如果你在6秒内没有受到任何攻击,轻微提高生命再生速度.
+				如果你在20秒内没有击中敌人,生命再生速度变为5倍.
+				击中敌人后不会失去所有效果,计时
+				器会重置到6秒,第一层效果仍然存在.
+				'''
+			BabyGrinchMischiefWhistle:
+				'''
+				[c/f6546a:攻击实用型宠物]
+				25方块范围内的非Boss敌人大幅减速.
+				永久获得温暖增益,免疫冷冻和冰冻减益.
+				受到冷冻和冰冻减益时恢复20%魔力值,冷却时间8秒.
+				霜月事件掉落的所有武器伤害与暴击率提高10%.
+				'''
+			Nectar:
+				'''
+				[c/97C8DD:召唤实用型宠物]
+				如果中毒或受到酸性毒液伤害,恢复5%生命上限
+				值,并消除这两种减益,生命恢复冷却时间为4秒.
+				防御降低3点,所有伤害和暴击率降低3%.
+				最大仆从数增加1个,移动速度提高3%.
+				'''
+			HellCake:
+				'''
+				[c/14C17C:实用防御型宠物]
+				11秒内对熔岩免疫,可与熔岩护身符效果叠加.
+				可在熔岩中游泳,在熔岩中防御提高10点,移动速度提高15%.
+				如果有黑曜石皮增益则防御提高12点,移动速度降低12%.
+				'''
+			Fish:
+				'''
+				[c/10B4F5:钓鱼实用型宠物]
+				渔力提高5点,在海洋中渔力提高15点,在雪原中渔力提高25点.
+				钓上的寒霜鲦鱼和大西洋鳕鱼翻倍.
+				在雪原和海洋中可游泳.
+				冷冻减益的持续时间缩短50%.
+				'''
+			BambooLeaf:
+				'''
+				[c/9293AE:攻击采集型宠物]
+				攻击速度提高7%,在丛林中攻击速度提高12%.
+				敌人不太可能以你为目标.
+				砍伐竹子有50%几率掉落额外的竹子.
+				'''
+			BoneKey:
+				'''
+				[c/8D7A40:防御攻击型宠物]
+				完全免疫困难模式之前地牢中的伤害.
+				在地牢中盔甲穿透力提高10点,生命再生速度提高8点.
+				不在地牢中盔甲穿透力提高6点.
+				'''
+			ToySled:
+				'''
+				[c/f6546a:攻击型宠物]
+				你的攻击能使非Boss敌人轻微减速10秒,
+				你的攻击能对敌人造成6秒的霜冻减益.
+				如果穿戴了全套寒霜盔甲,伤害提高8%,
+				霜冻减益时间增加到14秒,减速效果变为中等.
+				'''
+			StrangeGlowingMushroom:
+				'''
+				[c/7CEBFA:移动实用型宠物]
+				命中敌人增加0.5秒剩余时间大于1分钟的增益的时间(1秒冷却).
+				获得困惑减益,并获得以下效果:
+				所有伤害,击退抗性,暴击率,运气,魔力上限,
+				生命上限,击退,攻击速度提高4%,
+				防御,渔力,盔甲穿透力提高4点.
+				移动速度提高20%,同时获得快乐增益和夜视效果
+				'''
+			FullMoonSqueakyToy:
+				'''
+				[c/FA377D:辅助攻击型宠物]
+				你的暴击率和暴击伤害降低10%.
+				暴击对敌人造成10秒的重创减益,近战伤害造成的暴击则是15秒.
+				每层重创使敌人受到伤害提高2%,最多叠加至26%.
+				在满月时变成狼人并免疫狼人伤害.
+				'''
+			BerniePetItem:
+				'''
+				[c/14C17C:实用防御型宠物]
+				在200方块范围内,敌人受到的所有类型的
+				燃烧减益的持续时间流逝速度降低50%.
+				在200方块范围内,每存在一名燃烧的敌人,
+				每秒恢复3点魔力值和1点生命值,最多可叠加5个敌人.
+				你的伤害降低8%,但如果你受到任何类型的燃烧减益,
+				则会在10分钟内无效该减益,并在10秒内恢复共计15生命值.
+				免疫所有燃烧减益,在低于20%生命值时更容易被敌人攻击.
+				'''
+			UnluckyYarn:
+				'''
+				[c/1bdeff:实用型宠物]
+				运气提高0.15点或0.05点或降低0.03点.
+				效果取决于今天的月相,最高的是新月,最低的是满月.
+				'''
+			/* BlueEgg:
+				'''
+				[c/CDFF00:Harvesting Pet]
+				Harvesting anything drops you a random item from
+				a table. Items vary from seeds to fruits. Plants
+				and herbs have a <plantChance>% chance, rare plants have a <rarePlantChance>%
+				and choppables have <choppableChance>%, 
+				Approximetaly every <eggMinute> minutes gives you an Egg.
+				''' */
+			GlowTulip:
+				'''
+				[c/7CF074:采集实用型宠物]
+				收获在地表以下的草药与树木时有15%几率多获得一个.
+				宝石树掉落物翻倍.
+				自身获得永久光芒增益.
+				'''
+			ChesterPetItem:
+				'''
+				[c/ccf5f5:移动型宠物]
+				跳跃能力小幅提高
+				'''
+			CompanionCube:
+				'''
+				[c/22A091:防御魔法型宠物]
+				每失去5点生命值恢复1点魔力值.
+				每使用10点魔力值恢复1点生命值.
+				熔岩每秒伤害你10%生命值.
+				'''
+			CursedSapling:
+				'''
+				[c/8A2BE2:召唤型宠物]
+				最大仆从数增加1个.
+				南瓜月事件掉落的所有武器伤害提高10%.
+				乌鸦法杖伤害提高25%.
+				每个最大仆从数能使暗黑收割
+				攻击距离提高4%,攻击速度提高2%.
+				'''
+			DirtiestBlock:
+				'''
+				[c/96A8B0:挖掘型宠物]
+				挖掘任何方块获得1枚铜币.
+				挖掘环境方块获得2枚铜币.
+				挖掘土块获得3枚铜币.
+				'''
+			BallOfFuseWire:
+				'''
+				[c/f6546a:攻击型宠物]
+				攻击附带一次爆炸,能够造成群体伤害,
+				爆炸无法击退,基础伤害为你造成伤害的50%,
+				爆炸有30点基础盔甲穿透力,暴击率为武器当前暴击率,
+				爆炸冷却时间为2秒.
+				'''
+			CelestialWand:
+				'''
+				[c/3399FF:魔法型宠物]
+				魔力上限增加20%,魔法伤害加成倍率多于100%时,多出部分的加成减半,
+				魔力上限多于200时,每多出一点魔力上限,增加0.1%魔法伤害.
+				宠物自身的魔法伤害加成不会减半.
+				装备幽灵兜帽套装或存在耐魔性减益将额外降低10%魔法伤害.
+				'''
+			EyeSpring:
+				'''
+				[c/ccf5f5:移动型宠物]
+				你的跳跃更高更快,获得额外移动加速度.
+				你的翅膀垂直飞行速度减半以平衡跳跃加成.
+				即使受到轻微的惩罚,最终飞行高度也提高了约33%.
+				'''
+			ExoticEasternChewToy:
+				'''
+				[c/DABE8E:近战移动型宠物]
+				持有近战武器时近战攻击速度提高20%,
+				移动速度提高18%,但近战武器大小降低8%.
+				'''
+			BedazzledNectar:
+				'''
+				[c/ccf5f5:移动型宠物]
+				你现在能够飞行1.5秒并获得免疫掉落伤害的能力.
+				如果装备翅膀,飞行时间增加3秒.
+				如果没有装备翅膀,生命上限降低10%.
+				'''
+			GlommerPetItem:
+				'''
+				[c/3399FF:魔法型宠物]
+				魔力上限增加基于你生命上限的5%和防御的100%.
+				每秒恢复3点魔力值,此效果不受任何因素影响.
+				咕噜咪偶尔会大便.
+				'''
+			DD2PetDragon:
+				'''
+				[c/FFB3BA:远程型宠物]
+				你射出的箭获得1.5倍的初速度并能使敌人燃烧6秒.
+				你射出的子弹获得额外的2点盔甲穿透力和5%暴击伤害.
+				特殊类型的远程武器必定对生命值
+				低于20%的敌人暴击,Boss则是低于5%.
+				'''
+			JunimoPetItem:
+				'''
+				[c/CDFF00:采集],[c/96A8B0:挖掘]与[c/0382E9:钓鱼型宠物]
+				收集各类型的材料能够获得对应类型的经验.
+				即使未拥有祝尼魔宠物或星之果实,也能获得经验.
+				星之果实只要在背包或打开的虚空袋中就有效果.
+				祝尼魔宠物存在时,经验获取和效果都会翻倍.
+				等级上限为25级,某些行为可以获得更多经验.
+				[c/CDFF00:采集]: 收割任何植物,树木和干草都会给你<HarvestingProfit>枚铜币,生命上限提高<BonusHealth>点.
+				当前等级: [c/CDFF00:<HarvestLevel>]   下一级所需的经验: [c/CDFF00:<HarvestNext>]
+				[c/96A8B0:挖掘]: 挖掘矿石和宝石有<MiningBonusDrop>%几率掉落物增加1个,自身所受伤害减少<BonusReduction>%.
+				当前等级: [c/96A8B0:<MiningLevel>]   下一级所需的经验: [c/96A8B0:<MiningNext>]
+				[c/0382E9:钓鱼]: 渔力提高<FishingPower>%,所有伤害提高<BonusDamage>%.
+				当前等级: [c/0382E9:<FishingLevel>]   下一级所需的经验: [c/0382E9:<FishingNext>]
+				'''
+			BirdieRattle:
+				'''
+				[c/ccf5f5:移动型宠物]
+				你现在能够飞行3秒,然而,飞行时间不会
+				在着陆后恢复,必须等到15秒冷却刷新
+				后才能再次飞行,飞行中冷却无法刷新.
+				从你开始飞行的那一刻起,飞行冷却就开始了.
+				'''
+			LizardEgg:
+				'''
+				[c/8D7A40:攻击防御型宠物]
+				生命值低于55%后受到伤害会让你变成蜥蜴人30秒,
+				移动速度提高20%,防御提高5点,伤害提高10%.
+				你接下来的10次命中,伤害再提高10%并加上10点额外伤害,
+				同时,恢复1%造成的伤害与1%生命上限.
+				蜥蜴人变身有60秒冷却时间.
+				'''
+			TartarSauce:
+				'''
+				[c/e69138:近战型宠物]
+				近战攻击命中敌人能够叠加层数.
+				真近战命中叠加2层,近战投射物命中叠加1层(0.1秒冷却).
+				最多叠加至80层,10秒未命中敌人后每秒减少4层.
+				在最大层数,防御提高16%并额外增加5点,近战速度提高20%,
+				近战伤害提高10%,移动速度降低20%.
+				每层提高0.25%近战速度,0.125%近战伤害,降低0.25%移动速度,
+				每16层提高1点防御,每5层提高1%防御.
+				'''
+			ParrotCracker:
+				'''
+				[c/f6546a:攻击型宠物]
+				你的所有攻击有13%几率造成两次伤害
+				'''
+			PigPetItem:
+				'''
+				[c/1bdeff:实用型宠物]
+				获得永久的很满意增益
+				'''
+			MudBud:
+				'''
+				[c/f6546a:攻击型宠物]
+				攻击敌人有几率出现孢子毒气,
+				能够造成你的武器100%的伤害.
+				'''
+			DD2PetGato:
+				'''
+				[c/8A2BE2:召唤型宠物]
+				允许哨兵暴击,暴击率为10%.
+				最大哨兵数增加1个.
+				'''
+			DogWhistle:
+				'''
+				[c/1bdeff:实用型宠物]
+				获得永久的猎人增益.
+				捕捉小动物有60%几率翻倍.
+				'''
+			Seedling:
+				'''
+				[c/0ea80e:防御型宠物]
+				生命偷取提高1.8%,世纪之花
+				掉落的武器生命偷取提高4.5%
+				'''
+			SpiderEgg:
+				'''
+				[c/f6546a:攻击型宠物]
+				攻击能够使敌人中毒12秒,近战攻击则是20秒.
+				如果目标对酸性毒液没有免疫,则移除目标的中毒免疫.
+				攻击有中毒减益的目标伤害提高5%+5点,击退提高20%,暴击率提高5%.
+				攻击有酸性毒液减益的目标伤害提高10%+10点,击退提高50%,暴击率提高10%.
+				'''
+			OrnateShadowKey:
+				'''
+				[c/1bdeff:实用型宠物]
+				击杀非Boss敌人会掉落额外的钱币
+				'''
+			SharkBait:
+				'''
+				[c/716DAF:钓鱼攻击型宠物]
+				渔力提高13点.
+				攻击钓上来的敌人伤害增加25%,同时钓上来的敌人伤害降低25%.
+				渔夫套装每一件防御提高5点,伤害提高4%,渔力提高1点,
+				击败任意机械Boss后,每一件提高的防御翻倍.
+				钓上任何东西获得10秒5点护盾.
+				'''
+			SpiffoPlush:
+				'''
+				[c/FFB3BA:远程型宠物]
+				15%的几率不消耗弹药.
+				攻击僵尸类敌人远程攻击盔甲穿透力提高6点.
+				'''
+			MagicalPumpkinSeed:
+				'''
+				[c/CDFF00:采集型宠物]
+				收获成熟的植物有85%几率掉落物增加1个.
+				收获稀有植物有8%几率掉落物增加1个.
+				'''
+			EucaluptusSap:
+				'''
+				[c/ccf5f5:移动型宠物]
+				允许滑翔.
+				水平飞行速度提高10%,水平飞行加速度提高20%.
+				'''
+			TikiTotem:
+				'''
+				[c/8A2BE2:召唤型宠物]
+				基于鞭攻击速度加成的50%提高召唤伤害.
+				允许鞭暴击并提高8%暴击率,非鞭召唤武器暴击率降低8%.
+				'''
+			LightningCarrot:
+				'''
+				[c/E39DA9:攻击实用型宠物]
+				移动速度提高8%.
+				移动速度加成倍率多于100%时,
+				多出部分的四分之一增加到伤害.
+				'''
+			ZephyrFish:
+				'''
+				[c/0382E9:钓鱼型宠物]
+				渔力提高10%+10点,钓上任何东西有50%几率翻倍且可以和其他效果叠加.
+				添加一条渔夫套装奖励:
+				每完成一次钓鱼任务渔力提高0.4%,上限为40%.
+				'''
+			EyeOfCthulhuPetItem:
+				'''
+				[c/f6546a:攻击型宠物]
+				生命值低于50%时,进入愤怒状态,消耗掉所有的防御,
+				分别提高消耗防御数值的100%,25%,20%的伤害,攻击速度,暴击率.
+				在愤怒状态,冲刺完后可以立刻再次冲刺,冲刺没有冷却时间.
+				愤怒状态持续20秒,每消耗4点防御持续时间增加1秒.
+				在愤怒状态,生命值无法超过生命上限的50%.
+				一进入愤怒状态,2分钟的冷却时间就开始计时.
+				'''
+			BrainOfCthulhuPetItem:
+				'''
+				[c/0ea80e:防御型宠物]
+				生命偷取提高8%,此宠物给予的生命偷取效果上限
+				池为生命上限的10%,上限池每秒降低3点生命值.
+				'''
+			EaterOfWorldsPetItem:
+				'''
+				[c/96A8B0:挖掘型宠物]
+				挖矿速度提高20%.
+				挖掘矿石,宝石或可提炼物有15%几率额外获得.
+				'''
+			KingSlimePetItem:
+				'''
+				[c/FF1493:辅助型宠物]
+				更改整个游戏的史莱姆减益与潮湿减益的效果.
+				任意燃烧类型的减益与史莱姆减益如果同时存在,能够提高此
+				燃烧类型减益秒伤,提高的数值为2%目标生命上限,上限为50点.
+				史莱姆减益使玩家跳跃速度显著提高,击退与击退抗性提高50%.
+				潮湿减益使敌人防御与接触伤害降低10%,
+				使玩家伤害与移动速度提高8%,防御提高10%.
+				玩家与生物不能同时拥有这两种效果.
+				'''
+			QueenBeePetItem:
+				'''
+				[c/FF1493:辅助型宠物]
+				使用瓶装蜂蜜后,恢复约100格方块内的其
+				他玩家18%生命值,同时给予蜂蜜增益20秒.
+				使用蜂蜜鱼后,恢复约100格方块内的其他
+				玩家25%生命值,同时给予蜂蜜增益10秒.
+				每位玩家有30秒冷却.
+				治疗药水恢复效果提高10%.
+				'''
+			DeerclopsPetItem:
+				'''
+				[c/0ea80e:防御型宠物]
+				如果你在5秒内受到的伤害超过你生命上限的40%,
+				获得3秒无敌,快速恢复10%生命上限,并对30方块范围
+				内的敌人施加困惑和霜冻减益,此效果有30秒冷却时间.
+				'''
+			SkeletronPetItem:
+				'''
+				[c/f6546a:攻击型宠物]
+				你造成和受到的伤害都变为持续伤害.
+				你受到的100%的伤害在4秒内给予你.
+				你对敌人造成的伤害的100%在4秒内以120%给予敌人.
+				'''
+			QueenSlimePetItem:
+				'''
+				[c/FA377D:辅助攻击型宠物]
+				改进了闪耀史莱姆气球和无尽闪耀气球袋,玩家有
+				闪耀史莱姆减益后无法暴击,但每命中4次,下一次
+				必定暴击,并获得3点护盾,暴击率转换为玩家的伤害.
+				敌人现在有与你暴击率相同的几率对你造成额外50%伤害.
+				受闪耀史莱姆减益影响的敌人不能造成额外伤害并轻微降低移速.
+				'''
+			SkeletronPrimePetItem:
+				'''
+				[c/8D7A40:防御攻击型宠物]
+				当你30秒没有受到伤害,获得生命上限20%的护盾,
+				护盾在受到伤害后5秒消失,当护盾存在时,伤害和
+				暴击率提高10%,盔甲穿透力提高10点,防御提高20%.
+				'''
+			DestroyerPetItem:
+				'''
+				[c/4CA858:挖掘防御型宠物]
+				挖掘矿石,宝石或可提炼物有防御的50%几率额外获得1个,
+				几率超出100%时,能以超出部分的几率再额外获得1个,依此类推.
+				防御提高6点,铁皮增益能够再提高8点防御.
+				'''
+			TwinsPetItem:
+				'''
+				[c/f6546a:攻击型宠物]
+				攻击10方块范围内的敌人,能够对其施加5秒诅咒
+				狱火减益,2.5秒灵液,着火了,暗影焰,霜冻减益.
+				攻击37.5方块范围外的敌人,伤害提高敌人生命上
+				限的1%,Boss则是0.1%,此效果冷却时间为0.7秒.
+				'''
+			EverscreamPetItem:
+				'''
+				[c/3399FF:魔法型宠物]
+				魔法武器暴击率减半,但暴击时会恢复魔力上限的5%,冷却时间为2秒.
+				根据你当前的魔力值提高伤害与暴击率,
+				最多提高33%魔法伤害,10%暴击率.
+				'''
+			MartianPetItem:
+				'''
+				[c/ccf5f5:移动型宠物]
+				飞行时间提高1.5倍,大幅提高移动加速度,移动速度提高10%,
+				水平飞行速度提高50%,水平飞行加速度提高100%.
+				'''
+			DD2OgrePetItem:
+				'''
+				[c/849B25:近战防御型宠物]
+				移动速度降低50%,真近战武器攻击速度降低70%,非近战武器伤害降低20%.
+				挥动武器时无法转身,翅膀飞行时间减半并降低水平和垂直飞行速度.
+				真近战武器大小,伤害和击退提高250%,暴击率提高20%.
+				生命上限提高<OgreHealthIncrease>%,防御提高25%,玩家所受伤害降低10%,免疫击退.
+				效果在乘骑时不生效.
+				'''
+			DukeFishronPetItem:
+				'''
+				[c/0382E9:钓鱼型宠物]
+				在水中飞行不消耗翅膀飞行时间,永久获得鱼鳃增益.
+				渔力降低50%,100%的渔力转换为双倍掉落的几率,钓鱼能多投一根线.
+				渔夫套装每一件渔力提高5点,防御提高15点.
+				添加一条渔夫套装奖励:
+				每完成一次钓鱼任务渔力提高0.4%,上限为50%.
+				'''
+			LunaticCultistPetItem:
+				'''
+				[c/f6546a:攻击型宠物]
+				击中敌人释放下列3个法术其中一个:
+				释放6个呈六边形飞行的冰射弹,造成3倍伤害.
+				在目标周围释放5个光球,造成1.5倍伤害,最多击中10个敌人.
+				在目标头顶召唤4个随机移动的火球,造成2倍伤害.
+				'''
+			DD2BetsyPetItem:
+				'''
+				[c/FF6BA8:远程辅助型宠物]
+				远程攻击能对敌人施加10秒女王的诅咒减益,
+				使其防御降低2%,最多叠加至50%.
+				'''
+			IceQueenPetItem:
+				'''
+				[c/0ea80e:防御型宠物]
+				受到致命伤害后,冰冻自身5秒,在此期间免疫所有伤害
+				并恢复100点生命值,冰冻结束后,再次免疫所有伤害2.5秒.
+				冷却时间5分钟.
+				'''
+			PlanteraPetItem:
+				'''
+				[c/FFB3BA:远程型宠物]
+				远程武器命中敌人能够造成处决效果:
+				即敌人生命值越少,对其造成的伤害越多. 
+				在敌人50%生命值时,增加对其0.25倍伤害,
+				在敌人10%生命值时,增加对其1.25倍伤害,依此类推.
+				'''
+			MoonLordPetItem:
+				'''
+				[c/8D7A40:攻击防御型宠物]
+				根据你手持武器类型获得以下效果,如果未持有武器,则无效果.
+				召唤:鞭攻击距离提高65%,鞭攻击速度提高20%,召唤伤害提高20%,最大仆从数增加1个.
+				魔法:魔力上限提高150点,魔力值消耗减少10%,魔法暴击率提高10%,魔法伤害提高20%.
+				远程:远程盔甲穿透力提高20点,远程暴击率提高20%,远程伤害提高15%.
+				近战:玩家所受伤害降低15%,近战攻击速度提高20%,近战伤害提高20%.
+				'''
+			ResplendentDessert:
+				'''
+				[c/FA377D:辅助攻击型宠物]
+				同时获得史莱姆公主与史莱姆王子的效果,但稍微削弱效果.
+				任意燃烧类型的减益与史莱姆减益同时存在提高的伤害,上限降为45点.
+				史莱姆减益对玩家的击退与击退抗性加成降为45%.
+				潮湿减益对玩家伤害的加成降为7%,移动速度的加成降为8%.
+				受闪耀史莱姆减益影响的敌人移速惩罚降为2%.
+				'''
+			/* Carrot:
+				'''
+				[c/ccf5f5:Mobility Pet]
+				Every jump that is more than halfway gives you 1 stack
+				Every stack gives <moveSpeed>% movement speed and <jumpSpeed>% jump speed
+				Max 10 stacks and reset to 0 if haven't jumped in 4 secs
+				''' */
+		}
+
+		Buffs: {
+			HoneyOverdose: {
+				DisplayName: 蜂蜜齁甜
+				Description: Mods.PetsOverhaul.BuffDescription.HoneyOverdose
+			}
+
+			Mauled: {
+				DisplayName: 重创
+				Description: Mods.PetsOverhaul.BuffDescription.Mauled
+			}
+
+			QueensDamnation: {
+				DisplayName: 女王的诅咒
+				Description: Mods.PetsOverhaul.BuffDescription.QueensDamnation
+			}
+
+			ObliviousPet: {
+				// DisplayName: Oblivious Pet
+				/* Description:
+					'''
+					Your pet has no idea what's going on due to being swapped recently!
+					Your pet's combat-related effects are disabled!
+					''' */
+			}
+
+			TownPetBunny: {
+				// DisplayName: <Name>'s Aura
+				// Description: Increases your Jump speed by <BunnyJump>%
+			}
+
+			TownPetCat: {
+				// DisplayName: <Name>'s Aura
+				// Description: Multiplies movement speed by <CatMovespd>x
+			}
+
+			TownPetDog: {
+				// DisplayName: <Name>'s Aura
+				// Description: Increases Fishing Power by +<DogFish>
+			}
+
+			TownPetClumsy: {
+				// DisplayName: <Name>'s Aura
+				// Description: Increases luck by +<ClumsyLuck>
+			}
+
+			TownPetCool: {
+				// DisplayName: <Name>'s Aura
+				// Description: Increases Critical Chance by <CoolCrit>%
+			}
+
+			TownPetDiva: {
+				// DisplayName: <Name>'s Aura
+				// Description: Grants a <DivaDisc>% base price refund after buying an item
+			}
+
+			TownPetMystic: {
+				// DisplayName: <Name>'s Aura
+				// Description: Increases Ability Haste by <MysticHaste>%
+			}
+
+			TownPetNerd: {
+				// DisplayName: <Name>'s Aura
+				/* Description:
+					'''
+					Grants Dangersense
+					Multiplies your placement speed by <NerdPlacement>x
+					''' */
+				/* PostHardmodeDescription:
+					'''
+					Grants Dangersense and Wire vision
+					Multiplies your placement speed by <NerdPlacement>x
+					''' */
+				/* PostMoonlordDescription:
+					'''
+					Grants night vision, ultrabright shine
+					Dangersense and Wire vision
+					Multiplies your placement speed by <NerdPlacement>x
+					''' */
+			}
+
+			TownPetOld: {
+				// DisplayName: <Name>'s Aura
+				/* Description:
+					'''
+					Increases Defense by +<OldDef>
+					Multiplies incoming knockback by <OldKb>x;
+					''' */
+			}
+
+			TownPetSquire: {
+				// DisplayName: <Name>'s Aura
+				// Description: Increases Damage by <SquireDmg>%
+			}
+
+			TownPetSurly: {
+				// DisplayName: <Name>'s Aura
+				/* Description:
+					'''
+					Increases enemy spawn rate by <SurlySpawn>%
+					And grants shadow candle effect
+					''' */
+			}
+		}
+
+		Items: {
+			EndlessBalloonSack: {
+				DisplayName: 无尽闪耀气球袋
+				Tooltip: 袋子里装了派对女孩的浴缸
+			}
+
+			MasteryShard: {
+				DisplayName: 大师碎片
+				Tooltip:
+					'''
+					能和任意Boss纪念章制作出对应的大师模式宠物.
+					每个世界只能掉落3个.
+					'''
+			}
+
+			Egg: {
+				// DisplayName: Egg
+				/* Tooltip:
+					'''
+					It's a shane it isn't blue.
+					Seems cookable, unlike Rotten Egg.
+					''' */
+			}
+		}
+
+		Projectiles.DynamiteKittyBoom.DisplayName: Dynamite Kitty Boom
+
+		Configs: {
+			JunimoLevelup: {
+				// DisplayName: Junimo Levelup
+				// Headers.Personalization: Personalization Header
+			}
+
+			// Personalization.DisplayName: Personalization
+			// GlobalChanges.DisplayName: Global Changes
+		}
+	}
+}

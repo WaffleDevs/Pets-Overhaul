@@ -1,0 +1,27 @@
+﻿using PetsOverhaul.Systems;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace PetsOverhaul.Buffs
+{
+    public class Mauled : ModBuff
+    {
+        public int stacks = 0;
+        public override void SetStaticDefaults()
+        {
+            Main.debuff[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
+        }
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+        {
+            rare = 0;
+            tip = Lang.GetBuffDescription(ModContent.BuffType<Mauled>()).Replace("<MaulCounter>", stacks.ToString());
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            if (npc.TryGetGlobalNPC(out NpcPet npcAffected))
+                stacks = npcAffected.maulCounter;
+
+        }
+    }
+}

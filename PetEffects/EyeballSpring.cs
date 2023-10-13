@@ -1,0 +1,45 @@
+﻿using Terraria;
+using Terraria.ID;
+using PetsOverhaul.Systems;
+using Terraria.ModLoader;
+using PetsOverhaul.Config;
+using Terraria.Audio;
+using static Terraria.ID.ArmorIDs;
+
+namespace PetsOverhaul.PetEffects
+{
+    sealed public class EyeballSpring : ModPlayer
+    {
+        GlobalPet Pet { get => Player.GetModPlayer<GlobalPet>(); }
+        public float acceleration = 0.15f;
+        public float jumpBoost = 5f;
+        public float ascentPenaltyMult = 0.6f;
+        public override void PostUpdateEquips()
+        {
+            if (Pet.PetInUseWithSwapCd(ItemID.EyeSpring))
+            {
+                if (Player.jump > 0 && Pet.jumpRegistered == false)
+                {
+                    if (ModContent.GetInstance<Personalization>().HurtSoundDisabled == false)
+                        SoundEngine.PlaySound(SoundID.Item56 with { Volume = 0.5f, Pitch = -0.3f, PitchVariance = 0.1f }, Player.position);
+                    Pet.jumpRegistered = true;
+                }
+                Player.runAcceleration += acceleration;
+                Player.jumpSpeedBoost += jumpBoost;
+            }
+        }
+    }
+    sealed public class EyeballWingCompensation : GlobalItem
+    {
+        public override bool InstancePerEntity => true;
+
+        public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+        {
+            if (player.TryGetModPlayer(out EyeballSpring eyeballs)&&player.GetModPlayer<GlobalPet>().PetInUseWithSwapCd(ItemID.EyeSpring))
+            {
+                maxAscentMultiplier *= eyeballs.ascentPenaltyMult; 
+            }
+
+        }
+    }
+}
