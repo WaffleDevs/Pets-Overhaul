@@ -1,25 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-
-using PetsOverhaul.Buffs;
-using PetsOverhaul.Config;
-using PetsOverhaul.Items;
-using PetsOverhaul.Projectiles;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
 
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace PetsOverhaul.Systems
 {
