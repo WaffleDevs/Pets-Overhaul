@@ -24,6 +24,7 @@ namespace PetsOverhaul.PetEffects
         public int junimoHarvestingExp = 0;
         public int[] junimoHarvestingLevelsToXp = new int[]
         {
+            0,
             20,
             50,
             110,
@@ -55,6 +56,7 @@ namespace PetsOverhaul.PetEffects
         public int junimoMiningLevel = 1;
         public int junimoMiningExp = 0;
         public int[] junimoMiningLevelsToXp = new int[] {
+            0,
             15,
             40,
             80,
@@ -86,6 +88,7 @@ namespace PetsOverhaul.PetEffects
         public int junimoFishingLevel = 1;
         public int junimoFishingExp = 0;
         public int[] junimoFishingLevelsToXp = new int[] {
+            0,
             5,
             15,
             30,

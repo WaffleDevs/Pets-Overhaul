@@ -68,7 +68,7 @@ namespace PetsOverhaul.Systems
                     tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Nectar")
                         .Replace("<antidotePercent>", (babyHornet.healthRecovery * 100).ToString())
                         .Replace("<antidoteCd>", (babyHornet.nectarCooldown / 60f).ToString())
-                        .Replace("<moveSpd>",(babyHornet.moveSpdIncr*100).ToString())
+                        .Replace("<moveSpd>", (babyHornet.moveSpdIncr * 100).ToString())
                         .Replace("<def>", babyHornet.defReduction.ToString())
                         .Replace("<dmgCrit>", (babyHornet.dmgReduction * 100).ToString())
                         .Replace("<maxMinion>", babyHornet.maxMinion.ToString())
@@ -281,15 +281,15 @@ namespace PetsOverhaul.Systems
                         .Replace("<bonusHealth>", (junimo.junimoHarvestingLevel * 0.25f * junimo.junimoInUseMultiplier).ToString())
                         .Replace("<flatHealth>", (junimo.junimoHarvestingLevel * junimo.junimoInUseMultiplier).ToString())
                         .Replace("<harvestLevel>", junimo.junimoHarvestingLevel.ToString())
-                        .Replace("<harvestNext>", junimo.junimoHarvestingLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoHarvestingLevelExpNeeded-junimo.junimoHarvestingExp).ToString())
+                        .Replace("<harvestNext>", junimo.junimoHarvestingLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoHarvestingLevelsToXp[junimo.junimoHarvestingLevel] - junimo.junimoHarvestingExp).ToString())
                         .Replace("<miningBonusDrop>", (junimo.junimoMiningLevel * junimo.junimoInUseMultiplier).ToString())
                         .Replace("<bonusReduction>", (junimo.junimoMiningLevel * junimo.junimoInUseMultiplier * 0.2f).ToString())
                         .Replace("<miningLevel>", junimo.junimoMiningLevel.ToString())
-                        .Replace("<miningNext>", junimo.junimoMiningLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoMiningLevelExpNeeded-junimo.junimoMiningExp).ToString())
+                        .Replace("<miningNext>", junimo.junimoMiningLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoMiningLevelsToXp[junimo.junimoMiningLevel] - junimo.junimoMiningExp).ToString())
                         .Replace("<fishingPower>", (junimo.junimoFishingLevel * junimo.junimoInUseMultiplier * 0.5f).ToString())
                         .Replace("<bonusDamage>", (junimo.junimoFishingLevel * junimo.junimoInUseMultiplier * 0.2f).ToString())
                         .Replace("<fishingLevel>", junimo.junimoFishingLevel.ToString())
-                        .Replace("<fishingNext>", junimo.junimoFishingLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoFishingLevelExpNeeded-junimo.junimoFishingExp).ToString())
+                        .Replace("<fishingNext>", junimo.junimoFishingLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoFishingLevelsToXp[junimo.junimoFishingLevel] - junimo.junimoFishingExp).ToString())
                         ));
                 }
                 if (player.TryGetModPlayer(out LilHarpy lilHarpy) && item.netID == ItemID.BirdieRattle)
@@ -486,7 +486,7 @@ namespace PetsOverhaul.Systems
                 if (player.TryGetModPlayer(out EaterOfWorms eaterOfWorms) && item.netID == ItemID.EaterOfWorldsPetItem)
                 {
                     tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EaterOfWorldsPetItem")
-                        .Replace("<miningSpeed>", (eaterOfWorms.nonOreSpeed*100).ToString())
+                        .Replace("<miningSpeed>", (eaterOfWorms.nonOreSpeed * 100).ToString())
                         .Replace("<multipleBreakChance>", eaterOfWorms.tileBreakSpreadChance.ToString())
                         .Replace("<width>", eaterOfWorms.tileBreakXSpread.ToString())
                         .Replace("<length>", eaterOfWorms.tileBreakYSpread.ToString())
@@ -628,7 +628,7 @@ namespace PetsOverhaul.Systems
                         .Replace("<fishingPowerChance>", (tinyFishron.multiplier * 100).ToString())
                         .Replace("<bobberChance>", tinyFishron.bobberChance.ToString())
                         .Replace("<anglerQuests>", player.anglerQuestsFinished.ToString())
-                        .Replace("<currentAnglerWithBaseMult>", (player.anglerQuestsFinished * tinyFishron.fpPerQuest+tinyFishron.fishingPowerPenalty).ToString())
+                        .Replace("<currentAnglerWithBaseMult>", (player.anglerQuestsFinished * tinyFishron.fpPerQuest + tinyFishron.fishingPowerPenalty).ToString())
                         ));
                 }
                 if (player.TryGetModPlayer(out PhantasmalDragon phantasmalDragon) && item.netID == ItemID.LunaticCultistPetItem)
