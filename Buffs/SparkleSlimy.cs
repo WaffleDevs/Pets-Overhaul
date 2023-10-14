@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using PetsOverhaul.PetEffects;
+using PetsOverhaul.PetEffects.Vanilla;
 
 namespace PetsOverhaul.Buffs
 {

@@ -12,6 +12,12 @@
     <None Remove="Items\egg.png" />
     <None Remove="Items\MasteryShard.png" />
     <None Remove="Localization\mastery_shard_sprite_sheet.png" />
+    <None Remove="NPCS\ExamplePerson.png" />
+    <None Remove="NPCS\ExamplePerson_Head.png" />
+    <None Remove="NPCS\ExamplePerson_Party.png" />
+    <None Remove="NPCS\ExamplePerson_Shimmer.png" />
+    <None Remove="NPCS\ExamplePerson_Shimmer_Head.png" />
+    <None Remove="NPCS\ExamplePerson_Shimmer_Party.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
