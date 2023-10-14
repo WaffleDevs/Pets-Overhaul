@@ -330,14 +330,12 @@ namespace PetsOverhaul.PetEffects
         }
         public override void PreUpdate()
         {
-            maxLvls = 27;
             if (Main.dayTime == true && Main.time == 0)
             {
                 anglerQuestDayCheck = false;
             }
+
             junimoInUseMultiplier = Pet.PetInUse(ItemID.JunimoPetItem) ? 2 : 1;
-
-
 
             junimoHarvestingLevel = Math.Clamp(junimoHarvestingLevel, 1, maxLvls);
             junimoMiningLevel = Math.Clamp(junimoMiningLevel, 1, maxLvls);
@@ -347,26 +345,29 @@ namespace PetsOverhaul.PetEffects
             junimoMiningExp = Math.Clamp(junimoHarvestingExp, 0, maxXp);
             junimoFishingExp = Math.Clamp(junimoFishingExp, 0, maxXp);
 
-            AdvancedPopupRequest popupMessage = new();
-            popupMessage.DurationInFrames = 300;
-            popupMessage.Velocity = new Vector2(Main.rand.NextFloat(-3, 3), Main.rand.NextFloat(-15, -10));
+            AdvancedPopupRequest popupMessage = new()
+            {
+                DurationInFrames = 300,
+                Velocity = new Vector2(Main.rand.NextFloat(-3, 3), Main.rand.NextFloat(-15, -10))
+            };
+
             bool notificationOff = ModContent.GetInstance<Personalization>().JunimoNotifOff;
             bool soundOff = ModContent.GetInstance<Personalization>().AbilitySoundDisabled;
 
-            if (junimoHarvestingExp >= junimoHarvestingLevelsToXp[junimoHarvestingLevel])
+            if (junimoHarvestingExp >= junimoHarvestingLevelsToXp[junimoHarvestingLevel] && junimoHarvestingLevel != maxLvls)
             {
                 if (notificationOff == false)
                 {
                     if (soundOff == false)
                         SoundEngine.PlaySound(SoundID.Item35 with { PitchVariance = 0.2f, Pitch = 0.5f }, Player.position);
                     popupMessage.Color = Color.LightGreen;
-                    popupMessage.Text = "Junimo harvesting level up!";
+                    popupMessage.Text = $"Junimo harvesting level {(junimoHarvestingLevel == maxLvls ? "maxed" : "up")}!";
                     PopupText.NewText(popupMessage, Player.position);
                 }
                 junimoHarvestingLevel++;
             }
 
-            if (junimoMiningExp >= junimoMiningLevelsToXp[junimoMiningLevel])
+            if (junimoMiningExp >= junimoMiningLevelsToXp[junimoMiningLevel] && junimoMiningLevel != maxLvls)
             {
                 if (notificationOff == false)
                 {
@@ -377,13 +378,13 @@ namespace PetsOverhaul.PetEffects
                             Pitch = 0.5f
                         }, Player.position);
                     popupMessage.Color = Color.LightGray;
-                    popupMessage.Text = "Junimo mining level up!";
+                    popupMessage.Text = $"Junimo mining level {(junimoMiningLevel == maxLvls ? "maxed" : "up")}!";
                     PopupText.NewText(popupMessage, Player.position);
                 }
                 junimoMiningLevel++;
             }
 
-            if (junimoFishingExp >= junimoFishingLevelsToXp[junimoFishingLevel])
+            if (junimoFishingExp >= junimoFishingLevelsToXp[junimoFishingLevel] && junimoFishingLevel != maxLvls)
             {
                 if (notificationOff == false)
                 {
@@ -394,7 +395,7 @@ namespace PetsOverhaul.PetEffects
                             Pitch = 0.5f
                         }, Player.position);
                     popupMessage.Color = Color.LightSkyBlue;
-                    popupMessage.Text = "Junimo fishing level maxed!";
+                    popupMessage.Text = $"Junimo fishing level {(junimoFishingLevel == maxLvls ? "maxed" : "up")}!";
                     PopupText.NewText(popupMessage, Player.position);
                 }
                 junimoFishingLevel++;
@@ -409,7 +410,6 @@ namespace PetsOverhaul.PetEffects
             tag.Add("miningexp", junimoMiningExp);
             tag.Add("fishinglvl", junimoFishingLevel);
             tag.Add("fishingexp", junimoFishingExp);
-            tag.Add("levelCaps", maxLvls);
         }
         public override void LoadData(TagCompound tag)
         {
@@ -420,7 +420,6 @@ namespace PetsOverhaul.PetEffects
             junimoMiningExp = tag.GetInt("miningexp");
             junimoFishingLevel = tag.GetInt("fishinglvl");
             junimoFishingExp = tag.GetInt("fishingexp");
-            maxLvls = tag.GetInt("levelCaps");
         }
     }
 }
