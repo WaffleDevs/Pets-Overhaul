@@ -6,7 +6,7 @@ using Terraria.Localization;
 using PetsOverhaul.Items;
 using PetsOverhaul.Config;
 using Terraria.GameInput;
-using PetsOverhaul.PetEffects;
+using PetsOverhaul.PetEffects.Vanilla;
 
 namespace PetsOverhaul.Systems
 {
