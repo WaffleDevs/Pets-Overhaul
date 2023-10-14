@@ -356,6 +356,7 @@ namespace PetsOverhaul.PetEffects
 
             if (junimoHarvestingExp >= junimoHarvestingLevelsToXp[junimoHarvestingLevel] && junimoHarvestingLevel != maxLvls)
             {
+                junimoHarvestingLevel++;
                 if (notificationOff == false)
                 {
                     if (soundOff == false)
@@ -364,11 +365,11 @@ namespace PetsOverhaul.PetEffects
                     popupMessage.Text = $"Junimo harvesting level {(junimoHarvestingLevel == maxLvls ? "maxed" : "up")}!";
                     PopupText.NewText(popupMessage, Player.position);
                 }
-                junimoHarvestingLevel++;
             }
 
             if (junimoMiningExp >= junimoMiningLevelsToXp[junimoMiningLevel] && junimoMiningLevel != maxLvls)
             {
+                junimoMiningLevel++;
                 if (notificationOff == false)
                 {
                     if (soundOff == false)
@@ -381,11 +382,11 @@ namespace PetsOverhaul.PetEffects
                     popupMessage.Text = $"Junimo mining level {(junimoMiningLevel == maxLvls ? "maxed" : "up")}!";
                     PopupText.NewText(popupMessage, Player.position);
                 }
-                junimoMiningLevel++;
             }
 
             if (junimoFishingExp >= junimoFishingLevelsToXp[junimoFishingLevel] && junimoFishingLevel != maxLvls)
             {
+                junimoFishingLevel++;
                 if (notificationOff == false)
                 {
                     if (soundOff == false)
@@ -398,7 +399,6 @@ namespace PetsOverhaul.PetEffects
                     popupMessage.Text = $"Junimo fishing level {(junimoFishingLevel == maxLvls ? "maxed" : "up")}!";
                     PopupText.NewText(popupMessage, Player.position);
                 }
-                junimoFishingLevel++;
             }
         }
         public override void SaveData(TagCompound tag)
