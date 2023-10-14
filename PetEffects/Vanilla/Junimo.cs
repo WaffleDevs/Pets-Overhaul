@@ -147,6 +147,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 return false;
             }
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (junimoExpCheck()&&target.active==false&&target.GetGlobalNPC<NpcPet>().seaCreature)
+            {
+                if (seaCreature50[target.type])
+                    junimoFishingExp+= 50;
+                else if (seaCreature30[target.type])
+                    junimoFishingExp+= 30;
+                                else if (seaCreature15[target.type])
+                    junimoFishingExp+= 15;
+                else
+                    junimoFishingExp += 20;
+            }
+
+        }
         public override bool OnPickup(Item item)
         {
             if (item.TryGetGlobalItem(out ItemPet itemChck))
