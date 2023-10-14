@@ -1,46 +1,95 @@
 using Microsoft.Xna.Framework;
+
+using System;
 using System.Collections.Generic;
 
-using PetsOverhaul.UI;
 
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using PetsOverhaul.Systems;
+using System.Linq;
 
 namespace PetsOverhaul
 {
     public class PetsOverhaul : Mod
     {
-        private UserInterface _exampleUserInterface;
-
-        internal UserInterface ExamplePersonUserInterface;
-
-        public override void Load()
-        {
-            ExamplePersonUserInterface = new UserInterface();
-            base.Load();
-        }
-        public void UpdateUI(GameTime gameTime)
-        {
-            ExamplePersonUserInterface?.Update(gameTime);
-        }
-
-        public void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        public Mod calamityMod;
+        public string[] CalamityPetsInternalNames = new string[]
         {
 
-            int inventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
-            if (inventoryIndex != -1)
+        };
+        public Mod thoriumMod;
+        public string[] ThoriumPetsInternalNames = new string[]
+        {
+            "AbyssalWhistle",
+            "AncientDrachma",
+            "OmegaDrive",
+            "AnglerBowl",
+            "AromaticBiscuit",
+            "Experiment3",
+            "ExoticMynaEgg",
+            "EmptyWormholePotion",
+            "ForgottenLetter",
+            "AncientCheeseBlock",
+            "PearTreeSapling",
+            "FishEgg",
+            "WhisperingShell",
+            "TentacleBall",
+            "CloudyChewToy",
+            "SwordOfDestiny",
+            "BlisterSack",
+            "SuspiciousMoisturizerBottle",
+            "DavyJonesLockBox",
+            "StormCloud",
+            "RottenMeat",
+            "GlassShard",
+            "FrozenBalloon",
+            "EnergizedQuadCube",
+            "DoomSayersPenny",
+            "DiverPlushie",
+            "DiscardedCloth",
+            "RichLeaf",
+            "SimpleBroom",
+            "SubterraneanBulb",
+            "BalloonBall",
+            "TortleScute",
+            "MoleCrate",
+            "PinkSlimeEgg",
+            "PurifiersRing",
+            "FreshPickle",
+            "GreenFirefly",
+            "SweetBeet",
+            "BioPod",
+            "ChaoticMarble"
+        };
+
+        public override void PostSetupContent()
+        {
+            Console.WriteLine("RUNNINGGG");
+            if (ModLoader.TryGetMod("Calamity", out calamityMod))
             {
-                layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
-                    "ExampleMod: Example Person UI",
-                    delegate
-                    {
-                        // If the current UIState of the UserInterface is null, nothing will draw. We don't need to track a separate .visible value.
-                        ExamplePersonUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
+                foreach (string internalName in CalamityPetsInternalNames)
+                {
+                    ModItem item;
+                    calamityMod.TryFind(internalName, out item);
+                    Console.WriteLine($"IN: {internalName}\n Type: {item.Type}");
+
+                    ModContent.GetInstance<PetRegistry>().TerrariaPetItemIds.TryAdd(internalName, item.Type);
+                };
+            }
+            if (ModLoader.TryGetMod("ThoriumMod", out thoriumMod))
+            {
+                Console.WriteLine(thoriumMod.DisplayName);
+                foreach (string internalName in ThoriumPetsInternalNames)
+                {
+                    ModItem item;
+                    if (!thoriumMod.TryFind($"{internalName}", out item)) { Console.WriteLine($"Failed: {internalName}\n"); continue; };
+                    Console.WriteLine($"IN: {internalName}\n Type: {item.Type}");
+
+                    ModContent.GetInstance<PetRegistry>().TerrariaPetItemIds.TryAdd(internalName, item.Type);
+                };
             }
         }
     }
