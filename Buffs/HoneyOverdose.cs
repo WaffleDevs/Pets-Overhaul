@@ -1,4 +1,4 @@
-﻿using PetsOverhaul.PetEffects;
+﻿using PetsOverhaul.PetEffects.Vanilla;
 using PetsOverhaul.Systems;
 using Terraria;
 using Terraria.ID;
