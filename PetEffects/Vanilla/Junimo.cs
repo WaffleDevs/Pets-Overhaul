@@ -136,6 +136,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
         public bool[] seaCreature15 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.EyeballFlyingFish, NPCID.ZombieMerman);
         public bool[] seaCreature30 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.GoblinShark, NPCID.BloodEelBody, NPCID.BloodEelTail, NPCID.BloodEelHead);
         public bool[] seaCreature50 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.BloodNautilus);
+
         public bool junimoExpCheck()
         {
             if (ModContent.GetInstance<Personalization>().JunimoExpWhileNotInInv == false || Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem) || Pet.PetInUse(ItemID.JunimoPetItem))
