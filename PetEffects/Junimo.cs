@@ -133,6 +133,9 @@ namespace PetsOverhaul.PetEffects
         public bool[] mining10 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.MythrilOre, ItemID.OrichalcumOre);
         public bool[] mining12 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.AdamantiteOre, ItemID.TitaniumOre);
         public bool[] mining13 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.ChlorophyteOre, ItemID.LunarOre);
+        public bool[] seaCreature15 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.EyeballFlyingFish,NPCID.ZombieMerman);
+        public bool[] seaCreature30 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.GoblinShark,NPCID.BloodEelBody,NPCID.BloodEelTail,NPCID.BloodEelHead);
+        public bool[] seaCreature50 = NPCID.Sets.Factory.CreateBoolSet(false,NPCID.BloodNautilus);
         public bool junimoExpCheck()
         {
             if (ModContent.GetInstance<Personalization>().JunimoExpWhileNotInInv == false || Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem) || Pet.PetInUse(ItemID.JunimoPetItem))
@@ -143,6 +146,21 @@ namespace PetsOverhaul.PetEffects
             {
                 return false;
             }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (junimoExpCheck()&&target.active==false&&target.GetGlobalNPC<NpcPet>().seaCreature)
+            {
+                if (seaCreature50[target.type])
+                    junimoFishingExp+= 50;
+                else if (seaCreature30[target.type])
+                    junimoFishingExp+= 30;
+                                else if (seaCreature15[target.type])
+                    junimoFishingExp+= 15;
+                else
+                    junimoFishingExp += 20;
+            }
+
         }
         public override bool OnPickup(Item item)
         {
