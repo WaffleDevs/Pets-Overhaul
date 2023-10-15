@@ -1,16 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using System.IO;
+
+using Microsoft.Xna.Framework;
+
 using PetsOverhaul.Buffs;
 using PetsOverhaul.Config;
 using PetsOverhaul.Items;
-using PetsOverhaul.Projectiles;
-using System.Collections.Generic;
-using System.IO;
+
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -21,6 +22,7 @@ namespace PetsOverhaul.Systems
     /// </summary>
     sealed public class GlobalPet : ModPlayer
     {
+
         public bool[] burnDebuffs = BuffID.Sets.Factory.CreateBoolSet(false, BuffID.Burning, BuffID.OnFire, BuffID.OnFire3, BuffID.Frostburn, BuffID.CursedInferno, BuffID.ShadowFlame, BuffID.Frostburn2);
         public Color skin;
         public bool skinColorChanged = false;
@@ -58,10 +60,10 @@ namespace PetsOverhaul.Systems
         /// </summary>
         public bool PickupChecks(Item item, int petitemid, ItemPet itemPet)
         {
-                if (itemPet.pickedUpBefore == false && Player.CanPullItem(item, Player.ItemSpace(item)) && PetInUse(petitemid) && item.maxStack != 1)
-                    return true;
-                else
-            return false;
+            if (itemPet.pickedUpBefore == false && Player.CanPullItem(item, Player.ItemSpace(item)) && PetInUse(petitemid) && item.maxStack != 1)
+                return true;
+            else
+                return false;
         }
         /// <summary>
         /// Checks if the given Pet Item is in use and checks if pet has been lately swapped or not.
@@ -230,16 +232,16 @@ namespace PetsOverhaul.Systems
             if (ModContent.GetInstance<Personalization>().MoreDifficult == false)
                 modifiers.FinalDamage *= 1.05f;
             modifiers.ModifyHurtInfo += (ref Player.HurtInfo info) =>
-        {
-            if (info.Damage > shieldAmount && shieldAmount <= 0 == false)
             {
-                CombatText.NewText(Player.Hitbox, Color.Cyan, -shieldAmount, true);
-                if (ModContent.GetInstance<Personalization>().AbilitySoundDisabled == false)
-                    SoundEngine.PlaySound(SoundID.NPCDeath43 with { PitchVariance = 0.4f, Pitch = -0.8f, Volume = 0.2f }, Player.position);
-                info.Damage -= shieldAmount;
-                shieldAmount = 0;
-            }
-        };
+                if (info.Damage > shieldAmount && shieldAmount <= 0 == false)
+                {
+                    CombatText.NewText(Player.Hitbox, Color.Cyan, -shieldAmount, true);
+                    if (ModContent.GetInstance<Personalization>().AbilitySoundDisabled == false)
+                        SoundEngine.PlaySound(SoundID.NPCDeath43 with { PitchVariance = 0.4f, Pitch = -0.8f, Volume = 0.2f }, Player.position);
+                    info.Damage -= shieldAmount;
+                    shieldAmount = 0;
+                }
+            };
         }
         public override bool ConsumableDodge(Player.HurtInfo info)
         {
@@ -294,208 +296,24 @@ namespace PetsOverhaul.Systems
 
             if (ModContent.GetInstance<Personalization>().HurtSoundDisabled == false)
             {
-                info.SoundDisabled = true;
-                if (PetInUse(ItemID.Seaweed))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit24 with { PitchVariance = 0.4f }, Player.position);
-                }
-                if (PetInUse(ItemID.LunaticCultistPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit55 with { PitchVariance = 0.6f }, Player.position);
-                }
-                else if (PetInUse(ItemID.LizardEgg))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit26 with { PitchVariance = 0.6f }, Player.position);
-                }
-                else if (PetInUse(ItemID.BoneKey) || PetInUse(ItemID.SkeletronPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit2 with { PitchVariance = 0.05f, Pitch = 0.1f }, Player.position);
-                }
-                else if (PetInUse(ItemID.ToySled))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit11 with { Pitch = -0.5f, PitchVariance = 0.2f }, Player.position);
-                }
-                else if (PetInUse(ItemID.FullMoonSqueakyToy))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit6 with { PitchVariance = 0.4f }, Player.position);
-                }
-                else if (PetInUse(ItemID.BerniePetItem))
-                {
-                    if (Player.Male == true)
-                    {
-                        SoundEngine.PlaySound(SoundID.DSTMaleHurt with { PitchVariance = 0.2f }, Player.position);
-                    }
-                    if (Player.Male == false)
-                    {
-                        SoundEngine.PlaySound(SoundID.DSTFemaleHurt with { PitchVariance = 0.2f }, Player.position);
-                    }
-                }
-                else if (PetInUse(ItemID.CursedSapling))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit7 with { PitchVariance = 0.4f }, Player.position);
-                }
-                else if (PetInUse(ItemID.CelestialWand))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit5 with { PitchVariance = 0.2f, Pitch = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.UnluckyYarn))
-                {
-                    SoundEngine.PlaySound(SoundID.Meowmere with { PitchVariance = 0.4f, Pitch = 0.6f }, Player.position);
-                }
-                else if (PetInUse(ItemID.ChesterPetItem))
-                {
-                    if (Main.rand.NextBool(2))
-                    {
-                        SoundEngine.PlaySound(SoundID.ChesterOpen with { PitchVariance = 0.2f, Pitch = -0.6f }, Player.position);
-                    }
-                    else
-                    {
-                        SoundEngine.PlaySound(SoundID.ChesterClose with { PitchVariance = 0.2f, Pitch = -0.6f }, Player.position);
-                    }
-
-                }
-                else if (PetInUse(ItemID.CompanionCube))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit55 with { Pitch = -0.3f, PitchVariance = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.ParrotCracker))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit46 with { PitchVariance = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.GlommerPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit35 with { PitchVariance = 0.2f, Pitch = -0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.SpiderEgg))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit29 with { PitchVariance = 0.3f }, Player.position);
-                }
-                else if (PetInUse(ItemID.OrnateShadowKey) || PetInUse(ItemID.DestroyerPetItem) || PetInUse(ItemID.SkeletronPetItem) || PetInUse(ItemID.TwinsPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit4 with { PitchVariance = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.PigPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.Zombie39 with { PitchVariance = 0.3f }, Player.position);
-                }
-                else if (PetInUse(ItemID.LightningCarrot))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit34 with { PitchVariance = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.BrainOfCthulhuPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit9 with { Pitch = 0.1f, PitchVariance = 0.4f }, Player.position);
-                }
-                else if (PetInUse(ItemID.DD2OgrePetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.DD2_OgreHurt with { PitchVariance = 0.7f, Volume = 0.7f }, Player.position);
-                }
-                else if (PetInUse(ItemID.MartianPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCHit39 with { Pitch = 0.2f, PitchVariance = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.DD2BetsyPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.DD2_BetsyHurt with { Pitch = 0.3f, PitchVariance = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.DukeFishronPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.Zombie39 with { PitchVariance = 0.8f }, Player.position);
-                }
-                else if (PetInUse(ItemID.MoonLordPetItem))
-                {
-                    switch (Main.rand.Next(3))
-                    {
-                        case 0:
-                            SoundEngine.PlaySound(SoundID.Zombie100 with { PitchVariance = 0.5f, Volume = 0.5f }, Player.position);
-                            break;
-                        case 1:
-                            SoundEngine.PlaySound(SoundID.Zombie101 with { PitchVariance = 0.5f, Volume = 0.5f }, Player.position);
-                            break;
-                        case 2:
-                            SoundEngine.PlaySound(SoundID.Zombie102 with { PitchVariance = 0.5f, Volume = 0.5f }, Player.position);
-                            break;
-                    }
-                }
-                else
-                {
-                    info.SoundDisabled = false;
-                }
+                PetRegistry PetRegister = Player.GetModPlayer<PetRegistry>();
+                info.SoundDisabled = PetRegister.playHurtSoundFromItemId(Player.miscEquips[0].type) != ReLogic.Utilities.SlotId.Invalid;
             }
         }
         public override void UpdateEquips()
         {
-            if (Player.miscEquips[0].type == ItemID.None)
-            {
+            if (Player.miscEquips[0].type == ItemID.None) return;
 
-            }
-            else if (previousPetItem != Player.miscEquips[0].type)
+            if (previousPetItem != Player.miscEquips[0].type)
             {
                 if (ModContent.GetInstance<Personalization>().SwapCooldown == false)
                     Player.AddBuff(ModContent.BuffType<ObliviousPet>(), petSwapCooldown);
+                previousPetItem = Player.miscEquips[0].type;
             }
-            previousPetItem = Player.miscEquips[0].type;
             if (ModContent.GetInstance<Personalization>().PassiveSoundDisabled == false && Main.rand.NextBool(3600))
             {
-                if (PetInUse(ItemID.LizardEgg))
-                {
-                    if (Main.rand.NextBool(2))
-                    {
-                        SoundEngine.PlaySound(SoundID.Zombie37 with { PitchVariance = 0.5f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.5f }, Player.position);
-                    }
-                    else
-                    {
-                        SoundEngine.PlaySound(SoundID.Zombie36 with { PitchVariance = 0.5f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.5f }, Player.position);
-                    }
-                }
-                if (PetInUse(ItemID.ParrotCracker))
-                {
-                    if (Main.rand.NextBool(2))
-                    {
-
-                        SoundEngine.PlaySound(SoundID.Cockatiel with { PitchVariance = 0.5f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.8f }, Player.position);
-                    }
-                    else
-                    {
-
-                        SoundEngine.PlaySound(SoundID.Macaw with { PitchVariance = 0.5f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.8f }, Player.position);
-                    }
-                }
-                if (PetInUse(ItemID.BoneRattle))
-                {
-                    SoundEngine.PlaySound(SoundID.Zombie8 with { PitchVariance = 0.5f, Pitch = 0.5f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.5f }, Player.position);
-                }
-                if (PetInUse(ItemID.DukeFishronPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.Zombie20 with { PitchVariance = 0.5f, Pitch = 0.5f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.5f }, Player.position);
-                }
-                if (PetInUse(ItemID.MartianPetItem))
-                {
-                    if (Main.rand.NextBool(2))
-                    {
-                        SoundEngine.PlaySound(SoundID.Zombie59 with { PitchVariance = 0.5f, Pitch = 0.5f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.5f }, Player.position);
-                    }
-                    else
-                    {
-                        SoundEngine.PlaySound(SoundID.Zombie60 with { PitchVariance = 0.5f, Pitch = 0.5f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.5f }, Player.position);
-                    }
-                }
-                if (PetInUse(ItemID.QueenBeePetItem))
-                {
-                    switch (Main.rand.Next(3))
-                    {
-                        case 0:
-                            SoundEngine.PlaySound(SoundID.Zombie50 with { PitchVariance = 0.2f, Pitch = 0.9f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.5f }, Player.position);
-                            break;
-                        case 1:
-                            SoundEngine.PlaySound(SoundID.Zombie51 with { PitchVariance = 0.2f, Pitch = 0.9f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.5f }, Player.position);
-                            break;
-                        case 2:
-                            SoundEngine.PlaySound(SoundID.Zombie52 with { PitchVariance = 0.2f, Pitch = 0.9f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.5f }, Player.position);
-                            break;
-                    }
-                }
-
+                PetRegistry PetRegister = Player.GetModPlayer<PetRegistry>();
+                PetRegister.playEquipSoundFromItemId(Player.miscEquips[0].type);
             }
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -507,78 +325,8 @@ namespace PetsOverhaul.Systems
         {
             if (ModContent.GetInstance<Personalization>().DeathSoundDisabled == false)
             {
-                playSound = false;
-                if (PetInUse(ItemID.Seaweed))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath27 with { PitchVariance = 0.4f }, Player.position);
-                }
-                if (PetInUse(ItemID.LunaticCultistPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath59 with { Pitch = -0.2f, PitchVariance = 0.2f }, Player.position);
-                }
-                else if (PetInUse(ItemID.CompanionCube))
-                {
-                    if (Main.rand.NextBool(25))
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath61 with { PitchVariance = 0.5f, Volume = 0.7f }, Player.position);
-                    }
-                    else
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath59 with { PitchVariance = 0.5f }, Player.position);
-                    }
-                }
-                else if (PetInUse(ItemID.SpiderEgg))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath47 with { PitchVariance = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.LightningCarrot))
-                {
-                    SoundEngine.PlaySound(SoundID.Item94 with { PitchVariance = 0.3f }, Player.position);
-                }
-                else if (PetInUse(ItemID.LizardEgg))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath29 with { PitchVariance = 0.3f }, Player.position);
-                }
-                else if (PetInUse(ItemID.CursedSapling) || PetInUse(ItemID.EverscreamPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath5 with { PitchVariance = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.PigPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath20 with { Pitch = 0.5f, PitchVariance = 0.3f }, Player.position);
-                }
-                else if (PetInUse(ItemID.ParrotCracker))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath48 with { PitchVariance = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.BrainOfCthulhuPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath11 with { Pitch = -0.2f, PitchVariance = 0.2f }, Player.position);
-                }
-                else if (PetInUse(ItemID.DD2OgrePetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.DD2_OgreDeath with { PitchVariance = 0.7f, Volume = 0.7f }, Player.position);
-                }
-                else if (PetInUse(ItemID.MartianPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath57 with { Pitch = -0.3f, PitchVariance = 0.5f }, Player.position);
-                }
-                else if (PetInUse(ItemID.DD2BetsyPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.DD2_BetsyScream with { Pitch = -0.5f, PitchVariance = 0.2f }, Player.position);
-                }
-                else if (PetInUse(ItemID.DukeFishronPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath20 with { Pitch = -0.2f, PitchVariance = 0.3f }, Player.position);
-                }
-                else if (PetInUse(ItemID.MoonLordPetItem))
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath62 with { PitchVariance = 0.5f, Volume = 0.8f }, Player.position);
-                }
-                else
-                {
-                    playSound = true;
-                }
+                PetRegistry PetRegister = Player.GetModPlayer<PetRegistry>();
+                playSound = PetRegister.playKillSoundFromItemId(Player.miscEquips[0].type) == ReLogic.Utilities.SlotId.Invalid;
             }
 
             return true;
