@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -58,6 +60,22 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     hitCounter -= 6;
                 }
             }
+        }
+    }
+    sealed public class QueenSlimePetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.QueenSlimePetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            SlimePrincess slimePrincess = ModContent.GetInstance<SlimePrincess>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.QueenSlimePetItem")
+                        .Replace("<slow>", (slimePrincess.slow * 100).ToString())
+                        .Replace("<haste>", (slimePrincess.haste * 100).ToString())
+                        .Replace("<dmg>", slimePrincess.dmgBoost.ToString())
+                        .Replace("<shield>", slimePrincess.shield.ToString())
+                        .Replace("<shieldTime>", (slimePrincess.shieldTime / 60f).ToString())
+                        ));
         }
     }
 }

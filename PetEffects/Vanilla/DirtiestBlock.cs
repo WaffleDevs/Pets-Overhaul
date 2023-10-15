@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -30,6 +32,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
             return true;
 
+        }
+    }
+    sealed public class DirtiestBlockItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.DirtiestBlock;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            DirtiestBlock dirtiestBlock = ModContent.GetInstance<DirtiestBlock>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DirtiestBlock")
+                        .Replace("<any>", dirtiestBlock.everythingCoin.ToString())
+                        .Replace("<soil>", dirtiestBlock.soilCoin.ToString())
+                        .Replace("<dirt>", dirtiestBlock.dirtCoin.ToString())
+                        ));
         }
     }
 }

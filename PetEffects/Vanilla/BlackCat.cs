@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -52,6 +54,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     }
                 }
             }
+        }
+    }
+    sealed public class UnluckyYarn : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.UnluckyYarn;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BlackCat blackCat = ModContent.GetInstance<BlackCat>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.UnluckyYarn")
+                .Replace("<flatLuck>", blackCat.luckFlat.ToString())
+                .Replace("<minimumMoon>", blackCat.luckMoonLowest.ToString())
+                .Replace("<maximumMoon>", blackCat.luckMoonHighest.ToString())
+            ));
         }
     }
 }

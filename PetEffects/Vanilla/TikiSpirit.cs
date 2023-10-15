@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -58,6 +60,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     }
                 }
             }
+        }
+    }
+    sealed public class TikiTotem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.TikiTotem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            TikiSpirit tikiSpirit = ModContent.GetInstance<TikiSpirit>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.TikiTotem")
+                       .Replace("<atkSpdToDmg>", (tikiSpirit.atkSpdToDmgConversion * 100).ToString())
+                       .Replace("<atkSpdToRange>", (tikiSpirit.atkSpdToRangeConversion * 100).ToString())
+                       .Replace("<nonWhipCrit>", tikiSpirit.nonWhipCrit.ToString())
+                       .Replace("<whipCrit>", tikiSpirit.whipCritBonus.ToString())
+                       ));
         }
     }
 }

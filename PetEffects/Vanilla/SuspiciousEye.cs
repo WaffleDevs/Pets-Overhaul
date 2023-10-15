@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using PetsOverhaul.Config;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -72,6 +74,22 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     PopupText.NewText(popupMessage, Player.position);
                 }
             }
+        }
+    }
+    sealed public class EyeOfCthulhuPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.EyeOfCthulhuPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            SuspiciousEye suspiciousEye = ModContent.GetInstance<SuspiciousEye>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EyeOfCthulhuPetItem")
+                        .Replace("<defToDmg>", (suspiciousEye.dmgMult * 100).ToString())
+                        .Replace("<defToSpd>", (suspiciousEye.spdMult * 100).ToString())
+                        .Replace("<defToCrit>", (suspiciousEye.critMult * 100).ToString())
+                        .Replace("<enrageLength>", (suspiciousEye.phaseTime / 60f).ToString())
+                        .Replace("<enrageCd>", (suspiciousEye.phaseCd / 360f).ToString())
+                        ));
         }
     }
 }

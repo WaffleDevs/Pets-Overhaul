@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -50,6 +52,25 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 Pet.Lifesteal(Player.statDefense * defMult * (Player.endurance + 1f), hit.Damage * defLifestealDmgMult);
 
             }
+        }
+    }
+    sealed public class TwinsPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.TwinsPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            TheTwins theTwins = ModContent.GetInstance<TheTwins>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.TwinsPetItem")
+                        .Replace("<closeRange>", (theTwins.closeRange / 16f).ToString())
+                        .Replace("<cursedTime>", (theTwins.infernoTime / 60f).ToString())
+                        .Replace("<defLifesteal>", theTwins.defMult.ToString())
+                        .Replace("<dealtDmgLifesteal>", (theTwins.defLifestealDmgMult * 100).ToString())
+                        .Replace("<longRange>", (theTwins.longRange / 16f).ToString())
+                        .Replace("<hpDmg>", (theTwins.regularEnemyHpDmg * 100).ToString())
+                        .Replace("<bossHpDmg>", (theTwins.bossHpDmg * 100).ToString())
+                        .Replace("<hpDmgCooldown>", (theTwins.healthDmgCd / 60f).ToString())
+                        ));
         }
     }
 }

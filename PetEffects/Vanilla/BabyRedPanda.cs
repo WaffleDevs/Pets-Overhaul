@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -29,6 +31,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 item.stack += ItemPet.Randomizer(bambooChance * item.stack);
             }
             return true;
+        }
+    }
+    sealed public class BambooLeaf : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BambooLeaf;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BabyRedPanda babyRedPanda = ModContent.GetInstance<BabyRedPanda>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BambooLeaf")
+                .Replace("<atkSpd>", (babyRedPanda.regularAtkSpd * 100).ToString())
+                .Replace("<jungleAtkSpd>", (babyRedPanda.jungleBonusSpd * 100).ToString())
+                .Replace("<aggro>", babyRedPanda.aggroReduce.ToString())
+                .Replace("<bambooChance>", babyRedPanda.bambooChance.ToString())
+            ));
         }
     }
 }

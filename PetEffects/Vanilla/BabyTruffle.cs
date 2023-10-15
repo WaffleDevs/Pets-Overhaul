@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -72,6 +74,22 @@ namespace PetsOverhaul.PetEffects.Vanilla
         {
             if (Pet.PetInUseWithSwapCd(ItemID.StrangeGlowingMushroom))
                 modifiers.Knockback *= 1f - increaseFloat;
+        }
+    }
+    sealed public class StrangeGlowingMushroom : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.StrangeGlowingMushroom;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BabyTruffle babyTruffle = ModContent.GetInstance<BabyTruffle>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.StrangeGlowingMushroom")
+                .Replace("<buffRecover>", (babyTruffle.buffIncrease / 60f).ToString())
+                .Replace("<cooldown>", (babyTruffle.shroomPotionCd / 60f).ToString())
+                .Replace("<floatIncr>", (babyTruffle.increaseFloat * 100).ToString())
+                .Replace("<intIncr>", babyTruffle.increaseInt.ToString())
+                .Replace("<moveSpd>", (babyTruffle.moveSpd * 100).ToString())
+            ));
         }
     }
 }

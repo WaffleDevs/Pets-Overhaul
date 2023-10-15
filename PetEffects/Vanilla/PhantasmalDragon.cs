@@ -6,6 +6,8 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using PetsOverhaul.Systems;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -130,6 +132,26 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 }
                 Pet.timer = Pet.timerMax;
             }
+        }
+    }
+    sealed public class LunaticCultistPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.LunaticCultistPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            PhantasmalDragon phantasmalDragon = ModContent.GetInstance<PhantasmalDragon>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.LunaticCultistPetItem")
+                       .Replace("<cooldown>", (phantasmalDragon.phantasmDragonCooldown / 60f).ToString())
+                       .Replace("<icePierce>", phantasmalDragon.icePierce.ToString())
+                       .Replace("<icePercent>", (phantasmalDragon.iceMult * 100).ToString())
+                       .Replace("<iceFlat>", phantasmalDragon.iceFlat.ToString())
+                       .Replace("<lightPercent>", (phantasmalDragon.lightMult * 100).ToString())
+                       .Replace("<lightFlat>", phantasmalDragon.lightFlat.ToString())
+                       .Replace("<lightPierce>", phantasmalDragon.lightPierce.ToString())
+                       .Replace("<firePercent>", (phantasmalDragon.fireMult * 100).ToString())
+                       .Replace("<fireFlat>", phantasmalDragon.fireFlat.ToString())
+                       ));
         }
     }
 }

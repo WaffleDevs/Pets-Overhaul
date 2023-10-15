@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -39,6 +41,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     Player.GetDamage<MagicDamageClass>() -= Player.manaSickReduction * 0.25f;
                 }
             }
+        }
+    }
+    sealed public class CelestialWand : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.CelestialWand;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Estee estee = ModContent.GetInstance<Estee>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.CelestialWand")
+                        .Replace("<maxMana>", (estee.manaIncrease * 100).ToString())
+                        .Replace("<dmgPenalty>", estee.penaltyMult.ToString())
+                        .Replace("<manaToDmg>", (estee.manaMagicIncreasePer1 * 100).ToString())
+                        ));
         }
     }
 }

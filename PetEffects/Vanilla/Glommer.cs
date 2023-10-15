@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -37,6 +39,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     Pet.timer = Pet.timerMax;
                 }
             }
+        }
+    }
+    sealed public class GlommerPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.GlommerPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Glommer glommer = ModContent.GetInstance<Glommer>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.GlommerPetItem")
+                        .Replace("<sanityAmount>", (glommer.glommerSanityAura * 100).ToString())
+                        .Replace("<sanityRange>", (glommer.glommerSanityRange / 16f).ToString())
+                        .Replace("<manaRecover>", glommer.glommerSanityRecover.ToString())
+                        .Replace("<manaRecoverCd>", (glommer.glommerSanityTime / 60f).ToString())
+                        ));
         }
     }
 }

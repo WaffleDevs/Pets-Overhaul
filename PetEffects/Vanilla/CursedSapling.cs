@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -43,6 +45,22 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     Player.whipRangeMultiplier += Player.maxMinions * whipRange / 4;
                 }
             }
+        }
+    }
+    sealed public class CursedSaplingItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.CursedSapling;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            CursedSapling cursedSapling = ModContent.GetInstance<CursedSapling>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.CursedSapling")
+                        .Replace("<minionSlot>", cursedSapling.maxMinion.ToString())
+                        .Replace("<dmg>", (cursedSapling.pumpkinWeaponDmg * 100).ToString())
+                        .Replace("<ravenDmg>", (cursedSapling.ravenDmg * 100).ToString())
+                        .Replace("<whipRange>", (cursedSapling.whipRange * 100).ToString())
+                        .Replace("<whipSpeed>", (cursedSapling.whipSpeed * 100).ToString())
+                        ));
         }
     }
 }

@@ -4,6 +4,8 @@ using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -53,6 +55,19 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     Pet.timer = Pet.timerMax;
                 }
             }
+        }
+    }
+    sealed public class BirdieRattle : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BirdieRattle;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            LilHarpy lilHarpy = ModContent.GetInstance<LilHarpy>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BirdieRattle")
+                        .Replace("<flightTime>", (lilHarpy.fuelMax / 60f).ToString())
+                        .Replace("<cooldown>", (lilHarpy.harpyCd / 60f).ToString())
+                        ));
         }
     }
 }

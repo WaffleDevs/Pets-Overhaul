@@ -4,6 +4,7 @@ using PetsOverhaul.Systems;
 using PetsOverhaul.Buffs;
 using Terraria.ModLoader;
 using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -26,7 +27,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
         }
     }
-    sealed public class HoneyBeePotion : GlobalItem
+    sealed public class QueenBeePetItem : GlobalItem
     {
         public override bool InstancePerEntity => true;
         public override bool ConsumeItem(Item item, Player player)
@@ -83,6 +84,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
             }
             return true;
+        }
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.QueenBeePetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            HoneyBee honeyBee = ModContent.GetInstance<HoneyBee>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.QueenBeePetItem")
+                       .Replace("<extraHeal>", (honeyBee.selfPotionIncrease * 100).ToString())
+                       .Replace("<range>", (honeyBee.range / 16f).ToString())
+                       .Replace("<bottledHealth>", (honeyBee.bottledHealth * 100).ToString())
+                       .Replace("<honeyfinHealth>", (honeyBee.honeyfinHealth * 100).ToString())
+                       .Replace("<bottledHoneyTime>", (honeyBee.bottledHoneyBuff / 60f).ToString())
+                       .Replace("<honeyfinHoneyTime>", (honeyBee.honeyfinHoneyBuff / 60f).ToString())
+                       .Replace("<abilityHaste>", (honeyBee.abilityHaste * 100).ToString())
+                       ));
         }
     }
 }

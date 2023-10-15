@@ -3,6 +3,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using PetsOverhaul.Buffs;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -37,6 +39,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 target.GetGlobalNPC<NpcPet>().curseCounter++;
             }
 
+        }
+    }
+    sealed public class DD2BetsyPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.DD2BetsyPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            ItsyBetsy itsyBetsy = ModContent.GetInstance<ItsyBetsy>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DD2BetsyPetItem")
+                        .Replace("<debuffTime>", (itsyBetsy.debuffTime / 60f).ToString())
+                        .Replace("<defDecrease>", (itsyBetsy.defReduction * 100).ToString())
+                        .Replace("<maxStack>", itsyBetsy.maxStacks.ToString())
+                        .Replace("<missingHpSteal>", (itsyBetsy.missingHpRecover * 100).ToString())
+                        ));
         }
     }
 }

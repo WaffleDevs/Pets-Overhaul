@@ -3,6 +3,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -35,6 +37,19 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     modifiers.DisableCrit();
                 }
             }
+        }
+    }
+    sealed public class DD2PetGato : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.DD2PetGato;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            PropellerGato propellerGato = ModContent.GetInstance<PropellerGato>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DD2PetGato")
+                        .Replace("<crit>", propellerGato.bonusCritChance.ToString())
+                        .Replace("<maxSentry>", propellerGato.turretIncrease.ToString())
+                        ));
         }
     }
 }

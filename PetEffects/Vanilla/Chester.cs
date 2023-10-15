@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -33,6 +35,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
             {
                 grabRange += player.GetModPlayer<Chester>().suckingUpRange;
             }
+        }
+    }
+    sealed public class ChesterPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.ChesterPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Chester chester = ModContent.GetInstance<Chester>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ChesterPetItem")
+                .Replace("<pickupRange>", (chester.suckingUpRange / 16f).ToString())
+                .Replace("<placementRange>", chester.placementRange.ToString())
+                .Replace("<chestDef>", chester.chestOpenDef.ToString())
+            ));
         }
     }
 }

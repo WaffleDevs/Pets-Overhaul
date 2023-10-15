@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -110,6 +112,26 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     target.buffImmune[BuffID.Poisoned] = false;
                 }
             }
+        }
+    }
+    sealed public class SpiderEgg : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.SpiderEgg;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Spider spider = ModContent.GetInstance<Spider>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SpiderEgg")
+                        .Replace("<poisonTime>", (spider.poisonTime / 60f).ToString())
+                        .Replace("<poiPerc>", spider.poisonDmgMult.ToString())
+                        .Replace("<poiFlat>", spider.poisonFlatDmg.ToString())
+                        .Replace("<poiKb>", spider.kbIncreasePoison.ToString())
+                        .Replace("<poiCrit>", spider.poisonCrit.ToString())
+                        .Replace("<venomPerc>", spider.venomDmgMult.ToString())
+                        .Replace("<venomFlat>", spider.venomFlatDmg.ToString())
+                        .Replace("<venomKb>", spider.kbIncreaseVenom.ToString())
+                        .Replace("<venomCrit>", spider.venomCrit.ToString())
+                        ));
         }
     }
 }

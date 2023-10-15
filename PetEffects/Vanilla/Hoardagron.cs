@@ -4,6 +4,8 @@ using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -72,5 +74,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
         }
     }
+    sealed public class DD2PetDragon : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.DD2PetDragon;
 
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Hoardagron hoardagron = ModContent.GetInstance<Hoardagron>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DD2PetDragon")
+                        .Replace("<arrowVelo>", hoardagron.arrowSpd.ToString())
+                        .Replace("<arrowPierce>", hoardagron.arrowPen.ToString())
+                        .Replace("<bulletVelo>", hoardagron.bulletSpd.ToString())
+                        .Replace("<treshold>", (hoardagron.specialTreshold * 100).ToString())
+                        .Replace("<bossTreshold>", (hoardagron.specialBossTreshold * 100).ToString())
+                        ));
+        }
+    }
 }

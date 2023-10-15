@@ -4,6 +4,8 @@ using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -49,6 +51,24 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 }
             }
             return true;
+        }
+    }
+    sealed public class DukeFishronPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.DukeFishronPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            TinyFishron tinyFishron = ModContent.GetInstance<TinyFishron>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DukeFishronPetItem")
+                        .Replace("<baseMult>", tinyFishron.fishingPowerPenalty.ToString())
+                        .Replace("<anglerFishingPower>", tinyFishron.fpPerQuest.ToString())
+                        .Replace("<flatChance>", tinyFishron.stackChance.ToString())
+                        .Replace("<fishingPowerChance>", (tinyFishron.multiplier * 100).ToString())
+                        .Replace("<bobberChance>", tinyFishron.bobberChance.ToString())
+                        .Replace("<anglerQuests>", Main.LocalPlayer.anglerQuestsFinished.ToString())
+                        .Replace("<currentAnglerWithBaseMult>", (Main.LocalPlayer.anglerQuestsFinished * tinyFishron.fpPerQuest + tinyFishron.fishingPowerPenalty).ToString())
+                        ));
         }
     }
 }

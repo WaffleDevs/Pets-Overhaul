@@ -3,6 +3,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -40,6 +42,22 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     lightningRodTime = lightningRodMax;
                 }
             }
+        }
+    }
+    sealed public class LightningCarrot : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.LightningCarrot;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            VoltBunny voltBunny = ModContent.GetInstance<VoltBunny>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.LightningCarrot")
+                       .Replace("<flatSpd>", (voltBunny.movespdFlat * 100).ToString())
+                       .Replace("<multSpd>", voltBunny.movespdMult.ToString())
+                       .Replace("<spdToDmg>", (voltBunny.movespdToDmg * 100).ToString())
+                       .Replace("<electricRod>", (voltBunny.lightningRod * 100).ToString())
+                       .Replace("<electricRodDuration>", (voltBunny.lightningRodMax / 60f).ToString())
+                       ));
         }
     }
 }

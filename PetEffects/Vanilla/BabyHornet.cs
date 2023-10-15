@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using PetsOverhaul.Config;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -90,6 +92,27 @@ namespace PetsOverhaul.PetEffects.Vanilla
                         Projectile.NewProjectileDirect(Player.GetSource_Misc("BabyHornet"), target.Center, Main.rand.NextVector2Circular(10f, 10f), ProjectileID.Bee, beeDmg, beeKb, Player.whoAmI);
                 }
             }
+        }
+    }
+    sealed public class Nectar : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.Nectar;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BabyHornet babyHornet = ModContent.GetInstance<BabyHornet>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Nectar")
+                .Replace("<antidotePercent>", (babyHornet.healthRecovery * 100).ToString())
+                .Replace("<antidoteCd>", (babyHornet.nectarCooldown / 60f).ToString())
+                .Replace("<moveSpd>", (babyHornet.moveSpdIncr * 100).ToString())
+                .Replace("<def>", babyHornet.defReduction.ToString())
+                .Replace("<dmgCrit>", (babyHornet.dmgReduction * 100).ToString())
+                .Replace("<maxMinion>", babyHornet.maxMinion.ToString())
+                .Replace("<regularChance>", babyHornet.beeChance.ToString())
+                .Replace("<summonChance>", (babyHornet.beeChance * 2).ToString())
+                .Replace("<beeDmg>", babyHornet.beeDmg.ToString())
+                .Replace("<beeKb>", babyHornet.beeKb.ToString())
+            ));
         }
     }
 }

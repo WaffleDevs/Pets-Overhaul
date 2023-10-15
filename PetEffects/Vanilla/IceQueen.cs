@@ -6,6 +6,8 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using PetsOverhaul.Config;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -100,6 +102,24 @@ namespace PetsOverhaul.PetEffects.Vanilla
             {
                 return true;
             }
+        }
+    }
+    sealed public class IceQueenPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.IceQueenPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            IceQueen iceQueen = ModContent.GetInstance<IceQueen>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.IceQueenPetItem")
+                        .Replace("<frozenTombTime>", (iceQueen.tombTime / 60f).ToString())
+                        .Replace("<range>", (iceQueen.queenRange / 16f).ToString())
+                        .Replace("<slowAmount>", (iceQueen.slowAmount * 100).ToString())
+                        .Replace("<healthRecovery>", (iceQueen.tombTime / 3).ToString())
+                        .Replace("<baseDmg>", iceQueen.freezeDamage.ToString())
+                        .Replace("<postTombImmunity>", (iceQueen.immuneTime / 60f).ToString())
+                        .Replace("<tombCooldown>", (iceQueen.cooldown / 3600f).ToString())
+                        ));
         }
     }
 }

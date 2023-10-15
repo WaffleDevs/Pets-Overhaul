@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -30,5 +32,18 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
         }
     }
+    sealed public class EatersBone : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.EatersBone;
 
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BabyEater babyEater = ModContent.GetInstance<BabyEater>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EatersBone")
+                .Replace("<moveSpd>", (babyEater.moveSpd * 100).ToString())
+                .Replace("<jumpSpd>", (babyEater.jumpSpd * 100).ToString())
+                .Replace("<fallRes>", babyEater.fallDamageTile.ToString())
+            ));
+        }
+    }
 }

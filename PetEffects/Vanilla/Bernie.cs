@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -66,6 +68,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     timer = 0;
                 }
             }
+        }
+    }
+    sealed public class BerniePetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BerniePetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Bernie bernie = ModContent.GetInstance<Bernie>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BerniePetItem")
+                .Replace("<burnRange>", (bernie.bernieRange / 16f).ToString())
+                .Replace("<burnDrainMana>", (bernie.burnDrain * 4 * 0.05f).ToString())
+                .Replace("<burnDrainHealth>", (bernie.burnDrain * 2 * 0.05f).ToString())
+                .Replace("<maxDrain>", bernie.maxBurning.ToString())
+            ));
         }
     }
 }

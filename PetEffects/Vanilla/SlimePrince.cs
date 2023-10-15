@@ -3,6 +3,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -157,5 +159,25 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
         }
     }
+    sealed public class KingSlimePetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.KingSlimePetItem;
 
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            SlimePrince slimePrince = ModContent.GetInstance<SlimePrince>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.KingSlimePetItem")
+                        .Replace("<burnHp>", (slimePrince.healthDmg * 100).ToString())
+                        .Replace("<burnCap>", slimePrince.burnCap.ToString())
+                        .Replace("<extraKb>", slimePrince.bonusKb.ToString())
+                        .Replace("<jumpSpd>", (slimePrince.slimyJump * 100).ToString())
+                        .Replace("<kbBoost>", slimePrince.slimyKb.ToString())
+                        .Replace("<enemyDmgRecieve>", slimePrince.wetRecievedHigher.ToString())
+                        .Replace("<enemyDmgDeal>", slimePrince.wetDealtLower.ToString())
+                        .Replace("<dmg>", (slimePrince.wetDmg * 100).ToString())
+                        .Replace("<def>", (slimePrince.wetDef * 100).ToString())
+                        .Replace("<moveSpd>", (slimePrince.wetSpeed * 100).ToString())
+                        ));
+        }
+    }
 }

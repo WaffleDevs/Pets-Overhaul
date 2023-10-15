@@ -4,6 +4,8 @@ using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using PetsOverhaul.Projectiles;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -27,6 +29,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 Main.projectile[boom].ArmorPenetration = armorPen;
                 Pet.timer = Pet.timerMax;
             }
+        }
+    }
+    sealed public class BallOfFuseWire : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BallOfFuseWire;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            DynamiteKitten dynamiteKitten = ModContent.GetInstance<DynamiteKitten>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BallOfFuseWire")
+                        .Replace("<kb>", dynamiteKitten.kbMult.ToString())
+                        .Replace("<dmg>", dynamiteKitten.damageMult.ToString())
+                        .Replace("<armorPen>", dynamiteKitten.armorPen.ToString())
+                        ));
         }
     }
 }

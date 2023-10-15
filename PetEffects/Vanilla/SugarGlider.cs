@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -24,7 +26,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
         }
     }
-    sealed public class SugarGliderWing : GlobalItem
+    sealed public class EucaluptusSap : GlobalItem
     {
         public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
         {
@@ -35,6 +37,17 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 acceleration *= sugarGlider.accMult;
                 acceleration += sugarGlider.accSpeedRaise;
             }
+        }
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.EucaluptusSap;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            SugarGlider sugarGlider = ModContent.GetInstance<SugarGlider>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EucaluptusSap")
+                        .Replace("<speed>", sugarGlider.speedMult.ToString())
+                        .Replace("<acceleration>", sugarGlider.accMult.ToString())
+                        .Replace("<flatIncrease>", (sugarGlider.accSpeedRaise * 100).ToString())
+                        ));
         }
     }
 

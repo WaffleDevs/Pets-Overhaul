@@ -12,6 +12,7 @@ using Terraria.DataStructures;
 using PetsOverhaul.Buffs;
 using System.IO;
 using System;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -133,9 +134,9 @@ namespace PetsOverhaul.PetEffects.Vanilla
         public bool[] mining10 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.MythrilOre, ItemID.OrichalcumOre);
         public bool[] mining12 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.AdamantiteOre, ItemID.TitaniumOre);
         public bool[] mining13 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.ChlorophyteOre, ItemID.LunarOre);
-        public bool[] seaCreature15 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.EyeballFlyingFish,NPCID.ZombieMerman);
-        public bool[] seaCreature30 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.GoblinShark,NPCID.BloodEelBody,NPCID.BloodEelTail,NPCID.BloodEelHead);
-        public bool[] seaCreature50 = NPCID.Sets.Factory.CreateBoolSet(false,NPCID.BloodNautilus);
+        public bool[] seaCreature15 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.EyeballFlyingFish, NPCID.ZombieMerman);
+        public bool[] seaCreature30 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.GoblinShark, NPCID.BloodEelBody, NPCID.BloodEelTail, NPCID.BloodEelHead);
+        public bool[] seaCreature50 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.BloodNautilus);
         public bool junimoExpCheck()
         {
             if (ModContent.GetInstance<Personalization>().JunimoExpWhileNotInInv == false || Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem) || Pet.PetInUse(ItemID.JunimoPetItem))
@@ -149,14 +150,14 @@ namespace PetsOverhaul.PetEffects.Vanilla
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (junimoExpCheck()&&target.active==false&&target.GetGlobalNPC<NpcPet>().seaCreature)
+            if (junimoExpCheck() && target.active == false && target.GetGlobalNPC<NpcPet>().seaCreature)
             {
                 if (seaCreature50[target.type])
-                    junimoFishingExp+= 50;
+                    junimoFishingExp += 50;
                 else if (seaCreature30[target.type])
-                    junimoFishingExp+= 30;
-                                else if (seaCreature15[target.type])
-                    junimoFishingExp+= 15;
+                    junimoFishingExp += 30;
+                else if (seaCreature15[target.type])
+                    junimoFishingExp += 15;
                 else
                     junimoFishingExp += 20;
             }
@@ -441,6 +442,33 @@ namespace PetsOverhaul.PetEffects.Vanilla
             junimoMiningExp = tag.GetInt("miningexp");
             junimoFishingLevel = tag.GetInt("fishinglvl");
             junimoFishingExp = tag.GetInt("fishingexp");
+        }
+    }
+
+    sealed public class JunimoPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.JunimoPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Junimo junimo = ModContent.GetInstance<Junimo>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.JunimoPetItem")
+                        .Replace("<maxLvl>", junimo.maxLvls.ToString())
+                        .Replace("<harvestingProfit>", (2.5f * junimo.junimoInUseMultiplier * junimo.junimoHarvestingLevel).ToString())
+                        .Replace("<harvestingRare>", (50 * junimo.junimoInUseMultiplier * junimo.junimoHarvestingLevel).ToString())
+                        .Replace("<bonusHealth>", (junimo.junimoHarvestingLevel * 0.25f * junimo.junimoInUseMultiplier).ToString())
+                        .Replace("<flatHealth>", (junimo.junimoHarvestingLevel * junimo.junimoInUseMultiplier).ToString())
+                        .Replace("<harvestLevel>", junimo.junimoHarvestingLevel.ToString())
+                        .Replace("<harvestNext>", junimo.junimoHarvestingLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoHarvestingLevelsToXp[junimo.junimoHarvestingLevel] - junimo.junimoHarvestingExp).ToString())
+                        .Replace("<miningBonusDrop>", (junimo.junimoMiningLevel * junimo.junimoInUseMultiplier).ToString())
+                        .Replace("<bonusReduction>", (junimo.junimoMiningLevel * junimo.junimoInUseMultiplier * 0.2f).ToString())
+                        .Replace("<miningLevel>", junimo.junimoMiningLevel.ToString())
+                        .Replace("<miningNext>", junimo.junimoMiningLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoMiningLevelsToXp[junimo.junimoMiningLevel] - junimo.junimoMiningExp).ToString())
+                        .Replace("<fishingPower>", (junimo.junimoFishingLevel * junimo.junimoInUseMultiplier * 0.5f).ToString())
+                        .Replace("<bonusDamage>", (junimo.junimoFishingLevel * junimo.junimoInUseMultiplier * 0.2f).ToString())
+                        .Replace("<fishingLevel>", junimo.junimoFishingLevel.ToString())
+                        .Replace("<fishingNext>", junimo.junimoFishingLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoFishingLevelsToXp[junimo.junimoFishingLevel] - junimo.junimoFishingExp).ToString())
+                        ));
         }
     }
 }

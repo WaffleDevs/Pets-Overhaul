@@ -3,6 +3,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -105,6 +107,24 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 PopupText.NewText(popupMessage, Player.position);
                 Pet.timer = Pet.timerMax;
             }
+        }
+    }
+    sealed public class LizardEgg : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.LizardEgg;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Lizard lizard = ModContent.GetInstance<Lizard>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.LizardEgg")
+                        .Replace("<transformTime>", (lizard.transformTime / 60f).ToString())
+                        .Replace("<hitCount>", lizard.maxSteroidCount.ToString())
+                        .Replace("<hitDmg>", lizard.dmgMultIncrease.ToString())
+                        .Replace("<hitFlat>", lizard.dmgFlatIncrease.ToString())
+                        .Replace("<lifesteal>", (lizard.lizardLifesteal * 100).ToString())
+                        .Replace("<maxHpRecovery>", (lizard.lizardLifestealHealth * 100).ToString())
+                        .Replace("<transformCooldown>", (lizard.transformCd / 60f).ToString())
+                        ));
         }
     }
 }

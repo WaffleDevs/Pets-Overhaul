@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -78,6 +80,27 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 Pet.timer = Pet.timerMax;
                 oocTimer = 600;
             }
+        }
+    }
+    sealed public class TartarSauce : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.TartarSauce;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            MiniMinotaur miniMinotaur = ModContent.GetInstance<MiniMinotaur>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.TartarSauce")
+                        .Replace("<cooldown>", (miniMinotaur.minotaurCd / 60f).ToString())
+                        .Replace("<maxStack>", miniMinotaur.maxStack.ToString())
+                        .Replace("<maxDef>", (miniMinotaur.defMult * 100 * miniMinotaur.maxStack).ToString())
+                        .Replace("<maxMeleeSpd>", (miniMinotaur.meleeSpd * 100 * miniMinotaur.maxStack).ToString())
+                        .Replace("<maxDmg>", (miniMinotaur.meleeDmg * 100 * miniMinotaur.maxStack).ToString())
+                        .Replace("<maxSpd>", (miniMinotaur.moveSpd * 100 * miniMinotaur.maxStack).ToString())
+                        .Replace("<meleeSpd>", (miniMinotaur.meleeSpd * 100).ToString())
+                        .Replace("<moveSpd>", (miniMinotaur.moveSpd * 100).ToString())
+                        .Replace("<dmg>", (miniMinotaur.meleeDmg * 100).ToString())
+                        .Replace("<def>", (miniMinotaur.defMult * 100).ToString())
+                        ));
         }
     }
 }

@@ -3,6 +3,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -38,6 +40,19 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     Pet.Lifesteal(damageDone, regularLifesteal);
                 }
             }
+        }
+    }
+    sealed public class Seedling : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.Seedling;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Sapling sapling = ModContent.GetInstance<Sapling>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Seedling")
+                        .Replace("<lifesteal>", (sapling.regularLifesteal * 100).ToString())
+                        .Replace("<planteraSteal>", (sapling.planteraLifesteal * 100).ToString())
+                        ));
         }
     }
 }

@@ -3,6 +3,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -54,6 +56,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                             break;
                     }
                 }
+        }
+    }
+    sealed public class MudBud : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.MudBud;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Plantero plantero = ModContent.GetInstance<Plantero>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.MudBud")
+                        .Replace("<chance>", plantero.spawnChance.ToString())
+                        .Replace("<dmg>", plantero.damageMult.ToString())
+                        .Replace("<flatDmg>", plantero.flatDmg.ToString())
+                        .Replace("<kb>", plantero.knockBack.ToString())
+                        ));
         }
     }
 }

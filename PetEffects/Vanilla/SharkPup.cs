@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -44,6 +46,22 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     Pet.shieldTimer = shieldTime;
                 }
             }
+        }
+    }
+    sealed public class SharkBait : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.SharkBait;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            SharkPup sharkPup = ModContent.GetInstance<SharkPup>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SharkBait")
+                        .Replace("<fishingPower>", sharkPup.fishingPow.ToString())
+                        .Replace("<seaCreatureDmg>", sharkPup.seaCreatureDamage.ToString())
+                        .Replace("<seaCreatureResist>", sharkPup.seaCreatureResist.ToString())
+                        .Replace("<shield>", sharkPup.shieldOnCatch.ToString())
+                        .Replace("<shieldTime>", (sharkPup.shieldTime / 60f).ToString())
+                        ));
         }
     }
 }

@@ -5,6 +5,8 @@ using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using PetsOverhaul.Config;
 using PetsOverhaul.Items;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -140,6 +142,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 }
             }
             return true;
+        }
+    }
+    sealed public class BlueEgg : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BlueEgg;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BlueChicken blueChicken = ModContent.GetInstance<BlueChicken>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BlueEgg")
+                .Replace("<plantChance>", blueChicken.plantChance.ToString())
+                .Replace("<rarePlantChance>", blueChicken.rarePlantChance.ToString())
+                .Replace("<choppableChance>", blueChicken.treeChance.ToString())
+                .Replace("<eggMinute>", (blueChicken.blueEggTimer / 3600).ToString())
+            ));
         }
     }
 }

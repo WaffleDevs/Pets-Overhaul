@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria.Audio;
 using PetsOverhaul.Config;
+using PetsOverhaul.PetEffects.Vanilla;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -71,5 +73,23 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 }
             }
         }
+    }
+}
+sealed public class DeerclopsPetItem : GlobalItem
+{
+    public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.DeerclopsPetItem;
+
+    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+    {
+        TinyDeerclops tinyDeerclops = ModContent.GetInstance<TinyDeerclops>();
+        tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DeerclopsPetItem")
+                        .Replace("<treshold>", (tinyDeerclops.healthTreshold * 100).ToString())
+                        .Replace("<tresholdTime>", (tinyDeerclops.damageStoreTime / 60f).ToString())
+                        .Replace("<immunityTime>", (tinyDeerclops.immuneTime / 60f).ToString())
+                        .Replace("<slowAmount>", (tinyDeerclops.slow * 100).ToString())
+                        .Replace("<range>", (tinyDeerclops.range / 16f).ToString())
+                        .Replace("<debuffTime>", (tinyDeerclops.applyTime / 60f).ToString())
+                        .Replace("<cooldown>", (tinyDeerclops.cooldown / 60f).ToString())
+                        ));
     }
 }

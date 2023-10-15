@@ -4,6 +4,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using PetsOverhaul.Config;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -91,6 +93,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     oldTileType = tile.TileType;
                 }
             }
+        }
+    }
+    sealed public class EaterOfWorldsPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.EaterOfWorldsPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            EaterOfWorms eaterOfWorms = ModContent.GetInstance<EaterOfWorms>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EaterOfWorldsPetItem")
+                       .Replace("<miningSpeed>", (eaterOfWorms.nonOreSpeed * 100).ToString())
+                       .Replace("<multipleBreakChance>", eaterOfWorms.tileBreakSpreadChance.ToString())
+                       .Replace("<width>", eaterOfWorms.tileBreakXSpread.ToString())
+                       .Replace("<length>", eaterOfWorms.tileBreakYSpread.ToString())
+                       ));
         }
     }
 }

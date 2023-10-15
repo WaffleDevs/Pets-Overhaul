@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -33,6 +35,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
             else
                 return true;
+        }
+    }
+    sealed public class SpiffoPlush : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.SpiffoPlush;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Spiffo spiffo = ModContent.GetInstance<Spiffo>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SpiffoPlush")
+                        .Replace("<ammoReserve>", spiffo.ammoReserveChance.ToString())
+                        .Replace("<armorPen>", spiffo.zombieArmorPen.ToString())
+                        .Replace("<penChance>", spiffo.penetrateChance.ToString())
+                        ));
         }
     }
 }

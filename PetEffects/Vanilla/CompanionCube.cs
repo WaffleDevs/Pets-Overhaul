@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -53,6 +55,22 @@ namespace PetsOverhaul.PetEffects.Vanilla
         {
             if (Pet.PetInUseWithSwapCd(ItemID.CompanionCube))
                 Pet.Lifesteal(info.Damage, healthToMana, manaSteal: true, respectLifeStealCap: false);
+        }
+    }
+    sealed public class CompanionCubeItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.CompanionCube;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            CompanionCube companionCube = ModContent.GetInstance<CompanionCube>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.CompanionCube")
+                        .Replace("<manaToHealth>", (companionCube.manaToHealth * 100).ToString())
+                        .Replace("<healthToMana>", (companionCube.healthToMana * 100).ToString())
+                        .Replace("<manaPotionNerf>", (companionCube.manaPotionNerf * 100).ToString())
+                        .Replace("<manaToHealthNerf>", (companionCube.manaToHealthNerf * 100).ToString())
+                        .Replace("<halfOfSickness>", (Player.manaSickLessDmg * 100).ToString())
+                        ));
         }
     }
 }

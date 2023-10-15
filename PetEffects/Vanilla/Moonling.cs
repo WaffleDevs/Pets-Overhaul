@@ -3,6 +3,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using System.Linq;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -60,6 +62,32 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     Player.maxTurrets += sumSentry;
                 }
             }
+        }
+    }
+    sealed public class MoonLordPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.MoonLordPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Moonling moonling = ModContent.GetInstance<Moonling>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.MoonLordPetItem")
+                        .Replace("<sumRange>", (moonling.sumWhipRng * 100).ToString())
+                        .Replace("<sumSpd>", (moonling.sumWhipSpd * 100).ToString())
+                        .Replace("<sumDmg>", (moonling.sumDmg * 100).ToString())
+                        .Replace("<sumMax>", moonling.sumMinion.ToString())
+                        .Replace("<mana>", moonling.magicMana.ToString())
+                        .Replace("<manaCost>", (moonling.magicManaCost * 100).ToString())
+                        .Replace("<magicCrit>", moonling.magicCrit.ToString())
+                        .Replace("<magicDmg>", (moonling.magicDmg * 100).ToString())
+                        .Replace("<armorPen>", moonling.rangedPen.ToString())
+                        .Replace("<rangedCrit>", moonling.rangedCr.ToString())
+                        .Replace("<rangedDmg>", (moonling.rangedDmg * 100).ToString())
+                        .Replace("<dr>", (moonling.meleeDr * 100).ToString())
+                        .Replace("<meleeSpd>", (moonling.meleeSpd * 100).ToString())
+                        .Replace("<meleeDmg>", (moonling.meleeDmg * 100).ToString())
+                        .Replace("<def>", moonling.defense.ToString())
+                        ));
         }
     }
 }

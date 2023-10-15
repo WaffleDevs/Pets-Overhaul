@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -28,5 +30,19 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
         }
 
+    }
+    sealed public class ToySled : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.ToySled;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BabySnowman babySnowman = ModContent.GetInstance<BabySnowman>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ToySled")
+                .Replace("<frostburnTime>", (babySnowman.frostburnTime / 60f).ToString())
+                .Replace("<slowAmount>", (babySnowman.snowmanSlow * 100).ToString())
+                .Replace("<slowTime>", (babySnowman.slowTime / 60f).ToString())
+            ));
+        }
     }
 }

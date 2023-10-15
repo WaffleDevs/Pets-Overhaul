@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -29,6 +31,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
         {
             if (Pet.PetInUse(ItemID.GlowTulip))
                 Lighting.AddLight(Player.Center, TorchID.Blue);
+        }
+    }
+    sealed public class GlowTulip : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.GlowTulip;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            CavelingGardener cavelingGardener = ModContent.GetInstance<CavelingGardener>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.GlowTulip")
+                .Replace("<harvestChance>", cavelingGardener.cavelingRegularPlantChance.ToString())
+                .Replace("<rarePlantChance>", cavelingGardener.cavelingRarePlantChance.ToString())
+                .Replace("<gemstoneTreeChance>", cavelingGardener.cavelingGemTreeChance.ToString())
+            ));
         }
     }
 }

@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -69,6 +71,24 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 else
                     fish.stack += ItemPet.Randomizer(fish.stack * baseChance);
             }
+        }
+    }
+    sealed public class ZephyrFishItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.ZephyrFish;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            ZephyrFish zephyrFish = ModContent.GetInstance<ZephyrFish>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ZephyrFish")
+                        .Replace("<windFish>", (zephyrFish.speedMult / 8f).ToString())
+                        .Replace("<regularChance>", zephyrFish.baseChance.ToString())
+                        .Replace("<windChance>", zephyrFish.windChance.ToString())
+                        .Replace("<anglerPower>", (zephyrFish.powerPerQuest * 100).ToString())
+                        .Replace("<maxAnglerPower>", (zephyrFish.maxQuestPower * 100).ToString())
+                        .Replace("<anglerQuests>", Main.LocalPlayer.anglerQuestsFinished.ToString())
+                        .Replace("<currentAnglerPower>", (zephyrFish.powerPerQuest * Main.LocalPlayer.anglerQuestsFinished * 100).ToString())
+                        ));
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using static Terraria.Player;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -115,6 +116,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
         public override void OnKill(NPC npc)
         {
             skeletronDealtDamage.Clear();
+        }
+    }
+    sealed public class SkeletronPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.SkeletronPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            SkeletronJr skeletronJr = ModContent.GetInstance<SkeletronJr>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SkeletronPetItem")
+                        .Replace("<recievedMult>", (skeletronJr.playerTakenMult * 100).ToString())
+                        .Replace("<recievedHowLong>", skeletronJr.playerDamageTakenSpeed.ToString())
+                        .Replace("<dealtMult>", (skeletronJr.enemyDamageIncrease * 100).ToString())
+                        ));
         }
     }
 }

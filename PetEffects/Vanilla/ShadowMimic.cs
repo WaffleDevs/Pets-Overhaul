@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -41,6 +43,23 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 }
             }
             return true;
+        }
+    }
+    sealed public class OrnateShadowKey : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.OrnateShadowKey;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            ShadowMimic shadowMimic = ModContent.GetInstance<ShadowMimic>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.OrnateShadowKey")
+                        .Replace("<npcCoin>", shadowMimic.npcCoin.ToString())
+                        .Replace("<npcItem>", shadowMimic.npcItem.ToString())
+                        .Replace("<bossCoin>", shadowMimic.bossCoin.ToString())
+                        .Replace("<bossItem>", shadowMimic.bossItem.ToString())
+                        .Replace("<bagCoin>", shadowMimic.bagCoin.ToString())
+                        .Replace("<bagItem>", shadowMimic.bagItem.ToString())
+                        ));
         }
     }
 }

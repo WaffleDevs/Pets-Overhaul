@@ -3,6 +3,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -43,6 +45,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     }
                 }
             }
+        }
+    }
+    sealed public class BabyGrinchMischiefWhistle : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BabyGrinchMischiefWhistle;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BabyGrinch babyGrinch = ModContent.GetInstance<BabyGrinch>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BabyGrinchMischiefWhistle")
+                .Replace("<slowAmount>", (babyGrinch.grinchSlow * 100).ToString())
+                .Replace("<slowRange>", (babyGrinch.grinchRange / 16f).ToString())
+                .Replace("<dmg>", (babyGrinch.winterDmg * 100).ToString())
+                .Replace("<crit>", babyGrinch.winterCrit.ToString())
+            ));
         }
     }
 }

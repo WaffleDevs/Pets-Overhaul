@@ -4,6 +4,8 @@ using PetsOverhaul.Systems;
 using Terraria.Audio;
 using PetsOverhaul.Config;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -39,6 +41,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 if (ModContent.GetInstance<Personalization>().AbilitySoundDisabled == false)
                     SoundEngine.PlaySound(SoundID.Item65 with { PitchVariance = 0.3f, MaxInstances = 5 }, Player.position);
             }
+        }
+    }
+    sealed public class DogWhistle : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.DogWhistle;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Puppy puppy = ModContent.GetInstance<Puppy>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DogWhistle")
+                .Replace("<critter>", puppy.catchChance.ToString())
+                .Replace("<rareCritter>", puppy.rareCatchChance.ToString())
+                .Replace("<rareCritterCoin>", (puppy.rareCritterCoin / 100f).ToString())
+                .Replace("<rareEnemyCoin>", (puppy.rareEnemyCoin / 100f).ToString())
+            ));
         }
     }
 }

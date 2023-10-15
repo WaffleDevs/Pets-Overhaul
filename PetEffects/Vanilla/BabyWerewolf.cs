@@ -3,6 +3,8 @@ using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using PetsOverhaul.Buffs;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -51,6 +53,22 @@ namespace PetsOverhaul.PetEffects.Vanilla
             {
                 crit *= critChance;
             }
+        }
+    }
+    sealed public class FullMoonSqueakyToy : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.FullMoonSqueakyToy;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BabyWerewolf babyWerewolf = ModContent.GetInstance<BabyWerewolf>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.FullMoonSqueakyToy")
+                .Replace("<critMult>", babyWerewolf.critChance.ToString())
+                .Replace("<crDmgReduction>", (babyWerewolf.critDmgReduction * 100).ToString())
+                .Replace("<maxStacks>", babyWerewolf.maxStacks.ToString())
+                .Replace("<stackDmg>", (babyWerewolf.damageMultPerStack * 100).ToString())
+                .Replace("<stackCritDmg>", (babyWerewolf.maulCritDmgIncrease * 100).ToString())
+            ));
         }
     }
 }

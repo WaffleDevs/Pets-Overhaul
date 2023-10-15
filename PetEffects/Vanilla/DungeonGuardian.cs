@@ -2,6 +2,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using PetsOverhaul.Systems;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -36,6 +38,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 }
                 Player.GetArmorPenetration<GenericDamageClass>() += armorPen;
             }
+        }
+    }
+    sealed public class BoneKey : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BoneKey;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            DungeonGuardian dungeonGuardian = ModContent.GetInstance<DungeonGuardian>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BoneKey")
+                        .Replace("<armorPen>", dungeonGuardian.armorPen.ToString())
+                        .Replace("<dungArmorPen>", dungeonGuardian.dungArmorPenBonus.ToString())
+                        .Replace("<dungRegen>", dungeonGuardian.lifeRegen.ToString())
+                        ));
         }
     }
 }

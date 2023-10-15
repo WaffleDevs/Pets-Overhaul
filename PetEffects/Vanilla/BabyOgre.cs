@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -88,7 +90,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
         }
     }
-    sealed public class BabyOgreWing : GlobalItem
+    sealed public class DD2OgrePetItem : GlobalItem
     {
         public override bool InstancePerEntity => true;
         public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
@@ -107,6 +109,25 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 maxCanAscendMultiplier *= player.GetModPlayer<BabyOgre>().verticalMult;
                 ascentWhenRising *= player.GetModPlayer<BabyOgre>().verticalMult;
             }
+        }
+
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.DD2OgrePetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BabyOgre babyOgre = ModContent.GetInstance<BabyOgre>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DD2OgrePetItem")
+                .Replace("<moveSpdNerf>", babyOgre.movespdNerf.ToString())
+                .Replace("<atkSpdNerf>", babyOgre.atkSpdMult.ToString())
+                .Replace("<dmgNerf>", (babyOgre.nonMeleedmg * 100).ToString())
+                .Replace("<horizontalNerf>", babyOgre.horizontalMult.ToString())
+                .Replace("<verticalNerf>", babyOgre.verticalMult.ToString())
+                .Replace("<trueMeleeMults>", babyOgre.trueMeleeMultipliers.ToString())
+                .Replace("<trueMeleeCrit>", babyOgre.crit.ToString())
+                .Replace("<healthIncrease>", (babyOgre.healthIncrease * 100).ToString())
+                .Replace("<defMult>", babyOgre.defMult.ToString())
+                .Replace("<damageReduction>", (babyOgre.dr * 100).ToString())
+            ));
         }
     }
 }

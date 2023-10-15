@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -15,7 +17,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
         public int tier3Shield = 20;
         public int shieldTime = 1800;
     }
-    sealed public class PigmanEat : GlobalItem
+    sealed public class PigPetItem : GlobalItem
     {
         public override bool InstancePerEntity => true;
         public override bool ConsumeItem(Item item, Player player)
@@ -45,6 +47,21 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     return false;
             }
             return true;
+        }
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.PigPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Pigman pigman = ModContent.GetInstance<Pigman>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.PigPetItem")
+                       .Replace("<foodChance>", pigman.foodChance.ToString())
+                       .Replace("<potionChance>", pigman.potionChance.ToString())
+                       .Replace("<shield1>", pigman.tier1Shield.ToString())
+                       .Replace("<shield2>", pigman.tier2Shield.ToString())
+                       .Replace("<shield3>", pigman.tier3Shield.ToString())
+                       .Replace("<shieldTime>", (pigman.shieldTime / 60f).ToString())
+                       .Replace("<cooldown>", (pigman.shieldCooldown / 60f).ToString())
+                       ));
         }
     }
 }

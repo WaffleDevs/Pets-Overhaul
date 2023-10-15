@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -20,6 +22,19 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     item.stack += ItemPet.Randomizer(squashlingRareChance * item.stack);
             }
             return true;
+        }
+    }
+    sealed public class MagicalPumpkinSeed : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.MagicalPumpkinSeed;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Squashling squashling = ModContent.GetInstance<Squashling>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.MagicalPumpkinSeed")
+                        .Replace("<plant>", squashling.squashlingCommonChance.ToString())
+                        .Replace("<rarePlant>", squashling.squashlingRareChance.ToString())
+                        ));
         }
     }
 }

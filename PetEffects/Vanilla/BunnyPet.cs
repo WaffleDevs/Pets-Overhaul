@@ -4,6 +4,8 @@ using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using PetsOverhaul.Config;
 using Terraria.Audio;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -38,6 +40,19 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 Player.jumpSpeedBoost += bunnyStack * jumpPerStk;
                 Player.moveSpeed += bunnyStack * spdPerStk;
             }
+        }
+    }
+    sealed public class Carrot : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.Carrot;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            CarrotBunny carrotBunny = ModContent.GetInstance<CarrotBunny>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Carrot")
+                .Replace("<moveSpeed>", (carrotBunny.spdPerStk * 100).ToString())
+                .Replace("<jumpSpeed>", (carrotBunny.jumpPerStk * 100).ToString())
+            ));
         }
     }
 }

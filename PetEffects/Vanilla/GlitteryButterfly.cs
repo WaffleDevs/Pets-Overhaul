@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -31,6 +33,20 @@ namespace PetsOverhaul.PetEffects.Vanilla
                         Player.wingTimeMax += bonusTimeIfExisting;
                 }
             }
+        }
+    }
+    sealed public class BedazzledNectar : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BedazzledNectar;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            GlitteryButterfly glitteryButterfly = ModContent.GetInstance<GlitteryButterfly>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BedazzledNectar")
+                        .Replace("<flight>", (glitteryButterfly.wingTime / 60f).ToString())
+                        .Replace("<bonusFlight>", (glitteryButterfly.bonusTimeIfExisting / 60f).ToString())
+                        .Replace("<healthNerf>", (glitteryButterfly.healthPenalty * 100).ToString())
+                        ));
         }
     }
 }

@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -26,5 +28,18 @@ namespace PetsOverhaul.PetEffects.Vanilla
         public int shieldTime = 240;
         public float dmgBoost = 1.22f;
         public int baseCounterChnc = 90;
+    }
+
+    sealed public class ResplendentDessert : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.ResplendentDessert;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            DualSlime babyOgre = ModContent.GetInstance<DualSlime>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ResplendentDessert")
+                .Replace("<approxWeak>", "10")
+            ));
+        }
     }
 }

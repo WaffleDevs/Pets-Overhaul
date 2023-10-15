@@ -4,6 +4,8 @@ using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using PetsOverhaul.Config;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -65,6 +67,22 @@ namespace PetsOverhaul.PetEffects.Vanilla
         {
             if (Pet.PetInUse(ItemID.BoneRattle))
                 timer = (int)(stage2time * (1 / (1 + Pet.abilityHaste)));
+        }
+    }
+    sealed public class BoneRattle : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BoneRattle;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BabyFaceMonster babyFaceMonster = ModContent.GetInstance<BabyFaceMonster>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BoneRattle")
+                .Replace("<stage1Time>", ((babyFaceMonster.stage2time - babyFaceMonster.stage1time) / 60f).ToString())
+                .Replace("<stage2Time>", (babyFaceMonster.stage2time / 60f).ToString())
+                .Replace("<stage1Regen>", babyFaceMonster.stage1regen.ToString())
+                .Replace("<stage2Regen>", babyFaceMonster.stage2regen.ToString())
+                .Replace("<shieldAmount>", (babyFaceMonster.stage2ShieldMult * 100).ToString())
+            ));
         }
     }
 }

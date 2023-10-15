@@ -4,6 +4,8 @@ using PetsOverhaul.Systems;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using PetsOverhaul.Config;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -22,6 +24,18 @@ namespace PetsOverhaul.PetEffects.Vanilla
                         SoundEngine.PlaySound(SoundID.Zombie78 with { PitchVariance = 1f, MaxInstances = 3 }, target.position);
                 }
             }
+        }
+    }
+    sealed public class ParrotCracker : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.ParrotCracker;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            Parrot parrot = ModContent.GetInstance<Parrot>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ParrotCracker")
+                        .Replace("<chance>", parrot.chance.ToString())
+                        ));
         }
     }
 }

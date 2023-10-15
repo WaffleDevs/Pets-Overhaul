@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 using PetsOverhaul.Config;
 using Terraria.Audio;
 using static Terraria.ID.ArmorIDs;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -29,7 +31,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
         }
     }
-    sealed public class EyeballWingCompensation : GlobalItem
+    sealed public class EyeSpring : GlobalItem
     {
         public override bool InstancePerEntity => true;
 
@@ -40,6 +42,17 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 maxAscentMultiplier *= eyeballs.ascentPenaltyMult;
             }
 
+        }
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.EyeSpring;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            EyeballSpring eyeballSpring = ModContent.GetInstance<EyeballSpring>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EyeSpring")
+                        .Replace("<jumpBoost>", (eyeballSpring.jumpBoost * 100).ToString())
+                        .Replace("<acceleration>", (eyeballSpring.acceleration * 100).ToString())
+                        .Replace("<ascNerf>", eyeballSpring.ascentPenaltyMult.ToString())
+                        ));
         }
     }
 }

@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -40,6 +42,24 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 Pet.Lifesteal(Player.statManaMax2 - Player.statMana, missingManaPercent, flatRecovery, true, false);
                 Pet.timer = Pet.timerMax;
             }
+        }
+    }
+    sealed public class EverscreamPetItem : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.EverscreamPetItem;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            EverscreamSapling everscreamSapling = ModContent.GetInstance<EverscreamSapling>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EverscreamPetItem")
+                        .Replace("<magicCritNerf>", everscreamSapling.critMult.ToString())
+                        .Replace("<maxMana>", everscreamSapling.manaIncrease.ToString())
+                        .Replace("<missingMana>", (everscreamSapling.missingManaPercent * 100).ToString())
+                        .Replace("<flatMana>", everscreamSapling.flatRecovery.ToString())
+                        .Replace("<manaRecoveryCd>", (everscreamSapling.cooldown / 60f).ToString())
+                        .Replace("<dmg>", (everscreamSapling.dmgIncr * 100).ToString())
+                        .Replace("<crit>", everscreamSapling.howMuchCrit.ToString())
+                        ));
         }
     }
 }

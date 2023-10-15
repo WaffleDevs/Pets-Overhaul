@@ -2,6 +2,8 @@
 using Terraria.ID;
 using PetsOverhaul.Systems;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -40,6 +42,22 @@ namespace PetsOverhaul.PetEffects.Vanilla
             {
                 Player.maxRunSpeed -= obbySpd * 3;
             }
+        }
+    }
+    sealed public class HellCake : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.HellCake;
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            BabyImp babyImp = ModContent.GetInstance<BabyImp>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.HellCake")
+                .Replace("<immuneTime>", (babyImp.lavaImmune / 60f).ToString())
+                .Replace("<lavaDef>", babyImp.lavaDef.ToString())
+                .Replace("<lavaSpd>", (babyImp.lavaSpd * 100).ToString())
+                .Replace("<obbyDef>", babyImp.obbyDef.ToString())
+                .Replace("<obbySpd>", (babyImp.obbySpd * 100).ToString())
+            ));
         }
     }
 }
