@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria.Localization;
 
+using PetsOverhaul.Config;
+using Terraria.GameInput;
+
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class BabyGrinch : ModPlayer
@@ -53,6 +56,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             BabyGrinch babyGrinch = Main.LocalPlayer.GetModPlayer<BabyGrinch>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BabyGrinchMischiefWhistle")
                 .Replace("<slowAmount>", (babyGrinch.grinchSlow * 100).ToString())

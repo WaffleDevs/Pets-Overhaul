@@ -7,6 +7,9 @@ using PetsOverhaul.Config;
 using System.Collections.Generic;
 using Terraria.Localization;
 
+using PetsOverhaul.Config;
+using Terraria.GameInput;
+
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class EaterOfWorms : ModPlayer
@@ -101,6 +104,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             EaterOfWorms eaterOfWorms = Main.LocalPlayer.GetModPlayer<EaterOfWorms>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EaterOfWorldsPetItem")
                        .Replace("<miningSpeed>", (eaterOfWorms.nonOreSpeed * 100).ToString())

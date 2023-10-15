@@ -13,6 +13,10 @@ using PetsOverhaul.Buffs;
 using System.IO;
 using System;
 using Terraria.Localization;
+using Terraria.GameInput;
+
+using PetsOverhaul.Config;
+using Terraria.GameInput;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -295,7 +299,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
             if (Pet.PetInUse(ItemID.JunimoPetItem) || Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem))
             {
                 int noSwapCd = Player.HasBuff(ModContent.BuffType<ObliviousPet>()) ? 1 : 2;
-                Player.endurance += junimoMiningLevel * 0.002f * noSwapCd;
+                Player.endurance += junimoMiningLevel * 0.002f * junimoInUseMultiplier;
                 Player.GetDamage<GenericDamageClass>() *= 1f + junimoFishingLevel * 0.002f * noSwapCd;
                 if (Player.statLifeMax2 * junimoHarvestingLevel * 0.0025f * junimoInUseMultiplier > junimoHarvestingLevel * noSwapCd)
                 {
@@ -451,6 +455,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             Junimo junimo = Main.LocalPlayer.GetModPlayer<Junimo>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.JunimoPetItem")
                         .Replace("<maxLvl>", junimo.maxLvls.ToString())

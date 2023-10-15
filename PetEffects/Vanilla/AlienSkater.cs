@@ -7,6 +7,9 @@ using Terraria.Localization;
 using PetsOverhaul.Config;
 using Terraria.GameInput;
 
+using PetsOverhaul.Config;
+using Terraria.GameInput;
+
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class AlienSkater : ModPlayer
@@ -48,6 +51,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down])
             {
                 AlienSkater alienSkater = Main.LocalPlayer.GetModPlayer<AlienSkater>();

@@ -8,6 +8,9 @@ using PetsOverhaul.Config;
 using System.Collections.Generic;
 using Terraria.Localization;
 
+using PetsOverhaul.Config;
+using Terraria.GameInput;
+
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class BabyHornet : ModPlayer
@@ -100,6 +103,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             BabyHornet babyHornet = Main.LocalPlayer.GetModPlayer<BabyHornet>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Nectar")
                 .Replace("<antidotePercent>", (babyHornet.healthRecovery * 100).ToString())

@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria.Localization;
 
+using PetsOverhaul.Config;
+using Terraria.GameInput;
+
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class Lizard : ModPlayer
@@ -115,6 +118,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             Lizard lizard = Main.LocalPlayer.GetModPlayer<Lizard>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.LizardEgg")
                         .Replace("<transformTime>", (lizard.transformTime / 60f).ToString())

@@ -1,12 +1,16 @@
-﻿using Terraria;
-using Terraria.ID;
-using PetsOverhaul.Systems;
-using Terraria.ModLoader;
-using Terraria.DataStructures;
+﻿using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
-using Terraria.Audio;
-using System.Collections.Generic;
+
+using PetsOverhaul.Config;
+using PetsOverhaul.Systems;
+
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameInput;
+using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -79,6 +83,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             ZephyrFish zephyrFish = Main.LocalPlayer.GetModPlayer<ZephyrFish>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ZephyrFish")
                         .Replace("<windFish>", (zephyrFish.speedMult / 8f).ToString())

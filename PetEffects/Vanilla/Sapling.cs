@@ -6,6 +6,9 @@ using Terraria.DataStructures;
 using System.Collections.Generic;
 using Terraria.Localization;
 
+using PetsOverhaul.Config;
+using Terraria.GameInput;
+
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class Sapling : ModPlayer
@@ -48,6 +51,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             Sapling sapling = Main.LocalPlayer.GetModPlayer<Sapling>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Seedling")
                         .Replace("<lifesteal>", (sapling.regularLifesteal * 100).ToString())
