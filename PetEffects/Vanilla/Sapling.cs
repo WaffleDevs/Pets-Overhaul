@@ -48,7 +48,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Sapling sapling = ModContent.GetInstance<Sapling>();
+            Sapling sapling = Main.LocalPlayer.GetModPlayer<Sapling>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Seedling")
                         .Replace("<lifesteal>", (sapling.regularLifesteal * 100).ToString())
                         .Replace("<planteraSteal>", (sapling.planteraLifesteal * 100).ToString())

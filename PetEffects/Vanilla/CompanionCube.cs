@@ -63,7 +63,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            CompanionCube companionCube = ModContent.GetInstance<CompanionCube>();
+            CompanionCube companionCube = Main.LocalPlayer.GetModPlayer<CompanionCube>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.CompanionCube")
                         .Replace("<manaToHealth>", (companionCube.manaToHealth * 100).ToString())
                         .Replace("<healthToMana>", (companionCube.healthToMana * 100).ToString())

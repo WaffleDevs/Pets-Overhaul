@@ -39,7 +39,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabyRedPanda babyRedPanda = ModContent.GetInstance<BabyRedPanda>();
+            BabyRedPanda babyRedPanda = Main.LocalPlayer.GetModPlayer<BabyRedPanda>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BambooLeaf")
                 .Replace("<atkSpd>", (babyRedPanda.regularAtkSpd * 100).ToString())
                 .Replace("<jungleAtkSpd>", (babyRedPanda.jungleBonusSpd * 100).ToString())

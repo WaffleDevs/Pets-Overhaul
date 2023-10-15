@@ -42,7 +42,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            SugarGlider sugarGlider = ModContent.GetInstance<SugarGlider>();
+            SugarGlider sugarGlider = Main.LocalPlayer.GetModPlayer<SugarGlider>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EucaluptusSap")
                         .Replace("<speed>", sugarGlider.speedMult.ToString())
                         .Replace("<acceleration>", sugarGlider.accMult.ToString())

@@ -47,7 +47,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            EyeballSpring eyeballSpring = ModContent.GetInstance<EyeballSpring>();
+            EyeballSpring eyeballSpring = Main.LocalPlayer.GetModPlayer<EyeballSpring>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EyeSpring")
                         .Replace("<jumpBoost>", (eyeballSpring.jumpBoost * 100).ToString())
                         .Replace("<acceleration>", (eyeballSpring.acceleration * 100).ToString())

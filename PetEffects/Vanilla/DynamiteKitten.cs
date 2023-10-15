@@ -37,7 +37,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            DynamiteKitten dynamiteKitten = ModContent.GetInstance<DynamiteKitten>();
+            DynamiteKitten dynamiteKitten = Main.LocalPlayer.GetModPlayer<DynamiteKitten>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BallOfFuseWire")
                         .Replace("<kb>", dynamiteKitten.kbMult.ToString())
                         .Replace("<dmg>", dynamiteKitten.damageMult.ToString())

@@ -76,7 +76,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Bernie bernie = ModContent.GetInstance<Bernie>();
+            Bernie bernie = Main.LocalPlayer.GetModPlayer<Bernie>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BerniePetItem")
                 .Replace("<burnRange>", (bernie.bernieRange / 16f).ToString())
                 .Replace("<burnDrainMana>", (bernie.burnDrain * 4 * 0.05f).ToString())

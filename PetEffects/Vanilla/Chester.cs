@@ -15,7 +15,6 @@ namespace PetsOverhaul.PetEffects.Vanilla
         public int suckingUpRange = 64;
         public override void PostUpdateEquips()
         {
-
             if (Pet.PetInUse(ItemID.ChesterPetItem))
             {
                 Player.blockRange += placementRange;
@@ -43,7 +42,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Chester chester = ModContent.GetInstance<Chester>();
+            Chester chester = Main.LocalPlayer.GetModPlayer<Chester>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ChesterPetItem")
                 .Replace("<pickupRange>", (chester.suckingUpRange / 16f).ToString())
                 .Replace("<placementRange>", chester.placementRange.ToString())

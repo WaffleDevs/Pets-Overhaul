@@ -109,7 +109,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            MiniPrime miniPrime = ModContent.GetInstance<MiniPrime>();
+            MiniPrime miniPrime = Main.LocalPlayer.GetModPlayer<MiniPrime>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SkeletronPrimePetItem")
                         .Replace("<shieldMaxHealthAmount>", (miniPrime.shieldMult * 100).ToString())
                         .Replace("<shieldCooldown>", (miniPrime.shieldRecovery / 300f).ToString())

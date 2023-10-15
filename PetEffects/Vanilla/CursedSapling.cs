@@ -53,7 +53,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            CursedSapling cursedSapling = ModContent.GetInstance<CursedSapling>();
+            CursedSapling cursedSapling = Main.LocalPlayer.GetModPlayer<CursedSapling>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.CursedSapling")
                         .Replace("<minionSlot>", cursedSapling.maxMinion.ToString())
                         .Replace("<dmg>", (cursedSapling.pumpkinWeaponDmg * 100).ToString())

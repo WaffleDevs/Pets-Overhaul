@@ -81,7 +81,7 @@ sealed public class DeerclopsPetItem : GlobalItem
 
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
     {
-        TinyDeerclops tinyDeerclops = ModContent.GetInstance<TinyDeerclops>();
+        TinyDeerclops tinyDeerclops = Main.LocalPlayer.GetModPlayer<TinyDeerclops>();
         tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DeerclopsPetItem")
                         .Replace("<treshold>", (tinyDeerclops.healthTreshold * 100).ToString())
                         .Replace("<tresholdTime>", (tinyDeerclops.damageStoreTime / 60f).ToString())

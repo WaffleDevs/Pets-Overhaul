@@ -40,7 +40,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            DirtiestBlock dirtiestBlock = ModContent.GetInstance<DirtiestBlock>();
+            DirtiestBlock dirtiestBlock = Main.LocalPlayer.GetModPlayer<DirtiestBlock>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DirtiestBlock")
                         .Replace("<any>", dirtiestBlock.everythingCoin.ToString())
                         .Replace("<soil>", dirtiestBlock.soilCoin.ToString())

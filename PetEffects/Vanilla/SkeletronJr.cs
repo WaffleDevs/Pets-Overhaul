@@ -124,7 +124,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            SkeletronJr skeletronJr = ModContent.GetInstance<SkeletronJr>();
+            SkeletronJr skeletronJr = Main.LocalPlayer.GetModPlayer<SkeletronJr>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SkeletronPetItem")
                         .Replace("<recievedMult>", (skeletronJr.playerTakenMult * 100).ToString())
                         .Replace("<recievedHowLong>", skeletronJr.playerDamageTakenSpeed.ToString())

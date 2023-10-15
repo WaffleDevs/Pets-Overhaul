@@ -115,7 +115,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabyOgre babyOgre = ModContent.GetInstance<BabyOgre>();
+            BabyOgre babyOgre = Main.LocalPlayer.GetModPlayer<BabyOgre>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DD2OgrePetItem")
                 .Replace("<moveSpdNerf>", babyOgre.movespdNerf.ToString())
                 .Replace("<atkSpdNerf>", babyOgre.atkSpdMult.ToString())

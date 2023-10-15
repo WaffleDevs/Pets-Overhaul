@@ -80,7 +80,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Hoardagron hoardagron = ModContent.GetInstance<Hoardagron>();
+            Hoardagron hoardagron = Main.LocalPlayer.GetModPlayer<Hoardagron>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DD2PetDragon")
                         .Replace("<arrowVelo>", hoardagron.arrowSpd.ToString())
                         .Replace("<arrowPierce>", hoardagron.arrowPen.ToString())

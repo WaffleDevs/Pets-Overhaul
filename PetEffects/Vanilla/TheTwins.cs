@@ -60,7 +60,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            TheTwins theTwins = ModContent.GetInstance<TheTwins>();
+            TheTwins theTwins = Main.LocalPlayer.GetModPlayer<TheTwins>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.TwinsPetItem")
                         .Replace("<closeRange>", (theTwins.closeRange / 16f).ToString())
                         .Replace("<cursedTime>", (theTwins.infernoTime / 60f).ToString())

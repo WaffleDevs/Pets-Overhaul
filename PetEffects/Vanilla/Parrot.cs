@@ -32,7 +32,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Parrot parrot = ModContent.GetInstance<Parrot>();
+            Parrot parrot = Main.LocalPlayer.GetModPlayer<Parrot>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ParrotCracker")
                         .Replace("<chance>", parrot.chance.ToString())
                         ));

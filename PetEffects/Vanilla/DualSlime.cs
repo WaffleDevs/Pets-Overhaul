@@ -36,7 +36,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            DualSlime babyOgre = ModContent.GetInstance<DualSlime>();
+            DualSlime babyOgre = Main.LocalPlayer.GetModPlayer<DualSlime>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ResplendentDessert")
                 .Replace("<approxWeak>", "10")
             ));

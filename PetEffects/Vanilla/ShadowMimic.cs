@@ -51,7 +51,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            ShadowMimic shadowMimic = ModContent.GetInstance<ShadowMimic>();
+            ShadowMimic shadowMimic = Main.LocalPlayer.GetModPlayer<ShadowMimic>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.OrnateShadowKey")
                         .Replace("<npcCoin>", shadowMimic.npcCoin.ToString())
                         .Replace("<npcItem>", shadowMimic.npcItem.ToString())

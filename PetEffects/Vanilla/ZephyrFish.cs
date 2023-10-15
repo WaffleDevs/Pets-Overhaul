@@ -79,7 +79,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            ZephyrFish zephyrFish = ModContent.GetInstance<ZephyrFish>();
+            ZephyrFish zephyrFish = Main.LocalPlayer.GetModPlayer<ZephyrFish>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ZephyrFish")
                         .Replace("<windFish>", (zephyrFish.speedMult / 8f).ToString())
                         .Replace("<regularChance>", zephyrFish.baseChance.ToString())

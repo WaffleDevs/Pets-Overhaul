@@ -110,7 +110,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            IceQueen iceQueen = ModContent.GetInstance<IceQueen>();
+            IceQueen iceQueen = Main.LocalPlayer.GetModPlayer<IceQueen>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.IceQueenPetItem")
                         .Replace("<frozenTombTime>", (iceQueen.tombTime / 60f).ToString())
                         .Replace("<range>", (iceQueen.queenRange / 16f).ToString())

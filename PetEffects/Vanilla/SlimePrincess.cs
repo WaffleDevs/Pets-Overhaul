@@ -68,7 +68,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            SlimePrincess slimePrincess = ModContent.GetInstance<SlimePrincess>();
+            SlimePrincess slimePrincess = Main.LocalPlayer.GetModPlayer<SlimePrincess>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.QueenSlimePetItem")
                         .Replace("<slow>", (slimePrincess.slow * 100).ToString())
                         .Replace("<haste>", (slimePrincess.haste * 100).ToString())

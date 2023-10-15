@@ -68,7 +68,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            TikiSpirit tikiSpirit = ModContent.GetInstance<TikiSpirit>();
+            TikiSpirit tikiSpirit = Main.LocalPlayer.GetModPlayer<TikiSpirit>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.TikiTotem")
                        .Replace("<atkSpdToDmg>", (tikiSpirit.atkSpdToDmgConversion * 100).ToString())
                        .Replace("<atkSpdToRange>", (tikiSpirit.atkSpdToRangeConversion * 100).ToString())

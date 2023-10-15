@@ -88,7 +88,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            MiniMinotaur miniMinotaur = ModContent.GetInstance<MiniMinotaur>();
+            MiniMinotaur miniMinotaur = Main.LocalPlayer.GetModPlayer<MiniMinotaur>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.TartarSauce")
                         .Replace("<cooldown>", (miniMinotaur.minotaurCd / 60f).ToString())
                         .Replace("<maxStack>", miniMinotaur.maxStack.ToString())

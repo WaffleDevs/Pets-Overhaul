@@ -120,7 +120,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Spider spider = ModContent.GetInstance<Spider>();
+            Spider spider = Main.LocalPlayer.GetModPlayer<Spider>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SpiderEgg")
                         .Replace("<poisonTime>", (spider.poisonTime / 60f).ToString())
                         .Replace("<poiPerc>", spider.poisonDmgMult.ToString())

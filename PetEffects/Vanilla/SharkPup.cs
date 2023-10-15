@@ -54,7 +54,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            SharkPup sharkPup = ModContent.GetInstance<SharkPup>();
+            SharkPup sharkPup = Main.LocalPlayer.GetModPlayer<SharkPup>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SharkBait")
                         .Replace("<fishingPower>", sharkPup.fishingPow.ToString())
                         .Replace("<seaCreatureDmg>", sharkPup.seaCreatureDamage.ToString())

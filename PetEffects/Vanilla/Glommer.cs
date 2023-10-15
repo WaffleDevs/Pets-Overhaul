@@ -47,7 +47,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Glommer glommer = ModContent.GetInstance<Glommer>();
+            Glommer glommer = Main.LocalPlayer.GetModPlayer<Glommer>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.GlommerPetItem")
                         .Replace("<sanityAmount>", (glommer.glommerSanityAura * 100).ToString())
                         .Replace("<sanityRange>", (glommer.glommerSanityRange / 16f).ToString())

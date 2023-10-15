@@ -50,7 +50,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            VoltBunny voltBunny = ModContent.GetInstance<VoltBunny>();
+            VoltBunny voltBunny = Main.LocalPlayer.GetModPlayer<VoltBunny>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.LightningCarrot")
                        .Replace("<flatSpd>", (voltBunny.movespdFlat * 100).ToString())
                        .Replace("<multSpd>", voltBunny.movespdMult.ToString())

@@ -75,7 +75,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabyFaceMonster babyFaceMonster = ModContent.GetInstance<BabyFaceMonster>();
+            BabyFaceMonster babyFaceMonster = Main.LocalPlayer.GetModPlayer<BabyFaceMonster>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BoneRattle")
                 .Replace("<stage1Time>", ((babyFaceMonster.stage2time - babyFaceMonster.stage1time) / 60f).ToString())
                 .Replace("<stage2Time>", (babyFaceMonster.stage2time / 60f).ToString())

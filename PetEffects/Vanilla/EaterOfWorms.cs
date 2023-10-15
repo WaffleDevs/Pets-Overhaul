@@ -101,7 +101,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            EaterOfWorms eaterOfWorms = ModContent.GetInstance<EaterOfWorms>();
+            EaterOfWorms eaterOfWorms = Main.LocalPlayer.GetModPlayer<EaterOfWorms>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EaterOfWorldsPetItem")
                        .Replace("<miningSpeed>", (eaterOfWorms.nonOreSpeed * 100).ToString())
                        .Replace("<multipleBreakChance>", eaterOfWorms.tileBreakSpreadChance.ToString())

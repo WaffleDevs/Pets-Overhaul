@@ -61,7 +61,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabyWerewolf babyWerewolf = ModContent.GetInstance<BabyWerewolf>();
+            BabyWerewolf babyWerewolf = Main.LocalPlayer.GetModPlayer<BabyWerewolf>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.FullMoonSqueakyToy")
                 .Replace("<critMult>", babyWerewolf.critChance.ToString())
                 .Replace("<crDmgReduction>", (babyWerewolf.critDmgReduction * 100).ToString())

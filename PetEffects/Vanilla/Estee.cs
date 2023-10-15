@@ -49,7 +49,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Estee estee = ModContent.GetInstance<Estee>();
+            Estee estee = Main.LocalPlayer.GetModPlayer<Estee>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.CelestialWand")
                         .Replace("<maxMana>", (estee.manaIncrease * 100).ToString())
                         .Replace("<dmgPenalty>", estee.penaltyMult.ToString())

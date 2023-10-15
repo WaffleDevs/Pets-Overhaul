@@ -49,7 +49,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Puppy puppy = ModContent.GetInstance<Puppy>();
+            Puppy puppy = Main.LocalPlayer.GetModPlayer<Puppy>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DogWhistle")
                 .Replace("<critter>", puppy.catchChance.ToString())
                 .Replace("<rareCritter>", puppy.rareCatchChance.ToString())

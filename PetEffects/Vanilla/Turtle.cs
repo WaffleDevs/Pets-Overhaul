@@ -46,7 +46,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Turtle turtle = ModContent.GetInstance<Turtle>();
+            Turtle turtle = Main.LocalPlayer.GetModPlayer<Turtle>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Seaweed")
             .Replace("<def>", turtle.def.ToString())
                         .Replace("<kbResist>", (1 - turtle.kbResist).ToString())

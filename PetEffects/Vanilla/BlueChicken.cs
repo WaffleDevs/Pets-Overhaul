@@ -150,7 +150,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BlueChicken blueChicken = ModContent.GetInstance<BlueChicken>();
+            BlueChicken blueChicken = Main.LocalPlayer.GetModPlayer<BlueChicken>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BlueEgg")
                 .Replace("<plantChance>", blueChicken.plantChance.ToString())
                 .Replace("<rarePlantChance>", blueChicken.rarePlantChance.ToString())

@@ -64,7 +64,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Plantero plantero = ModContent.GetInstance<Plantero>();
+            Plantero plantero = Main.LocalPlayer.GetModPlayer<Plantero>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.MudBud")
                         .Replace("<chance>", plantero.spawnChance.ToString())
                         .Replace("<dmg>", plantero.damageMult.ToString())

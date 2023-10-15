@@ -62,7 +62,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BlackCat blackCat = ModContent.GetInstance<BlackCat>();
+            BlackCat blackCat = Main.LocalPlayer.GetModPlayer<BlackCat>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.UnluckyYarn")
                 .Replace("<flatLuck>", blackCat.luckFlat.ToString())
                 .Replace("<minimumMoon>", blackCat.luckMoonLowest.ToString())

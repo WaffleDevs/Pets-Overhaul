@@ -48,7 +48,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
         {
             if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down])
             {
-                AlienSkater alienSkater = ModContent.GetInstance<AlienSkater>();
+                AlienSkater alienSkater = Main.LocalPlayer.GetModPlayer<AlienSkater>();
                 tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.MartianPetItem")
                     .Replace("<wingMult>", alienSkater.wingTime.ToString())
                     .Replace("<acc>", (alienSkater.accelerator * 100).ToString())

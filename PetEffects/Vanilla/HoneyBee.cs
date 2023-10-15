@@ -89,7 +89,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            HoneyBee honeyBee = ModContent.GetInstance<HoneyBee>();
+            HoneyBee honeyBee = Main.LocalPlayer.GetModPlayer<HoneyBee>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.QueenBeePetItem")
                        .Replace("<extraHeal>", (honeyBee.selfPotionIncrease * 100).ToString())
                        .Replace("<range>", (honeyBee.range / 16f).ToString())

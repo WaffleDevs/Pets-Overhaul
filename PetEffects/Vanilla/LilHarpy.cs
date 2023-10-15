@@ -63,7 +63,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            LilHarpy lilHarpy = ModContent.GetInstance<LilHarpy>();
+            LilHarpy lilHarpy = Main.LocalPlayer.GetModPlayer<LilHarpy>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BirdieRattle")
                         .Replace("<flightTime>", (lilHarpy.fuelMax / 60f).ToString())
                         .Replace("<cooldown>", (lilHarpy.harpyCd / 60f).ToString())

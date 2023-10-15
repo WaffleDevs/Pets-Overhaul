@@ -38,7 +38,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            FennecFox fennecFox = ModContent.GetInstance<FennecFox>();
+            FennecFox fennecFox = Main.LocalPlayer.GetModPlayer<FennecFox>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ExoticEasternChewToy")
                         .Replace("<meleeSpd>", (fennecFox.meleeSpdIncrease * 100).ToString())
                         .Replace("<moveSpd>", (fennecFox.speedIncrease * 100).ToString())

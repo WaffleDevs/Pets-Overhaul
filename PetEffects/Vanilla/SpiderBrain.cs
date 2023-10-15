@@ -53,7 +53,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            SpiderBrain spiderBrain = ModContent.GetInstance<SpiderBrain>();
+            SpiderBrain spiderBrain = Main.LocalPlayer.GetModPlayer<SpiderBrain>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BrainOfCthulhuPetItem")
                         .Replace("<lifesteal>", (spiderBrain.lifestealAmount * 100).ToString())
                         .Replace("<maxPool>", (spiderBrain.lifePoolMaxPerc * 100).ToString())

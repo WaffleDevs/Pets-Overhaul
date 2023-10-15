@@ -50,7 +50,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            EverscreamSapling everscreamSapling = ModContent.GetInstance<EverscreamSapling>();
+            EverscreamSapling everscreamSapling = Main.LocalPlayer.GetModPlayer<EverscreamSapling>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EverscreamPetItem")
                         .Replace("<magicCritNerf>", everscreamSapling.critMult.ToString())
                         .Replace("<maxMana>", everscreamSapling.manaIncrease.ToString())

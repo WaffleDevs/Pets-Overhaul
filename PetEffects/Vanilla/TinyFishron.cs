@@ -59,7 +59,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            TinyFishron tinyFishron = ModContent.GetInstance<TinyFishron>();
+            TinyFishron tinyFishron = Main.LocalPlayer.GetModPlayer<TinyFishron>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DukeFishronPetItem")
                         .Replace("<baseMult>", tinyFishron.fishingPowerPenalty.ToString())
                         .Replace("<anglerFishingPower>", tinyFishron.fpPerQuest.ToString())

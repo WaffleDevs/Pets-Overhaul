@@ -30,7 +30,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Squashling squashling = ModContent.GetInstance<Squashling>();
+            Squashling squashling = Main.LocalPlayer.GetModPlayer<Squashling>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.MagicalPumpkinSeed")
                         .Replace("<plant>", squashling.squashlingCommonChance.ToString())
                         .Replace("<rarePlant>", squashling.squashlingRareChance.ToString())

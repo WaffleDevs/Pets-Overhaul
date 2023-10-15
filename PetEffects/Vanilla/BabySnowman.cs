@@ -37,7 +37,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabySnowman babySnowman = ModContent.GetInstance<BabySnowman>();
+            BabySnowman babySnowman = Main.LocalPlayer.GetModPlayer<BabySnowman>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.ToySled")
                 .Replace("<frostburnTime>", (babySnowman.frostburnTime / 60f).ToString())
                 .Replace("<slowAmount>", (babySnowman.snowmanSlow * 100).ToString())

@@ -100,7 +100,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabyHornet babyHornet = ModContent.GetInstance<BabyHornet>();
+            BabyHornet babyHornet = Main.LocalPlayer.GetModPlayer<BabyHornet>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Nectar")
                 .Replace("<antidotePercent>", (babyHornet.healthRecovery * 100).ToString())
                 .Replace("<antidoteCd>", (babyHornet.nectarCooldown / 60f).ToString())

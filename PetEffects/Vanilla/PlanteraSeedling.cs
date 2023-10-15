@@ -28,7 +28,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            PlanteraSeedling planteraSeedling = ModContent.GetInstance<PlanteraSeedling>();
+            PlanteraSeedling planteraSeedling = Main.LocalPlayer.GetModPlayer<PlanteraSeedling>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.PlanteraPetItem")
                         .Replace("<maxAmount>", (planteraSeedling.secondMultiplier * 100 + 100).ToString())
                         ));

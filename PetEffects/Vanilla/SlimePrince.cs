@@ -165,7 +165,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            SlimePrince slimePrince = ModContent.GetInstance<SlimePrince>();
+            SlimePrince slimePrince = Main.LocalPlayer.GetModPlayer<SlimePrince>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.KingSlimePetItem")
                         .Replace("<burnHp>", (slimePrince.healthDmg * 100).ToString())
                         .Replace("<burnCap>", slimePrince.burnCap.ToString())

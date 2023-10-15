@@ -373,8 +373,8 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 Velocity = new Vector2(Main.rand.NextFloat(-3, 3), Main.rand.NextFloat(-15, -10))
             };
 
-            bool notificationOff = ModContent.GetInstance<Personalization>().JunimoNotifOff;
-            bool soundOff = ModContent.GetInstance<Personalization>().AbilitySoundDisabled;
+            bool notificationOff = Main.LocalPlayer.GetModPlayer<Personalization>().JunimoNotifOff;
+            bool soundOff = Main.LocalPlayer.GetModPlayer<Personalization>().AbilitySoundDisabled;
 
             if (junimoHarvestingExp >= junimoHarvestingLevelsToXp[junimoHarvestingLevel] && junimoHarvestingLevel != maxLvls)
             {
@@ -451,7 +451,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Junimo junimo = ModContent.GetInstance<Junimo>();
+            Junimo junimo = Main.LocalPlayer.GetModPlayer<Junimo>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.JunimoPetItem")
                         .Replace("<maxLvl>", junimo.maxLvls.ToString())
                         .Replace("<harvestingProfit>", (2.5f * junimo.junimoInUseMultiplier * junimo.junimoHarvestingLevel).ToString())

@@ -43,7 +43,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Spiffo spiffo = ModContent.GetInstance<Spiffo>();
+            Spiffo spiffo = Main.LocalPlayer.GetModPlayer<Spiffo>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SpiffoPlush")
                         .Replace("<ammoReserve>", spiffo.ammoReserveChance.ToString())
                         .Replace("<armorPen>", spiffo.zombieArmorPen.ToString())

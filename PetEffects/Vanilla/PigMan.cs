@@ -52,7 +52,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Pigman pigman = ModContent.GetInstance<Pigman>();
+            Pigman pigman = Main.LocalPlayer.GetModPlayer<Pigman>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.PigPetItem")
                        .Replace("<foodChance>", pigman.foodChance.ToString())
                        .Replace("<potionChance>", pigman.potionChance.ToString())

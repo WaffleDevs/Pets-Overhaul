@@ -140,7 +140,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            PhantasmalDragon phantasmalDragon = ModContent.GetInstance<PhantasmalDragon>();
+            PhantasmalDragon phantasmalDragon = Main.LocalPlayer.GetModPlayer<PhantasmalDragon>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.LunaticCultistPetItem")
                        .Replace("<cooldown>", (phantasmalDragon.phantasmDragonCooldown / 60f).ToString())
                        .Replace("<icePierce>", phantasmalDragon.icePierce.ToString())

@@ -70,7 +70,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Moonling moonling = ModContent.GetInstance<Moonling>();
+            Moonling moonling = Main.LocalPlayer.GetModPlayer<Moonling>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.MoonLordPetItem")
                         .Replace("<sumRange>", (moonling.sumWhipRng * 100).ToString())
                         .Replace("<sumSpd>", (moonling.sumWhipSpd * 100).ToString())

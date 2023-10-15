@@ -38,7 +38,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabyEater babyEater = ModContent.GetInstance<BabyEater>();
+            BabyEater babyEater = Main.LocalPlayer.GetModPlayer<BabyEater>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EatersBone")
                 .Replace("<moveSpd>", (babyEater.moveSpd * 100).ToString())
                 .Replace("<jumpSpd>", (babyEater.jumpSpd * 100).ToString())

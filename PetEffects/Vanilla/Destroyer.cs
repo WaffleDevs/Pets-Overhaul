@@ -40,7 +40,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Destroyer destroyer = ModContent.GetInstance<Destroyer>();
+            Destroyer destroyer = Main.LocalPlayer.GetModPlayer<Destroyer>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DestroyerPetItem")
                         .Replace("<defMultChance>", (destroyer.defItemMult * 100).ToString())
                         .Replace("<flatAmount>", destroyer.flatAmount.ToString())

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using PetsOverhaul.PetEffects.Vanilla;
+
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -84,6 +86,80 @@ namespace PetsOverhaul.Systems
             {"ResplendentDessert", ItemID.ResplendentDessert},
             {"Carrot", ItemID.Carrot}
         };
+
+        public Dictionary<string, int> PetTypeNameToPetItemId = new Dictionary<string, int>
+        {
+            {"Turtle", ItemID.Seaweed},
+            {"BabyDinosaur", ItemID.AmberMosquito},
+            {"BabyEater", ItemID.EatersBone},
+            {"BabyFaceMonster", ItemID.BoneRattle},
+            {"BabyGrinch", ItemID.BabyGrinchMischiefWhistle},
+            {"BabyHornet", ItemID.Nectar},
+            {"BabyImp", ItemID.HellCake},
+            {"BabyPenguin", ItemID.Fish},
+            {"BabyRedPanda", ItemID.BambooLeaf},
+            {"DungeonGuardian", ItemID.BoneKey},
+            {"BabySnowman", ItemID.ToySled},
+            {"BabyTruffle", ItemID.StrangeGlowingMushroom},
+            {"BabyWerewolf", ItemID.FullMoonSqueakyToy},
+            {"Bernie", ItemID.BerniePetItem},
+            {"BlackCat", ItemID.UnluckyYarn},
+            {"BlueChicken", ItemID.BlueEgg},
+            {"CavelingGardener", ItemID.GlowTulip},
+            {"Chester", ItemID.ChesterPetItem},
+            {"CompanionCube", ItemID.CompanionCube},
+            {"CursedSapling", ItemID.CursedSapling},
+            {"DirtiestBlock", ItemID.DirtiestBlock},
+            {"DynamiteKitten", ItemID.BallOfFuseWire},
+            {"Estee", ItemID.CelestialWand},
+            {"EyeballSpring", ItemID.EyeSpring},
+            {"FennecFox", ItemID.ExoticEasternChewToy},
+            {"GlitteryButterfly", ItemID.BedazzledNectar},
+            {"Glommer", ItemID.GlommerPetItem},
+            {"Hoardagron", ItemID.DD2PetDragon},
+            {"Junimo", ItemID.JunimoPetItem},
+            {"LilHarpy", ItemID.BirdieRattle},
+            {"Lizard", ItemID.LizardEgg},
+            {"MiniMinotaur", ItemID.TartarSauce},
+            {"Parrot", ItemID.ParrotCracker},
+            {"Pigman", ItemID.PigPetItem},
+            {"Plantero", ItemID.MudBud},
+            {"PropellerGato", ItemID.DD2PetGato},
+            {"Puppy", ItemID.DogWhistle},
+            {"Sapling", ItemID.Seedling},
+            {"Spider", ItemID.SpiderEgg},
+            {"ShadowMimic", ItemID.OrnateShadowKey},
+            {"SharkPup", ItemID.SharkBait},
+            {"Spiffo", ItemID.SpiffoPlush},
+            {"Squashling", ItemID.MagicalPumpkinSeed},
+            {"SugarGlider", ItemID.EucaluptusSap},
+            {"TikiSpirit", ItemID.TikiTotem},
+            {"VoltBunny", ItemID.LightningCarrot},
+            {"ZephyrFish", ItemID.ZephyrFish},
+            {"SuspiciousEye", ItemID.EyeOfCthulhuPetItem},
+            {"SpiderBrain", ItemID.BrainOfCthulhuPetItem},
+            {"EaterOfWorms", ItemID.EaterOfWorldsPetItem},
+            {"SlimePrince", ItemID.KingSlimePetItem},
+            {"HoneyBee", ItemID.QueenBeePetItem},
+            {"TinyDeerclops", ItemID.DeerclopsPetItem},
+            {"SkeletronJr", ItemID.SkeletronPetItem},
+            {"SlimePrincess", ItemID.QueenSlimePetItem},
+            {"MiniPrime", ItemID.SkeletronPrimePetItem},
+            {"Destroyer", ItemID.DestroyerPetItem},
+            {"TheTwins", ItemID.TwinsPetItem},
+            {"EverscreamSapling", ItemID.EverscreamPetItem},
+            {"AlienSkater", ItemID.MartianPetItem},
+            {"BabyOgre", ItemID.DD2OgrePetItem},
+            {"TinyFishron", ItemID.DukeFishronPetItem},
+            {"PhantasmalDragon", ItemID.LunaticCultistPetItem},
+            {"ItsyBetsy", ItemID.DD2BetsyPetItem},
+            {"IceQueen", ItemID.IceQueenPetItem},
+            {"PlanteraSeedling", ItemID.PlanteraPetItem},
+            {"Moonling", ItemID.MoonLordPetItem},
+            {"DualSlime", ItemID.ResplendentDessert},
+            {"CarrotBunny", ItemID.Carrot},
+        };
+
         public Dictionary<int, SoundStyle[]> PetItemIdToHurtSound = new Dictionary<int, SoundStyle[]>() {
             {
                 ItemID.Seaweed,

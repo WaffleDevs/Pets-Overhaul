@@ -41,7 +41,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            GlitteryButterfly glitteryButterfly = ModContent.GetInstance<GlitteryButterfly>();
+            GlitteryButterfly glitteryButterfly = Main.LocalPlayer.GetModPlayer<GlitteryButterfly>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BedazzledNectar")
                         .Replace("<flight>", (glitteryButterfly.wingTime / 60f).ToString())
                         .Replace("<bonusFlight>", (glitteryButterfly.bonusTimeIfExisting / 60f).ToString())

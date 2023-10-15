@@ -115,7 +115,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Lizard lizard = ModContent.GetInstance<Lizard>();
+            Lizard lizard = Main.LocalPlayer.GetModPlayer<Lizard>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.LizardEgg")
                         .Replace("<transformTime>", (lizard.transformTime / 60f).ToString())
                         .Replace("<hitCount>", lizard.maxSteroidCount.ToString())

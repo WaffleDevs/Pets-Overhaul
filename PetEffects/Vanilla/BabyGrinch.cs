@@ -53,7 +53,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabyGrinch babyGrinch = ModContent.GetInstance<BabyGrinch>();
+            BabyGrinch babyGrinch = Main.LocalPlayer.GetModPlayer<BabyGrinch>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BabyGrinchMischiefWhistle")
                 .Replace("<slowAmount>", (babyGrinch.grinchSlow * 100).ToString())
                 .Replace("<slowRange>", (babyGrinch.grinchRange / 16f).ToString())

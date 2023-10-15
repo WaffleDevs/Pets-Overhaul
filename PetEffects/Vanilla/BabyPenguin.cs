@@ -60,7 +60,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabyPenguin babyPenguin = ModContent.GetInstance<BabyPenguin>();
+            BabyPenguin babyPenguin = Main.LocalPlayer.GetModPlayer<BabyPenguin>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Fish")
                 .Replace("<fp>", babyPenguin.regularFish.ToString())
                 .Replace("<oceanFp>", babyPenguin.oceanFish.ToString())

@@ -47,7 +47,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            ItsyBetsy itsyBetsy = ModContent.GetInstance<ItsyBetsy>();
+            ItsyBetsy itsyBetsy = Main.LocalPlayer.GetModPlayer<ItsyBetsy>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DD2BetsyPetItem")
                         .Replace("<debuffTime>", (itsyBetsy.debuffTime / 60f).ToString())
                         .Replace("<defDecrease>", (itsyBetsy.defReduction * 100).ToString())

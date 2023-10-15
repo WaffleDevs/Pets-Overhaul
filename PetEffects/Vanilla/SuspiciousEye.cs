@@ -82,7 +82,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            SuspiciousEye suspiciousEye = ModContent.GetInstance<SuspiciousEye>();
+            SuspiciousEye suspiciousEye = Main.LocalPlayer.GetModPlayer<SuspiciousEye>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EyeOfCthulhuPetItem")
                         .Replace("<defToDmg>", (suspiciousEye.dmgMult * 100).ToString())
                         .Replace("<defToSpd>", (suspiciousEye.spdMult * 100).ToString())

@@ -82,7 +82,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabyTruffle babyTruffle = ModContent.GetInstance<BabyTruffle>();
+            BabyTruffle babyTruffle = Main.LocalPlayer.GetModPlayer<BabyTruffle>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.StrangeGlowingMushroom")
                 .Replace("<buffRecover>", (babyTruffle.buffIncrease / 60f).ToString())
                 .Replace("<cooldown>", (babyTruffle.shroomPotionCd / 60f).ToString())

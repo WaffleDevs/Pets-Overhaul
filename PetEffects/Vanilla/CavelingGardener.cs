@@ -39,7 +39,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            CavelingGardener cavelingGardener = ModContent.GetInstance<CavelingGardener>();
+            CavelingGardener cavelingGardener = Main.LocalPlayer.GetModPlayer<CavelingGardener>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.GlowTulip")
                 .Replace("<harvestChance>", cavelingGardener.cavelingRegularPlantChance.ToString())
                 .Replace("<rarePlantChance>", cavelingGardener.cavelingRarePlantChance.ToString())

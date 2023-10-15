@@ -45,7 +45,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            PropellerGato propellerGato = ModContent.GetInstance<PropellerGato>();
+            PropellerGato propellerGato = Main.LocalPlayer.GetModPlayer<PropellerGato>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DD2PetGato")
                         .Replace("<crit>", propellerGato.bonusCritChance.ToString())
                         .Replace("<maxSentry>", propellerGato.turretIncrease.ToString())

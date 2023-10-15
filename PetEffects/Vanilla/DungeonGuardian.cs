@@ -46,7 +46,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            DungeonGuardian dungeonGuardian = ModContent.GetInstance<DungeonGuardian>();
+            DungeonGuardian dungeonGuardian = Main.LocalPlayer.GetModPlayer<DungeonGuardian>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.BoneKey")
                         .Replace("<armorPen>", dungeonGuardian.armorPen.ToString())
                         .Replace("<dungArmorPen>", dungeonGuardian.dungArmorPenBonus.ToString())

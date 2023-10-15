@@ -52,7 +52,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            BabyDinosaur babyDinosaur = ModContent.GetInstance<BabyDinosaur>();
+            BabyDinosaur babyDinosaur = Main.LocalPlayer.GetModPlayer<BabyDinosaur>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.AmberMosquito")
                 .Replace("<oreChance>", (babyDinosaur.chance / 10f).ToString())
             ));

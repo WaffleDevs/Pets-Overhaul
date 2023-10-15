@@ -48,7 +48,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            CarrotBunny carrotBunny = ModContent.GetInstance<CarrotBunny>();
+            CarrotBunny carrotBunny = Main.LocalPlayer.GetModPlayer<CarrotBunny>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.Carrot")
                 .Replace("<moveSpeed>", (carrotBunny.spdPerStk * 100).ToString())
                 .Replace("<jumpSpeed>", (carrotBunny.jumpPerStk * 100).ToString())
