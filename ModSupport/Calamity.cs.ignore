@@ -1,0 +1,27 @@
+using System.Collections.Generic;
+using Terraria.ModLoader;
+
+namespace PetsOverhaul.ModSupport
+{
+    public class CalamitySupport : ModSupport
+    {
+
+        public new string InternalModName = "Calamity";
+        // public new string[] InternalModdedItemNames = new string[]
+        // {
+        //     // Implement
+        // };
+        // public new Dictionary<int, int[]> MiningXpPerModdedBlock = new Dictionary<int, int[]>
+        // {
+        //     // Implement
+        // };
+        // public new Dictionary<int, int[]> FishingXpPerModdedFish = new Dictionary<int, int[]>
+        // {
+        //     // Implement
+        // };
+        // public new Dictionary<int, int[]> FishingXpPerModdedKill = new Dictionary<int, int[]>
+        // {
+        //     // Implement
+        // };
+    }
+}
