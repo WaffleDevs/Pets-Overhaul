@@ -295,7 +295,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
             if (Pet.PetInUse(ItemID.JunimoPetItem) || Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem))
             {
                 int noSwapCd = Player.HasBuff(ModContent.BuffType<ObliviousPet>()) ? 1 : 2;
-                Player.endurance += junimoMiningLevel * 0.002f * junimoInUseMultiplier;
+                Player.endurance += junimoMiningLevel * 0.002f * noSwapCd;
                 Player.GetDamage<GenericDamageClass>() *= 1f + junimoFishingLevel * 0.002f * noSwapCd;
                 if (Player.statLifeMax2 * junimoHarvestingLevel * 0.0025f * junimoInUseMultiplier > junimoHarvestingLevel * noSwapCd)
                 {
@@ -373,8 +373,8 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 Velocity = new Vector2(Main.rand.NextFloat(-3, 3), Main.rand.NextFloat(-15, -10))
             };
 
-            bool notificationOff = Main.LocalPlayer.GetModPlayer<Personalization>().JunimoNotifOff;
-            bool soundOff = Main.LocalPlayer.GetModPlayer<Personalization>().AbilitySoundDisabled;
+            bool notificationOff = ModContent.GetInstance<Personalization>().JunimoNotifOff;
+            bool soundOff = ModContent.GetInstance<Personalization>().AbilitySoundDisabled;
 
             if (junimoHarvestingExp >= junimoHarvestingLevelsToXp[junimoHarvestingLevel] && junimoHarvestingLevel != maxLvls)
             {
