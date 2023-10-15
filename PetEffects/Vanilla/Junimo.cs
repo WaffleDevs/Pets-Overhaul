@@ -17,6 +17,7 @@ using Terraria.GameInput;
 
 using PetsOverhaul.Config;
 using Terraria.GameInput;
+using Microsoft.Xna.Framework.Input;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -124,20 +125,38 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public int junimoInUseMultiplier = 1;
         public bool anglerQuestDayCheck = false;
+        public Dictionary<int, int[]> MiningXpPerBlock = new Dictionary<int, int[]>
+        {
+            {1, new int[]{ ItemID.Obsidian, ItemID.SiltBlock, ItemID.SlushBlock, ItemID.DesertFossil } },
+            {2, new int[]{ ItemID.CopperOre, ItemID.TinOre } },
+            {3, new int[]{ ItemID.IronOre, ItemID.LeadOre, ItemID.Amethyst } },
+            {4, new int[]{ ItemID.SilverOre, ItemID.TungstenOre, ItemID.Topaz, ItemID.Sapphire, ItemID.Meteorite } },
+            {5, new int[]{ ItemID.GoldOre, ItemID.PlatinumOre, ItemID.Emerald, ItemID.Ruby, ItemID.Hellstone } },
+            {6, new int[]{ ItemID.CrimtaneOre, ItemID.DemoniteOre, ItemID.Diamond, ItemID.Amber } },
+            {8, new int[]{ ItemID.CobaltOre, ItemID.PalladiumOre } },
+            {10, new int[]{ ItemID.MythrilOre, ItemID.OrichalcumOre } },
+            {12, new int[]{ ItemID.AdamantiteOre, ItemID.TitaniumOre } },
+            {13, new int[]{ ItemID.ChlorophyteOre, ItemID.LunarOre } }
+        };
 
+        public Dictionary<int, int[]> FishingXpPerKill = new Dictionary<int, int[]>
+        {
+            {15, new int[]{ NPCID.EyeballFlyingFish, NPCID.ZombieMerman } },
+            {30, new int[]{ NPCID.GoblinShark, NPCID.BloodEelBody, NPCID.BloodEelTail, NPCID.BloodEelHead } },
+            {50, new int[]{ NPCID.BloodNautilus } }
+        };
+
+        public Dictionary<int, int[]> FishingXpPerFish = new Dictionary<int, int[]>
+        {
+            {0, new int[]{ ItemID.FishingSeaweed, ItemID.OldShoe, ItemID.TinCan } },
+            {2, new int[]{ ItemID.BlueJellyfish, ItemID.GreenJellyfish, ItemID.PinkJellyfish, ItemID.Obsidifish, ItemID.Prismite, ItemID.Stinkfish, ItemID.ArmoredCavefish, ItemID.Damselfish, ItemID.DoubleCod, ItemID.Ebonkoi, ItemID.FrostMinnow, ItemID.Hemopiranha, ItemID.Honeyfin, ItemID.PrincessFish, ItemID.Shrimp, ItemID.VariegatedLardfish } },
+            {4, new int[]{ ItemID.ChaosFish, ItemID.FlarefinKoi } },
+            {6, new int[]{ ItemID.GoldenCarp } }
+        };
         public bool[] fish4 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.ChaosFish, ItemID.FlarefinKoi);
         public bool[] fish2 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.BlueJellyfish, ItemID.GreenJellyfish, ItemID.PinkJellyfish, ItemID.Obsidifish, ItemID.Prismite, ItemID.Stinkfish, ItemID.ArmoredCavefish, ItemID.Damselfish, ItemID.DoubleCod, ItemID.Ebonkoi, ItemID.FrostMinnow, ItemID.Hemopiranha, ItemID.Honeyfin, ItemID.PrincessFish, ItemID.Shrimp, ItemID.VariegatedLardfish);
         public bool[] fish0 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.FishingSeaweed, ItemID.OldShoe, ItemID.TinCan);
-        public bool[] mining1 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.Obsidian, ItemID.SiltBlock, ItemID.SlushBlock, ItemID.DesertFossil);
-        public bool[] mining2 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.CopperOre, ItemID.TinOre);
-        public bool[] mining3 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.IronOre, ItemID.LeadOre, ItemID.Amethyst);
-        public bool[] mining4 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.SilverOre, ItemID.TungstenOre, ItemID.Topaz, ItemID.Sapphire, ItemID.Meteorite);
-        public bool[] mining5 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.GoldOre, ItemID.PlatinumOre, ItemID.Emerald, ItemID.Ruby, ItemID.Hellstone);
-        public bool[] mining6 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.CrimtaneOre, ItemID.DemoniteOre, ItemID.Diamond, ItemID.Amber);
-        public bool[] mining8 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.CobaltOre, ItemID.PalladiumOre);
-        public bool[] mining10 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.MythrilOre, ItemID.OrichalcumOre);
-        public bool[] mining12 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.AdamantiteOre, ItemID.TitaniumOre);
-        public bool[] mining13 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.ChlorophyteOre, ItemID.LunarOre);
+
         public bool[] seaCreature15 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.EyeballFlyingFish, NPCID.ZombieMerman);
         public bool[] seaCreature30 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.GoblinShark, NPCID.BloodEelBody, NPCID.BloodEelTail, NPCID.BloodEelHead);
         public bool[] seaCreature50 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.BloodNautilus);
@@ -156,14 +175,18 @@ namespace PetsOverhaul.PetEffects.Vanilla
         {
             if (junimoExpCheck() && target.active == false && target.GetGlobalNPC<NpcPet>().seaCreature)
             {
-                if (seaCreature50[target.type])
-                    junimoFishingExp += 50;
-                else if (seaCreature30[target.type])
-                    junimoFishingExp += 30;
-                else if (seaCreature15[target.type])
-                    junimoFishingExp += 15;
-                else
-                    junimoFishingExp += 20;
+                bool hasXpValue = false;
+                foreach (KeyValuePair<int, int[]> xpNum in FishingXpPerKill)
+                {
+                    int key = xpNum.Key;
+                    int[] value = xpNum.Value;
+                    if (value.Contains(target.type))
+                    {
+                        junimoMiningExp += key;
+                        hasXpValue = true;
+                    };
+                }
+                if (!hasXpValue) junimoMiningExp += 20;
             }
 
         }
@@ -177,50 +200,18 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     {
                         if (junimoExpCheck())
                         {
-                            if (mining1[item.type])
+                            bool hasXpValue = false;
+                            foreach (KeyValuePair<int, int[]> xpNum in MiningXpPerBlock)
                             {
-                                junimoMiningExp += 1 * item.stack * junimoInUseMultiplier;
+                                int key = xpNum.Key;
+                                int[] value = xpNum.Value;
+                                if (value.Contains(item.type))
+                                {
+                                    junimoMiningExp += key * item.stack * junimoInUseMultiplier;
+                                    hasXpValue = true;
+                                };
                             }
-                            else if (mining2[item.type])
-                            {
-                                junimoMiningExp += 2 * item.stack * junimoInUseMultiplier;
-                            }
-                            else if (mining3[item.type])
-                            {
-                                junimoMiningExp += 3 * item.stack * junimoInUseMultiplier;
-                            }
-                            else if (mining4[item.type])
-                            {
-                                junimoMiningExp += 4 * item.stack * junimoInUseMultiplier;
-                            }
-                            else if (mining5[item.type])
-                            {
-                                junimoMiningExp += 5 * item.stack * junimoInUseMultiplier;
-                            }
-                            else if (mining6[item.type])
-                            {
-                                junimoMiningExp += 6 * item.stack * junimoInUseMultiplier;
-                            }
-                            else if (mining8[item.type])
-                            {
-                                junimoMiningExp += 8 * item.stack * junimoInUseMultiplier;
-                            }
-                            else if (mining10[item.type])
-                            {
-                                junimoMiningExp += 10 * item.stack * junimoInUseMultiplier;
-                            }
-                            else if (mining12[item.type])
-                            {
-                                junimoMiningExp += 12 * item.stack * junimoInUseMultiplier;
-                            }
-                            else if (mining13[item.type])
-                            {
-                                junimoMiningExp += 13 * item.stack * junimoInUseMultiplier;
-                            }
-                            else
-                            {
-                                junimoMiningExp += 1 * item.stack * junimoInUseMultiplier;
-                            }
+                            if (!hasXpValue) junimoMiningExp += 1 * item.stack * junimoInUseMultiplier;
                         }
                         if (Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem) || Pet.PetInUse(ItemID.JunimoPetItem))
                             item.stack += ItemPet.Randomizer(junimoMiningLevel * junimoInUseMultiplier * item.stack);
@@ -324,23 +315,24 @@ namespace PetsOverhaul.PetEffects.Vanilla
         {
             if (junimoExpCheck())
             {
-                if (fish.type == ItemID.GoldenCarp)
-                    junimoFishingExp += 6 * junimoInUseMultiplier * fish.stack;
-                else if (ItemID.Sets.IsFishingCrateHardmode[fish.type])
-                    junimoFishingExp += 5 * junimoInUseMultiplier * fish.stack;
-                else if (fish4[fish.type])
-                    junimoFishingExp += 4 * junimoInUseMultiplier * fish.stack;
-                else if (ItemID.Sets.IsFishingCrate[fish.type])
-                    junimoFishingExp += 3 * junimoInUseMultiplier * fish.stack;
-                else if (fish2[fish.type])
-                    junimoFishingExp += 2 * junimoInUseMultiplier * fish.stack;
-                else if (fish0[fish.type])
-                {
+                if (ItemID.Sets.IsFishingCrateHardmode[fish.type]) junimoFishingExp += 5 * junimoInUseMultiplier * fish.stack;
+                else if (ItemID.Sets.IsFishingCrate[fish.type]) junimoFishingExp += 3 * junimoInUseMultiplier * fish.stack;
 
-                }
                 else
-                    junimoFishingExp += 1 * junimoInUseMultiplier * fish.stack;
-
+                {
+                    bool hasXpValue = false;
+                    foreach (KeyValuePair<int, int[]> xpNum in FishingXpPerKill)
+                    {
+                        int key = xpNum.Key;
+                        int[] value = xpNum.Value;
+                        if (value.Contains(fish.type))
+                        {
+                            junimoMiningExp += key * junimoInUseMultiplier * fish.stack; ;
+                            hasXpValue = true;
+                        };
+                    }
+                    if (!hasXpValue) junimoMiningExp += 1 * junimoInUseMultiplier * fish.stack;
+                }
             }
         }
         public override void GetFishingLevel(Item fishingRod, Item bait, ref float fishingLevel)
@@ -368,7 +360,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
             junimoFishingLevel = Math.Clamp(junimoFishingLevel, 1, maxLvls);
 
             junimoHarvestingExp = Math.Clamp(junimoHarvestingExp, 0, maxXp);
-            junimoMiningExp = Math.Clamp(junimoHarvestingExp, 0, maxXp);
+            junimoMiningExp = Math.Clamp(junimoMiningExp, 0, maxXp);
             junimoFishingExp = Math.Clamp(junimoFishingExp, 0, maxXp);
 
             AdvancedPopupRequest popupMessage = new()
@@ -379,7 +371,6 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
             bool notificationOff = ModContent.GetInstance<Personalization>().JunimoNotifOff;
             bool soundOff = ModContent.GetInstance<Personalization>().AbilitySoundDisabled;
-
             if (junimoHarvestingExp >= junimoHarvestingLevelsToXp[junimoHarvestingLevel] && junimoHarvestingLevel != maxLvls)
             {
                 junimoHarvestingLevel++;
@@ -392,7 +383,6 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     PopupText.NewText(popupMessage, Player.position);
                 }
             }
-
             if (junimoMiningExp >= junimoMiningLevelsToXp[junimoMiningLevel] && junimoMiningLevel != maxLvls)
             {
                 junimoMiningLevel++;
@@ -446,6 +436,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
             junimoMiningExp = tag.GetInt("miningexp");
             junimoFishingLevel = tag.GetInt("fishinglvl");
             junimoFishingExp = tag.GetInt("fishingexp");
+            Main.NewText(String.Format("{0} harvest lvl, {1} mining lvl, {2} fishing lvl", junimoHarvestingLevel, junimoMiningLevel, junimoFishingLevel));
         }
     }
 
