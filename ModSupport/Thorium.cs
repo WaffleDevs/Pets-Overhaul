@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using Terraria.ModLoader;
 
 namespace PetsOverhaul.ModSupport
@@ -7,7 +8,8 @@ namespace PetsOverhaul.ModSupport
     {
 
         public new string InternalModName = "ThoriumMod";
-        public new string[] InternalModdedItemNames = [
+        public new string[] InternalModdedItemNames = new string[]
+        {
             "AbyssalWhistle",
             "AncientCheeseBlock",
             "AncientDrachma",
@@ -47,7 +49,7 @@ namespace PetsOverhaul.ModSupport
             "SwordOfDestiny",
             "TortleScute",
             "WhisperingShell"
-        ];
+        };
         // If these arent defined, they will be skipped
 
         // public new Dictionary<int, int[]> MiningXpPerModdedBlock = new Dictionary<int, int[]>
