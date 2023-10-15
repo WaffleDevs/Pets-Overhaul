@@ -33,16 +33,6 @@ namespace PetsOverhaul.PetEffects.Vanilla
     }
     sealed public class EyeSpring : GlobalItem
     {
-        public override bool InstancePerEntity => true;
-
-        public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        {
-            if (player.TryGetModPlayer(out EyeballSpring eyeballs) && player.GetModPlayer<GlobalPet>().PetInUseWithSwapCd(ItemID.EyeSpring))
-            {
-                maxAscentMultiplier *= eyeballs.ascentPenaltyMult;
-            }
-
-        }
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.EyeSpring;
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -53,6 +43,18 @@ namespace PetsOverhaul.PetEffects.Vanilla
                         .Replace("<acceleration>", (eyeballSpring.acceleration * 100).ToString())
                         .Replace("<ascNerf>", eyeballSpring.ascentPenaltyMult.ToString())
                         ));
+        }
+    }
+    sealed public class EyeballSpringWing : GlobalItem
+    { 
+        public override bool InstancePerEntity => true;
+        public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+        {
+            if (player.TryGetModPlayer(out EyeballSpring eyeballs) && player.GetModPlayer<GlobalPet>().PetInUseWithSwapCd(ItemID.EyeSpring))
+            {
+                maxAscentMultiplier *= eyeballs.ascentPenaltyMult;
+            }
+
         }
     }
 }

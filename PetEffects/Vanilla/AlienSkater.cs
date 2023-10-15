@@ -26,7 +26,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
         }
     }
-    sealed public class MartianPetItem : GlobalItem
+    sealed public class AlienSkaterWing : GlobalItem
     {
         public override bool InstancePerEntity => true;
 
@@ -41,12 +41,14 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
 
         }
-
+    }
+    sealed public class MartianPetItem : GlobalItem
+    {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.MartianPetItem;
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down])
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down])
             {
                 AlienSkater alienSkater = Main.LocalPlayer.GetModPlayer<AlienSkater>();
                 tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.MartianPetItem")

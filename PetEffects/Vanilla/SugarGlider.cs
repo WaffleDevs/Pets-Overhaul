@@ -28,16 +28,6 @@ namespace PetsOverhaul.PetEffects.Vanilla
     }
     sealed public class EucaluptusSap : GlobalItem
     {
-        public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
-        {
-            if (player.TryGetModPlayer(out SugarGlider sugarGlider) && player.GetModPlayer<GlobalPet>().PetInUseWithSwapCd(ItemID.EucaluptusSap))
-            {
-                speed *= sugarGlider.speedMult;
-                speed += sugarGlider.accSpeedRaise;
-                acceleration *= sugarGlider.accMult;
-                acceleration += sugarGlider.accSpeedRaise;
-            }
-        }
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.EucaluptusSap;
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -50,5 +40,17 @@ namespace PetsOverhaul.PetEffects.Vanilla
                         ));
         }
     }
-
+    sealed public class SugarGliderWing : GlobalItem
+    { 
+        public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
+        {
+            if (player.TryGetModPlayer(out SugarGlider sugarGlider) && player.GetModPlayer<GlobalPet>().PetInUseWithSwapCd(ItemID.EucaluptusSap))
+            {
+                speed *= sugarGlider.speedMult;
+                speed += sugarGlider.accSpeedRaise;
+                acceleration *= sugarGlider.accMult;
+                acceleration += sugarGlider.accSpeedRaise;
+            }
+        }
+    }
 }

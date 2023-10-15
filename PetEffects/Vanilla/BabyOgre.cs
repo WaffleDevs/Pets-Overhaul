@@ -92,25 +92,6 @@ namespace PetsOverhaul.PetEffects.Vanilla
     }
     sealed public class DD2OgrePetItem : GlobalItem
     {
-        public override bool InstancePerEntity => true;
-        public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
-        {
-            if (player.GetModPlayer<GlobalPet>().PetInUseWithSwapCd(ItemID.DD2OgrePetItem))
-            {
-                speed *= player.GetModPlayer<BabyOgre>().horizontalMult;
-                acceleration *= player.GetModPlayer<BabyOgre>().horizontalMult;
-            }
-        }
-        public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        {
-            if (player.GetModPlayer<GlobalPet>().PetInUseWithSwapCd(ItemID.DD2OgrePetItem))
-            {
-                maxAscentMultiplier *= player.GetModPlayer<BabyOgre>().verticalMult;
-                maxCanAscendMultiplier *= player.GetModPlayer<BabyOgre>().verticalMult;
-                ascentWhenRising *= player.GetModPlayer<BabyOgre>().verticalMult;
-            }
-        }
-
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.DD2OgrePetItem;
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -128,6 +109,28 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 .Replace("<defMult>", babyOgre.defMult.ToString())
                 .Replace("<damageReduction>", (babyOgre.dr * 100).ToString())
             ));
+        }
+
+    }
+    sealed public class BabyOgreWing : GlobalItem
+    { 
+        public override bool InstancePerEntity => true;
+        public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
+        {
+            if (player.GetModPlayer<GlobalPet>().PetInUseWithSwapCd(ItemID.DD2OgrePetItem))
+            {
+                speed *= player.GetModPlayer<BabyOgre>().horizontalMult;
+                acceleration *= player.GetModPlayer<BabyOgre>().horizontalMult;
+            }
+        }
+        public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+        {
+            if (player.GetModPlayer<GlobalPet>().PetInUseWithSwapCd(ItemID.DD2OgrePetItem))
+            {
+                maxAscentMultiplier *= player.GetModPlayer<BabyOgre>().verticalMult;
+                maxCanAscendMultiplier *= player.GetModPlayer<BabyOgre>().verticalMult;
+                ascentWhenRising *= player.GetModPlayer<BabyOgre>().verticalMult;
+            }
         }
     }
 }
