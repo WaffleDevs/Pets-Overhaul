@@ -15,10 +15,10 @@ namespace PetsOverhaul.Systems
 {
     public class ItemTooltipChanges : GlobalItem
     {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => ModContent.GetInstance<PetRegistry>().TerrariaPetItemIds.ContainsValue(entity.type);
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Player player = Main.LocalPlayer;
-            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down] && ModContent.GetInstance<PetRegistry>().TerrariaPetItemIds.ContainsValue(item.type))
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down])
             {
                 tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.Config.TooltipShiftToggleInGame")));
             }
