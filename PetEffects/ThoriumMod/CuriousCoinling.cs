@@ -25,7 +25,6 @@ namespace PetsOverhaul.PetEffects.ThoriumMod
         {
             if(ModManager.ThoriumMod == null) return false;
             if(ModManager.ThoriumMod.InternalNameToModdedItemId == null) return false;
-            Console.WriteLine(ModManager.ThoriumMod.InternalNameToModdedItemId);
             if(!ModManager.ThoriumMod.InternalNameToModdedItemId.ContainsKey("AncientDrachma")) return false;
 
             return entity.type == ModManager.ThoriumMod.InternalNameToModdedItemId["AncientDrachma"];
@@ -35,7 +34,7 @@ namespace PetsOverhaul.PetEffects.ThoriumMod
         {
             if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             CuriousCoinling curiousCoinling = Main.LocalPlayer.GetModPlayer<CuriousCoinling>();
-            tooltips.Add(new(Mod, "Tooltip0", "Unimplemented"/*Language.GetTextValue("Mods.PetsOverhaul.AncientDrachmaTooltips.AncientDrachma")*/
+            tooltips.Add(new(Mod, "Tooltip0", "Pet Overhaul effects coming soon!"/*Language.GetTextValue("Mods.PetsOverhaul.AncientDrachmaTooltips.AncientDrachma")*/
                 
             ));
         }

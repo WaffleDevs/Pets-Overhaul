@@ -25,7 +25,6 @@ namespace PetsOverhaul.PetEffects.ThoriumMod
         {
             if(ModManager.ThoriumMod == null) return false;
             if(ModManager.ThoriumMod.InternalNameToModdedItemId == null) return false;
-            Console.WriteLine(ModManager.ThoriumMod.InternalNameToModdedItemId);
             if(!ModManager.ThoriumMod.InternalNameToModdedItemId.ContainsKey("GlassShard")) return false;
 
             return entity.type == ModManager.ThoriumMod.InternalNameToModdedItemId["GlassShard"];
@@ -35,7 +34,7 @@ namespace PetsOverhaul.PetEffects.ThoriumMod
         {
             if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             GlassShard glassShard = Main.LocalPlayer.GetModPlayer<GlassShard>();
-            tooltips.Add(new(Mod, "Tooltip0", "Unimplemented"/*Language.GetTextValue("Mods.PetsOverhaul.GlassShardItemTooltips.GlassShardItem")*/
+            tooltips.Add(new(Mod, "Tooltip0", "Pet Overhaul effects coming soon!"/*Language.GetTextValue("Mods.PetsOverhaul.GlassShardItemTooltips.GlassShardItem")*/
                 
             ));
         }

@@ -25,7 +25,6 @@ namespace PetsOverhaul.PetEffects.ThoriumMod
         {
             if(ModManager.ThoriumMod == null) return false;
             if(ModManager.ThoriumMod.InternalNameToModdedItemId == null) return false;
-            Console.WriteLine(ModManager.ThoriumMod.InternalNameToModdedItemId);
             if(!ModManager.ThoriumMod.InternalNameToModdedItemId.ContainsKey("SwordOfDestiny")) return false;
 
             return entity.type == ModManager.ThoriumMod.InternalNameToModdedItemId["SwordOfDestiny"];
@@ -35,7 +34,7 @@ namespace PetsOverhaul.PetEffects.ThoriumMod
         {
             if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             SwordOfDestiny swordOfDestiny = Main.LocalPlayer.GetModPlayer<SwordOfDestiny>();
-            tooltips.Add(new(Mod, "Tooltip0", "Unimplemented"/*Language.GetTextValue("Mods.PetsOverhaul.SwordOfDestinyItemTooltips.SwordOfDestinyItem")*/
+            tooltips.Add(new(Mod, "Tooltip0", "Pet Overhaul effects coming soon!"/*Language.GetTextValue("Mods.PetsOverhaul.SwordOfDestinyItemTooltips.SwordOfDestinyItem")*/
                 
             ));
         }

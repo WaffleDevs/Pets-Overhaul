@@ -28,7 +28,6 @@ namespace PetsOverhaul.PetEffects.ModName
         {
             if(ModManager.ModName == null) return false;
             if(ModManager.ModName.InternalNameToModdedItemId == null) return false;
-            Console.WriteLine(ModManager.ModName.InternalNameToModdedItemId);
             if(!ModManager.ModName.InternalNameToModdedItemId.ContainsKey("PetItemKey")) return false;
 
             return entity.type == ModManager.ModName.InternalNameToModdedItemId["PetItemKey"];
@@ -38,7 +37,7 @@ namespace PetsOverhaul.PetEffects.ModName
         {
             if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             PetName PetNameUnder = Main.LocalPlayer.GetModPlayer<PetName>();
-            tooltips.Add(new(Mod, "Tooltip0", "Unimplemented"/*Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.PetItem")*/
+            tooltips.Add(new(Mod, "Tooltip0", "Pet Overhaul effects coming soon!"/*Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.PetItem")*/
                 
             ));
         }
