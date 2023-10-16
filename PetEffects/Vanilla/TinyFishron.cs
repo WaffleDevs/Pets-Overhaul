@@ -1,11 +1,18 @@
-﻿using Terraria;
-using Terraria.ID;
-using PetsOverhaul.Systems;
-using Terraria.ModLoader;
-using Terraria.DataStructures;
+﻿using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+
+using PetsOverhaul.Config;
+using PetsOverhaul.Systems;
+
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
+
+using PetsOverhaul.Config;
+using Terraria.GameInput;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -59,6 +66,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             TinyFishron tinyFishron = Main.LocalPlayer.GetModPlayer<TinyFishron>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DukeFishronPetItem")
                         .Replace("<baseMult>", tinyFishron.fishingPowerPenalty.ToString())

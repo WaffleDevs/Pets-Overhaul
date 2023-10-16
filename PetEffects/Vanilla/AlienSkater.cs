@@ -7,6 +7,7 @@ using Terraria.Localization;
 using PetsOverhaul.Config;
 using Terraria.GameInput;
 
+
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class AlienSkater : ModPlayer
@@ -48,17 +49,15 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down])
-            {
-                AlienSkater alienSkater = Main.LocalPlayer.GetModPlayer<AlienSkater>();
-                tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.MartianPetItem")
-                    .Replace("<wingMult>", alienSkater.wingTime.ToString())
-                    .Replace("<acc>", (alienSkater.accelerator * 100).ToString())
-                    .Replace("<speedMult>", alienSkater.speedMult.ToString())
-                    .Replace("<accMult>", alienSkater.accMult.ToString())
-                    .Replace("<flatSpdAcc>", (alienSkater.speedAccIncr * 100).ToString())
-                ));
-            }
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
+            AlienSkater alienSkater = Main.LocalPlayer.GetModPlayer<AlienSkater>();
+            tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.MartianPetItem")
+                .Replace("<wingMult>", alienSkater.wingTime.ToString())
+                .Replace("<acc>", (alienSkater.accelerator * 100).ToString())
+                .Replace("<speedMult>", alienSkater.speedMult.ToString())
+                .Replace("<accMult>", alienSkater.accMult.ToString())
+                .Replace("<flatSpdAcc>", (alienSkater.speedAccIncr * 100).ToString())
+            ));
         }
     }
 }

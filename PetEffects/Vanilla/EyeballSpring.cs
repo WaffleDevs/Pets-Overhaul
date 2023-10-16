@@ -8,6 +8,9 @@ using static Terraria.ID.ArmorIDs;
 using System.Collections.Generic;
 using Terraria.Localization;
 
+using PetsOverhaul.Config;
+using Terraria.GameInput;
+
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class EyeballSpring : ModPlayer
@@ -37,6 +40,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             EyeballSpring eyeballSpring = Main.LocalPlayer.GetModPlayer<EyeballSpring>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.EyeSpring")
                         .Replace("<jumpBoost>", (eyeballSpring.jumpBoost * 100).ToString())

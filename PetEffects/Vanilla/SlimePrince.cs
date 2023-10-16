@@ -1,10 +1,14 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using System.Collections.Generic;
+
+using PetsOverhaul.Config;
 using PetsOverhaul.Systems;
-using Terraria.ModLoader;
+
+using Terraria;
 using Terraria.DataStructures;
-using System.Collections.Generic;
+using Terraria.GameInput;
+using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -165,6 +169,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             SlimePrince slimePrince = Main.LocalPlayer.GetModPlayer<SlimePrince>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.KingSlimePetItem")
                         .Replace("<burnHp>", (slimePrince.healthDmg * 100).ToString())

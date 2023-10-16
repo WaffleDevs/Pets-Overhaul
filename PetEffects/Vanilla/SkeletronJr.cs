@@ -9,6 +9,9 @@ using Terraria.DataStructures;
 using static Terraria.Player;
 using Terraria.Localization;
 
+using PetsOverhaul.Config;
+using Terraria.GameInput;
+
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class SkeletronJr : ModPlayer
@@ -124,6 +127,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             SkeletronJr skeletronJr = Main.LocalPlayer.GetModPlayer<SkeletronJr>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SkeletronPetItem")
                         .Replace("<recievedMult>", (skeletronJr.playerTakenMult * 100).ToString())

@@ -8,6 +8,10 @@ using Terraria.Audio;
 using PetsOverhaul.Config;
 using PetsOverhaul.PetEffects.Vanilla;
 using Terraria.Localization;
+using Terraria.GameInput;
+
+using PetsOverhaul.Config;
+using Terraria.GameInput;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -81,6 +85,8 @@ sealed public class DeerclopsPetItem : GlobalItem
 
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
     {
+        if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
+
         TinyDeerclops tinyDeerclops = Main.LocalPlayer.GetModPlayer<TinyDeerclops>();
         tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DeerclopsPetItem")
                         .Replace("<treshold>", (tinyDeerclops.healthTreshold * 100).ToString())

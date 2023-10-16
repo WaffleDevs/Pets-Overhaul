@@ -4,6 +4,11 @@ using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.Localization;
+using Terraria.GameInput;
+using PetsOverhaul.Config;
+
+using PetsOverhaul.Config;
+using Terraria.GameInput;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -40,6 +45,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             Destroyer destroyer = Main.LocalPlayer.GetModPlayer<Destroyer>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.DestroyerPetItem")
                         .Replace("<defMultChance>", (destroyer.defItemMult * 100).ToString())

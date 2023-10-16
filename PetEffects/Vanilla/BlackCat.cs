@@ -4,6 +4,11 @@ using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.Localization;
+using Terraria.GameInput;
+using PetsOverhaul.Config;
+
+using PetsOverhaul.Config;
+using Terraria.GameInput;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -62,6 +67,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             BlackCat blackCat = Main.LocalPlayer.GetModPlayer<BlackCat>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.UnluckyYarn")
                 .Replace("<flatLuck>", blackCat.luckFlat.ToString())

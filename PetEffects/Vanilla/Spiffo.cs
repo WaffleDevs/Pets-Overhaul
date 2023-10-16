@@ -4,6 +4,11 @@ using PetsOverhaul.Systems;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.Localization;
+using Terraria.GameInput;
+using PetsOverhaul.Config;
+
+using PetsOverhaul.Config;
+using Terraria.GameInput;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
@@ -43,6 +48,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModContent.GetInstance<Personalization>().TooltipsEnabledWithShift && !PlayerInput.Triggers.Current.KeyStatus[TriggerNames.Down]) return;
             Spiffo spiffo = Main.LocalPlayer.GetModPlayer<Spiffo>();
             tooltips.Add(new(Mod, "Tooltip0", Language.GetTextValue("Mods.PetsOverhaul.PetItemTooltips.SpiffoPlush")
                         .Replace("<ammoReserve>", spiffo.ammoReserveChance.ToString())
