@@ -80,7 +80,7 @@ namespace PetsOverhaul.ModSupport
             {
                 ModItem item;
                 ModInstance.TryFind(internalName, out item);
-                Console.WriteLine($"IN: {internalName}\n Type: {item.Type}");
+                //Console.WriteLine($"IN: {internalName}\n Type: {item.Type}");
 
                 ModContent.GetInstance<PetRegistry>().TerrariaPetItemIds.TryAdd(internalName, item.Type);
                 InternalNameToModdedItemId.TryAdd(internalName, item.Type);
