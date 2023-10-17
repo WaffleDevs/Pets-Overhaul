@@ -12,7 +12,6 @@ namespace PetsOverhaul.ModSupport
 {
     public class ThoriumSupport
     {
-
         public string InternalModName = "ThoriumMod";
         public string[] InternalModdedItemNames = new string[]
         {
@@ -58,10 +57,11 @@ namespace PetsOverhaul.ModSupport
         };
         //If these arent defined, they will be skipped
 
-        public Dictionary<int, int[]> MiningXpPerModdedBlock;
-        public Dictionary<int, int[]> FishingXpPerModdedFish;
-        public Dictionary<int, int[]> FishingXpPerModdedKill;
-
+        public List<(int, int[])> MiningXpPerModdedBlock;
+        public List<(int, int[])> FishingXpPerModdedFish;
+        public List<(int, int[])> FishingXpPerModdedKill;
+        public List<(int, int[])> HarvestingXpPerModdedPlant;
+        public List<(int, int[])> HarvestingXpPerModdedRarePlant;
         public Mod ModInstance;
         public Dictionary<string, int> InternalNameToModdedItemId = new Dictionary<string, int> { };
         public Dictionary<string, ModItem> InternalNameToModdedItemInstance = new Dictionary<string, ModItem> { };
@@ -69,8 +69,7 @@ namespace PetsOverhaul.ModSupport
         {
             if (!ModLoader.TryGetMod(InternalModName, out ModInstance)) return;
             MergePetItems();
-            MergeJunimoMiningXp();
-            MergeJunimoFishingXp();
+            MergeJunimoExp();
         }
 
         public void MergePetItems()
@@ -87,15 +86,13 @@ namespace PetsOverhaul.ModSupport
             };
         }
 
-        public void MergeJunimoMiningXp()
+        public void MergeJunimoExp()
         {
-            if (MiningXpPerModdedBlock != null) Main.LocalPlayer.GetModPlayer<Junimo>().MiningXpPerBlock.Concat(MiningXpPerModdedBlock);
-        }
-
-        public void MergeJunimoFishingXp()
-        {
-            if (FishingXpPerModdedFish != null) Main.LocalPlayer.GetModPlayer<Junimo>().FishingXpPerFish.Concat(FishingXpPerModdedFish);
-            if (FishingXpPerModdedKill != null) Main.LocalPlayer.GetModPlayer<Junimo>().FishingXpPerKill.Concat(FishingXpPerModdedKill);
+            if (MiningXpPerModdedBlock != null) Main.LocalPlayer.GetModPlayer<Junimo>().MiningXpPerBlock.AddRange(MiningXpPerModdedBlock);
+            if (HarvestingXpPerModdedPlant != null) Main.LocalPlayer.GetModPlayer<Junimo>().HarvestingXpPerGathered.AddRange(HarvestingXpPerModdedPlant);
+            if (HarvestingXpPerModdedRarePlant != null) Main.LocalPlayer.GetModPlayer<Junimo>().HarvestingXpPerRare.AddRange(HarvestingXpPerModdedRarePlant);
+            if (FishingXpPerModdedFish != null) Main.LocalPlayer.GetModPlayer<Junimo>().FishingXpPerFish.AddRange(FishingXpPerModdedFish);
+            if (FishingXpPerModdedKill != null) Main.LocalPlayer.GetModPlayer<Junimo>().FishingXpPerKill.AddRange(FishingXpPerModdedKill);
         }
 
         public bool IsModLoaded()

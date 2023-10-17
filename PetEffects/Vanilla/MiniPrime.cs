@@ -21,6 +21,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
         public float shieldMult = 0.06f;
         public int shieldTime = 300;
         int lastShield = 0;
+        int shieldIndex = 0;
         GlobalPet Pet { get => Player.GetModPlayer<GlobalPet>(); }
         public override void PreUpdate()
         {
@@ -33,72 +34,81 @@ namespace PetsOverhaul.PetEffects.Vanilla
             {
                 if (Pet.timer <= Pet.timerMax * 0.8f && Player.statLife <= Player.statLifeMax2 * 0.25f)
                 {
-                    if (Pet.shieldAmount < lastShield)
+                    if (Pet.petShield[shieldIndex].shieldAmount < lastShield)
                     {
                         Pet.timer += Pet.timerMax / 5;
-                        Pet.shieldTimer = shieldTime;
+                        var shield = Pet.petShield[shieldIndex];
+                        shield.shieldTimer = shieldTime;
+                        Pet.petShield[shieldIndex] = shield;
                     }
                     else
                     {
-                        Pet.shieldAmount = (int)(Player.statLifeMax2 * shieldMult);
-                        Pet.shieldTimer = 1;
+                        Pet.petShield.Insert(Pet.petShield.Count + 1, ((int)(Player.statLifeMax2 * shieldMult), 1));
+                        shieldIndex = Pet.petShield.Count;
                     }
                 }
                 else if (Pet.timer <= Pet.timerMax * 0.6f && Player.statLife <= Player.statLifeMax2 * 0.5f)
                 {
-                    if (Pet.shieldAmount < lastShield)
+                    if (Pet.petShield[shieldIndex].shieldAmount < lastShield)
                     {
                         Pet.timer += Pet.timerMax / 5;
-                        Pet.shieldTimer = shieldTime;
-
+                        var shield = Pet.petShield[shieldIndex];
+                        shield.shieldTimer = shieldTime;
+                        Pet.petShield[shieldIndex] = shield;
                     }
                     else
                     {
-                        Pet.shieldAmount = (int)(Player.statLifeMax2 * shieldMult);
-                        Pet.shieldTimer = 1;
+                        Pet.petShield.Insert(Pet.petShield.Count + 1, ((int)(Player.statLifeMax2 * shieldMult), 1));
+                        shieldIndex = Pet.petShield.Count;
                     }
                 }
                 else if (Pet.timer <= Pet.timerMax * 0.4f && Player.statLife <= Player.statLifeMax2 * 0.75f)
                 {
-                    if (Pet.shieldAmount < lastShield)
+                    if (Pet.petShield[shieldIndex].shieldAmount < lastShield)
                     {
                         Pet.timer += Pet.timerMax / 5;
-                        Pet.shieldTimer = shieldTime;
+                        var shield = Pet.petShield[shieldIndex];
+                        shield.shieldTimer = shieldTime;
+                        Pet.petShield[shieldIndex] = shield;
                     }
                     else
                     {
-                        Pet.shieldAmount = (int)(Player.statLifeMax2 * shieldMult);
-                        Pet.shieldTimer = 1;
+                        Pet.petShield.Insert(Pet.petShield.Count + 1, ((int)(Player.statLifeMax2 * shieldMult), 1));
+                        shieldIndex = Pet.petShield.Count;
                     }
                 }
                 else if (Pet.timer <= Pet.timerMax * 0.2f && Player.statLife < Player.statLifeMax2)
                 {
-                    if (Pet.shieldAmount < lastShield)
+                    if (Pet.petShield[shieldIndex].shieldAmount < lastShield)
                     {
                         Pet.timer += Pet.timerMax / 5;
-                        Pet.shieldTimer = shieldTime;
+                        var shield = Pet.petShield[shieldIndex];
+                        shield.shieldTimer = shieldTime;
+                        Pet.petShield[shieldIndex] = shield;
                     }
                     else
                     {
-                        Pet.shieldAmount = (int)(Player.statLifeMax2 * shieldMult);
-                        Pet.shieldTimer = 1;
+                        Pet.petShield.Insert(Pet.petShield.Count + 1, ((int)(Player.statLifeMax2 * shieldMult), 1));
+                        shieldIndex = Pet.petShield.Count;
                     }
                 }
                 else if (Pet.timer <= 0 && Player.statLife <= Player.statLifeMax2)
                 {
-                    if (Pet.shieldAmount < lastShield)
+                    if (Pet.petShield[shieldIndex].shieldAmount < lastShield)
                     {
                         Pet.timer += Pet.timerMax / 5;
-                        Pet.shieldTimer = shieldTime;
+                        var shield = Pet.petShield[shieldIndex];
+                        shield.shieldTimer = shieldTime;
+                        Pet.petShield[shieldIndex] = shield;
                     }
                     else
                     {
-                        Pet.shieldAmount = (int)(Player.statLifeMax2 * shieldMult);
-                        Pet.shieldTimer = 1;
+                        Pet.petShield.Insert(Pet.petShield.Count + 1, ((int)(Player.statLifeMax2 * shieldMult), 1));
+                        shieldIndex = Pet.petShield.Count;
                     }
                 }
-                lastShield = Pet.shieldAmount;
-                if (Pet.shieldAmount > 0)
+                lastShield = Pet.petShield[shieldIndex].shieldAmount;
+                if (Pet.currentShield > 0)
                 {
                     Player.GetDamage<GenericDamageClass>() += dmgIncrease;
                     Player.GetCritChance<GenericDamageClass>() += critIncrease;

@@ -15,9 +15,10 @@ namespace PetsOverhaul.PetEffects.Vanilla
     sealed public class EaterOfWorms : ModPlayer
     {
         GlobalPet Pet { get => Player.GetModPlayer<GlobalPet>(); }
+        List<(int X, int Y)> tilesToRandomize = new();
         public int tileBreakXSpread = 2;
         public int tileBreakYSpread = 2;
-        public int tileBreakSpreadChance = 60;
+        public int tileBreakSpreadChance = 75;
         public float nonOreSpeed = 0.2f;
         internal int mineX = -2;
         internal int mineY = -2;
@@ -28,6 +29,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
         {
             if (Pet.PetInUse(ItemID.EaterOfWorldsPetItem))
             {
+                tilesToRandomize.Clear();
                 if (Main.SmartCursorShowing)
                 {
                     Tile tile = Main.tile[Main.SmartCursorX, Main.SmartCursorY];
@@ -42,19 +44,23 @@ namespace PetsOverhaul.PetEffects.Vanilla
                         {
                             for (mineY = -tileBreakYSpread; mineY <= tileBreakYSpread; mineY++)
                             {
-                                if (Main.tile[prevX + mineX, prevY + mineY].TileType == oldTileType && (mineX != 0 || mineY != 0) && mineX < tileBreakXSpread && mineY < tileBreakYSpread)
-                                    break;
+                                if (Main.tile[prevX + mineX, prevY + mineY].TileType == oldTileType)
+                                    tilesToRandomize.Add((prevX + mineX, prevY + mineY));
                             }
-                            if (Main.tile[prevX + mineX, prevY + mineY].TileType == oldTileType && (mineX != 0 || mineY != 0) && mineX < tileBreakXSpread && mineY < tileBreakYSpread)
-                                break;
+                            if (Main.tile[prevX + mineX, prevY + mineY].TileType == oldTileType)
+                                tilesToRandomize.Add((prevX + mineX, prevY + mineY));
                         }
-                        if (Main.tile[prevX + mineX, prevY + mineY].TileType == oldTileType && (mineX != 0 || mineY != 0) && mineX < tileBreakXSpread && mineY < tileBreakYSpread)
+                        for (int i = 0; i < ItemPet.Randomizer(tileBreakSpreadChance); i++)
                         {
-                            if (Player.HasEnoughPickPowerToHurtTile(prevX + mineX, prevY + mineY))
+                            if (tilesToRandomize.Count > 0)
                             {
-                                Player.PickTile(prevX + mineX, prevY + mineY, 5000);
-                                if (ModContent.GetInstance<Personalization>().AbilitySoundDisabled == false)
-                                    SoundEngine.PlaySound(SoundID.WormDig with { PitchVariance = 0.4f }, Player.position);
+                                var tileToBreak = tilesToRandomize[Main.rand.Next(tilesToRandomize.Count)];
+                                if (Player.HasEnoughPickPowerToHurtTile(tileToBreak.X, tileToBreak.Y))
+                                {
+                                    Player.PickTile(tileToBreak.X, tileToBreak.Y, 5000);
+                                    if (ModContent.GetInstance<Personalization>().AbilitySoundDisabled == false)
+                                        SoundEngine.PlaySound(SoundID.WormDig with { PitchVariance = 0.4f }, Player.position);
+                                }
                             }
                         }
                     }
@@ -75,19 +81,23 @@ namespace PetsOverhaul.PetEffects.Vanilla
                         {
                             for (mineY = -tileBreakYSpread; mineY <= tileBreakYSpread; mineY++)
                             {
-                                if (Main.tile[prevX + mineX, prevY + mineY].TileType == oldTileType && (mineX != 0 || mineY != 0) && mineX < tileBreakXSpread && mineY < tileBreakYSpread)
-                                    break;
+                                if (Main.tile[prevX + mineX, prevY + mineY].TileType == oldTileType)
+                                    tilesToRandomize.Add((prevX + mineX, prevY + mineY));
                             }
-                            if (Main.tile[prevX + mineX, prevY + mineY].TileType == oldTileType && (mineX != 0 || mineY != 0) && mineX < tileBreakXSpread && mineY < tileBreakYSpread)
-                                break;
+                            if (Main.tile[prevX + mineX, prevY + mineY].TileType == oldTileType)
+                                tilesToRandomize.Add((prevX + mineX, prevY + mineY));
                         }
-                        if (Main.tile[prevX + mineX, prevY + mineY].TileType == oldTileType && (mineX != 0 || mineY != 0) && mineX < tileBreakXSpread && mineY < tileBreakYSpread)
+                        for (int i = 0; i < ItemPet.Randomizer(tileBreakSpreadChance); i++)
                         {
-                            if (Player.HasEnoughPickPowerToHurtTile(prevX + mineX, prevY + mineY))
+                            if (tilesToRandomize.Count > 0)
                             {
-                                Player.PickTile(prevX + mineX, prevY + mineY, 5000);
-                                if (ModContent.GetInstance<Personalization>().AbilitySoundDisabled == false)
-                                    SoundEngine.PlaySound(SoundID.WormDig with { PitchVariance = 0.4f }, Player.position);
+                                var tileToBreak = tilesToRandomize[Main.rand.Next(tilesToRandomize.Count)];
+                                if (Player.HasEnoughPickPowerToHurtTile(tileToBreak.X,tileToBreak.Y))
+                                {
+                                    Player.PickTile(tileToBreak.X,tileToBreak.Y, 5000);
+                                    if (ModContent.GetInstance<Personalization>().AbilitySoundDisabled == false)
+                                        SoundEngine.PlaySound(SoundID.WormDig with { PitchVariance = 0.4f }, Player.position);
+                                }
                             }
                         }
                     }
