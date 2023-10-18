@@ -7,9 +7,6 @@ using Terraria.Localization;
 using Terraria.GameInput;
 using PetsOverhaul.Config;
 
-using PetsOverhaul.Config;
-using Terraria.GameInput;
-
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class BabyEater : ModPlayer

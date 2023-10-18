@@ -7,7 +7,6 @@ using PetsOverhaul.Config;
 using System.Collections.Generic;
 using Terraria.Localization;
 
-using PetsOverhaul.Config;
 using Terraria.GameInput;
 
 namespace PetsOverhaul.PetEffects.Vanilla
@@ -32,11 +31,11 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 {
                     Tile tile = Main.tile[Main.SmartCursorX, Main.SmartCursorY];
 
-                    if (Pet.PetInUse(ItemID.EaterOfWorldsPetItem) && TileID.Sets.Ore[tile.TileType] == false && TileChecks.gemTile[tile.TileType] == false && Player.controlUseItem)
+                    if (Pet.PetInUse(ItemID.EaterOfWorldsPetItem) && TileID.Sets.Ore[tile.TileType] == false && TileChecks.gemTiles.Contains(tile.TileType) == false && Player.controlUseItem)
                     {
                         Player.pickSpeed -= nonOreSpeed;
                     }
-                    if (Pet.PetInUse(ItemID.EaterOfWorldsPetItem) && Player.controlUseItem && Player.HeldItem.pick > 0 && Main.tile[prevX, prevY].TileType == 0 && oldTileType != 0 && (TileID.Sets.Ore[oldTileType] || TileChecks.gemTile[oldTileType]) && Main.rand.NextBool(tileBreakSpreadChance, 100))
+                    if (Pet.PetInUse(ItemID.EaterOfWorldsPetItem) && Player.controlUseItem && Player.HeldItem.pick > 0 && Main.tile[prevX, prevY].TileType == 0 && oldTileType != 0 && (TileID.Sets.Ore[oldTileType] || TileChecks.gemTiles.Contains(oldTileType)) && Main.rand.NextBool(tileBreakSpreadChance, 100))
                     {
                         for (mineX = -tileBreakXSpread; mineX <= tileBreakXSpread; mineX++)
                         {
@@ -65,11 +64,11 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 else
                 {
                     Tile tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
-                    if (Pet.PetInUse(ItemID.EaterOfWorldsPetItem) && TileID.Sets.Ore[tile.TileType] == false && TileChecks.gemTile[tile.TileType] == false && Player.controlUseItem)
+                    if (Pet.PetInUse(ItemID.EaterOfWorldsPetItem) && TileID.Sets.Ore[tile.TileType] == false && TileChecks.gemTiles.Contains(tile.TileType) == false && Player.controlUseItem)
                     {
                         Player.pickSpeed -= nonOreSpeed;
                     }
-                    if (Pet.PetInUse(ItemID.EaterOfWorldsPetItem) && Player.controlUseItem && Player.HeldItem.pick > 0 && Main.tile[prevX, prevY].TileType == 0 && oldTileType != 0 && (TileID.Sets.Ore[oldTileType] || TileChecks.gemTile[oldTileType]) && Main.rand.NextBool(tileBreakSpreadChance, 100))
+                    if (Pet.PetInUse(ItemID.EaterOfWorldsPetItem) && Player.controlUseItem && Player.HeldItem.pick > 0 && Main.tile[prevX, prevY].TileType == 0 && oldTileType != 0 && (TileID.Sets.Ore[oldTileType] || TileChecks.gemTiles.Contains(oldTileType)) && Main.rand.NextBool(tileBreakSpreadChance, 100))
                     {
                         for (mineX = -tileBreakXSpread; mineX <= tileBreakXSpread; mineX++)
                         {

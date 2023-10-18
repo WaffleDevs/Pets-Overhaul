@@ -1,15 +1,14 @@
-﻿using Terraria;
-using Terraria.ID;
-using PetsOverhaul.Systems;
-using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using PetsOverhaul.Config;
-using System.Collections.Generic;
-using Terraria.Localization;
+﻿using System.Collections.Generic;
 
 using PetsOverhaul.Config;
+using PetsOverhaul.Systems;
+
+using Terraria;
+using Terraria.Audio;
 using Terraria.GameInput;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {

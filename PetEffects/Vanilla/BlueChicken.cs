@@ -8,13 +8,6 @@ using PetsOverhaul.Items;
 using System.Collections.Generic;
 using Terraria.Localization;
 using Terraria.GameInput;
-using Terraria.GameInput;
-using Terraria.GameInput;
-using Terraria.GameInput;
-using Terraria.GameInput;
-
-using PetsOverhaul.Config;
-using Terraria.GameInput;
 
 namespace PetsOverhaul.PetEffects.Vanilla
 {
