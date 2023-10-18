@@ -23,11 +23,11 @@ namespace PetsOverhaul.PetEffects.ThoriumMod
     {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {
-            if(ModManager.ThoriumMod == null) return false;
-            if(ModManager.ThoriumMod.InternalNameToModdedItemId == null) return false;
-            if(!ModManager.ThoriumMod.InternalNameToModdedItemId.ContainsKey("SubterraneanBulb")) return false;
+            if (!ModManager.IsModLoaded("ThoriumMod")) return false;
+            if(ModManager.Mods["ThoriumMod"].InternalNameToModdedItemId == null) return false;
+            if(!ModManager.Mods["ThoriumMod"].InternalNameToModdedItemId.ContainsKey("SubterraneanBulb")) return false;
 
-            return entity.type == ModManager.ThoriumMod.InternalNameToModdedItemId["SubterraneanBulb"];
+            return entity.type == ModManager.Mods["ThoriumMod"].InternalNameToModdedItemId["SubterraneanBulb"];
         }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

@@ -13,18 +13,17 @@ namespace PetsOverhaul.ModSupport
     public class CalamitySupport
     {
 
-        public new string InternalModName = "Calamity";
-        
+        public string InternalModName = "Calamity";
         //If these arent defined, they will be skipped
 
-        public new string[] InternalModdedItemNames;
+        public string[] InternalModdedItemNames;
         public Dictionary<int, int[]> MiningXpPerModdedBlock;
         public Dictionary<int, int[]> FishingXpPerModdedFish;
         public Dictionary<int, int[]> FishingXpPerModdedKill;
 
         public Mod ModInstance;
-        public Dictionary<string, int> InternalNameToModdedItemId;
-        public Dictionary<string, ModItem> InternalNameToModdedItemInstance;
+        public Dictionary<string, int> InternalNameToModdedItemId = new Dictionary<string, int> { };
+        public Dictionary<string, ModItem> InternalNameToModdedItemInstance = new Dictionary<string, ModItem> { };
         public void InitializeMod()
         {
             if (!ModLoader.TryGetMod(InternalModName, out ModInstance)) return;

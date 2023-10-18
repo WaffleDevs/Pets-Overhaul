@@ -20,8 +20,6 @@
     <None Remove="NPCS\ExamplePerson_Shimmer_Party.png" />
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
 </Project>
