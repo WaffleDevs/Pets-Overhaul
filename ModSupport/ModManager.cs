@@ -21,6 +21,33 @@ namespace PetsOverhaul.ModSupport
             ThoriumMod.InitializeMod();
             Mods.Add(ThoriumMod.InternalModName, ThoriumMod);
         }
+
+        public static bool IsModLoaded(string modName)
+        {
+            return Mods.ContainsKey(modName);
+        }
+        public static bool GetModInstance(string modName, out Mod instance)
+        {
+            if (!IsModLoaded(modName))
+            {
+                instance = null;
+                return false;
+            }
+            instance = Mods[modName].ModInstance;
+            return true;
+        }
+
+        public static bool GetItemInstance(string modName, string InternalName, out ModItem item)
+        {
+            if (!Mods[modName].InternalNameToModdedItemId.ContainsKey(InternalName))
+            {
+                item = null;
+                return false;
+            }
+
+            item = Mods[modName].InternalNameToModdedItemInstance[InternalName];
+            return true;
+        }
     }
 
     public class ModdedContent
@@ -69,31 +96,5 @@ namespace PetsOverhaul.ModSupport
             if (FishingXpPerModdedKill != null) _ = Main.LocalPlayer.GetModPlayer<Junimo>().FishingXpPerKill.Concat(FishingXpPerModdedKill);
         }
 
-        public bool IsModLoaded()
-        {
-            return ModInstance != null;
-        }
-        public bool GetModInstance(out Mod instance)
-        {
-            if (!IsModLoaded())
-            {
-                instance = null;
-                return false;
-            }
-            instance = ModInstance;
-            return true;
-        }
-
-        public bool GetItemInstance(string InternalName, out ModItem item)
-        {
-            if (!InternalNameToModdedItemId.ContainsKey(InternalName))
-            {
-                item = null;
-                return false;
-            }
-
-            item = InternalNameToModdedItemInstance[InternalName];
-            return true;
-        }
     }
 }
