@@ -204,40 +204,40 @@ namespace PetsOverhaul.PetEffects.Vanilla
             {
                 if (item.maxStack != 1 && Player.CanPullItem(item, Player.ItemSpace(item)) && itemChck.pickedUpBefore == false)
                 {
-                    if (itemChck.herbBoost || itemChck.tree)
+                    if (itemChck.rareHerbBoost)
                     {
-                        if (itemChck.rareHerbBoost)
+                        if (junimoExpCheck())
                         {
-                            if (junimoExpCheck())
-                            {
-                                int index = HarvestingXpPerRare.IndexOf(HarvestingXpPerRare.Find(x => x.rarePlantList.Contains(item.type)));
-                                if (index == -1)
-                                    junimoHarvestingExp += 35 * junimoInUseMultiplier * item.stack;
-                                else
-                                    junimoHarvestingExp += ItemPet.Randomizer(HarvestingXpPerRare[index].expAmount * junimoInUseMultiplier * item.stack);
-                            }
-                            if (Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem) || Pet.PetInUse(ItemID.JunimoPetItem))
-                            {
-                                int junimoCash = junimoHarvestingLevel * 50 * junimoInUseMultiplier * item.stack;
-                                if (junimoCash > 1000000)
-                                {
-                                    Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.PlatinumCoin, junimoCash / 1000000);
-                                    junimoCash %= 1000000;
-                                }
-                                if (junimoCash > 10000)
-                                {
-                                    Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.GoldCoin, junimoCash / 10000);
-                                    junimoCash %= 10000;
-                                }
-                                if (junimoCash > 100)
-                                {
-                                    Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.SilverCoin, junimoCash / 100);
-                                    junimoCash %= 100;
-                                }
-                                Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.CopperCoin, junimoCash);
-                            }
+                            int index = HarvestingXpPerRare.IndexOf(HarvestingXpPerRare.Find(x => x.rarePlantList.Contains(item.type)));
+                            if (index == -1)
+                                junimoHarvestingExp += 35 * junimoInUseMultiplier * item.stack;
+                            else
+                                junimoHarvestingExp += ItemPet.Randomizer(HarvestingXpPerRare[index].expAmount * junimoInUseMultiplier * item.stack);
                         }
-                        else if (junimoExpCheck())
+                        if (Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem) || Pet.PetInUse(ItemID.JunimoPetItem))
+                        {
+                            int junimoCash = junimoHarvestingLevel * 50 * junimoInUseMultiplier * item.stack;
+                            if (junimoCash > 1000000)
+                            {
+                                Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.PlatinumCoin, junimoCash / 1000000);
+                                junimoCash %= 1000000;
+                            }
+                            if (junimoCash > 10000)
+                            {
+                                Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.GoldCoin, junimoCash / 10000);
+                                junimoCash %= 10000;
+                            }
+                            if (junimoCash > 100)
+                            {
+                                Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.SilverCoin, junimoCash / 100);
+                                junimoCash %= 100;
+                            }
+                            Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.CopperCoin, junimoCash);
+                        }
+                    }
+                    else if (itemChck.herbBoost || itemChck.tree)
+                    {
+                        if (junimoExpCheck())
                         {
                             int index = HarvestingXpPerGathered.IndexOf(HarvestingXpPerGathered.Find(x => x.Item2.Contains(item.type)));
                             if (index == -1)
