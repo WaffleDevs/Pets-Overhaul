@@ -321,7 +321,7 @@ namespace PetsOverhaul.Systems
         {
             previousPetItem = Player.miscEquips[0].type;
             if (ModContent.GetInstance<Personalization>().DisableNotice == false)
-                Main.NewText("[c/90C2AA:Pets Overhaul 2.2 latest changes: Most Systems have been heavily improved.\nMod Support's base structure has been implemented & more!]\nIf you happen to come across any bugs, our would like to be\nup to date with our constantly updating Mod and growing community,\nwe encourage you to join our community and our Discord server!");
+                Main.NewText("[c/90C2AA:Pets Overhaul 2.2 latest changes: Most Systems have been heavily improved.]\n[c/90C2AA:Mod Support's base structure has been implemented & more!]\nIf you happen to come across any bugs, our would like to be\nup to date with our constantly updating Mod and growing community,\nwe encourage you to join our community and our Discord server!");
         }
         public override void OnHurt(Player.HurtInfo info)
         {
