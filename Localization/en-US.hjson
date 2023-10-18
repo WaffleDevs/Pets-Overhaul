@@ -3,28 +3,74 @@ Mods: {
 		Config: {
 			Personalization: Personalization
 			JunimoLevelupLabel: Disable Junimo levelup notification
-			JunimoLevelupTooltip: Disables Junimo Pet's both Level-up text and sound effect notifications upon increasing a class's level. Does not disable the level mechanic.
+			JunimoLevelupTooltip:
+				'''
+				Disables Junimo Pet's both Level-up text and sound effect notifications
+				upon increasing a class's level. Does not disable the level mechanic.
+				'''
 			JunimoExpLabel: Disable Junimo Exp gain while you don't have it
-			JunimoExpTooltip: Disables Junimo Pet's all Experience gains if you don't have Stardrop in any of your Inventories or it's not in your Pet Item slot.
+			JunimoExpTooltip:
+				'''
+				Disables Junimo Pet's all Experience gains if you don't have Stardrop
+				in any of your Inventories or it's not in your Pet Item slot.
+				'''
 			NoticeLabel: Disable Pets Overhaul's notice
-			NoticeTooltip: Disables message sent by Pets Overhaul upon logging into the world. Notices may contain brief information about latest updates.
+			NoticeTooltip:
+				'''
+				Disables message sent by Pets Overhaul upon logging into the world.
+				Notices may contain brief information about the latest updates.
+				'''
 			TooltipShiftToggleLabel: Enable Pet/Item tooltips to be toggleable
-			TooltipShiftToggleTooltip: Enables all added Pet and Item tooltips to be only visible while the Down (as in your downward input, generally S) button is being held.
+			TooltipShiftToggleTooltip:
+				'''
+				Enables all added Pet and Item tooltips to be only visible while
+				the Down (as in your downward input, generally S) button is being held.
+				'''
 			TooltipShiftToggleInGame: Hold the Down button to show the Pet tooltip
 			HurtSoundLabel: Disable custom hurt sounds
-			HurtSoundTooltip: Disables custom sound effects added by Pets when the Player receives damage.
+			HurtSoundTooltip:
+				'''
+				Disables custom sound effects added by
+				Pets when the Player receives damage.
+				'''
 			DeathSoundLabel: Disable custom death sounds
-			DeathSoundTooltip: Disables custom sound effects added by Pets when the Player dies.
+			DeathSoundTooltip:
+				'''
+				Disables custom sound effects
+				added by Pets when the Player dies.
+				'''
 			PassiveSoundLabel: Disable passive Pet sounds
-			PassiveSoundTooltip: Disables Pet sound effects that play randomly without any actions similar to Ambient sound effects.
+			PassiveSoundTooltip:
+				'''
+				Disables Pet sound effects that play randomly without
+				any actions similar to Ambient sound effects.
+				'''
 			AbilitySoundLabel: Disable ability sounds
-			AbilitySoundTooltip: Disables Pet sound effects that play upon ability proccing, cooldown refreshing, etc. (not recommended, these sounds can help with your awareness.)
+			AbilitySoundTooltip:
+				'''
+				Disables Pet sound effects that play upon ability proccing, cooldown refreshing
+				and other similar things. (not recommended, these sounds can help with your awareness.)
+				'''
 			LowCooldownSoundLabel: Disable short timer sound
-			LowCooldownSoundTooltip: Disables cooldown refreshing sound effect if Pet's abilities cooldown is lower than 1 second.
-			MoreDifficultLabel: Disable the Player being weaker
-			MoreDifficultTooltip: Disables the Player dealing 5% less damage and receiving 5% more damage, which is implemented to counteract the Mod adding extra power creep.
+			LowCooldownSoundTooltip:
+				'''
+				Disables cooldown refreshing sound effect if
+				Pet's abilities cooldown is lower than 1 second.
+				'''
+			MoreDifficultLabel: Set Player Handicap
+			MoreDifficultTooltip:
+				'''
+				Sets how much % lower damage the Player will deal and how much % extra damage the Player will receive.
+				This is implemented due to Pets Overhaul adding extra Powercreep into the game.
+				Keep it at 0 if you wish it to be disabled. It's recommended it to be around 7 to 10%.
+				'''
 			SwapCooldownLabel: Disable Pet Swap cooldown
-			SwapCooldownTooltip: Disables Player gaining Oblivious Pet Debuff upon swapping a Pet. Which prevents any Combat-related perks to be active during the time. (not recommended)
+			SwapCooldownTooltip:
+				'''
+				Disables Player gaining Oblivious Pet Debuff upon swapping a Pet.
+				Which prevents any Combat-related perks to be active during the time.
+				(not recommended due to obvious balance reasons)
+				'''
 		}
 
 		PetItemTooltips: {
@@ -69,7 +115,7 @@ Mods: {
 				'''
 				[c/97C8DD:Summoner and Utility Pet]
 				If poisoned or inflicted by venom, heal <antidotePercent>% of max health
-				and remove both effects, heal has a <antidoteCd>-second cooldown
+				and remove both effects, heal has a <antidoteCd> second cooldown
 				Decreases defense by -<def>, all damage and crit chance by -<dmgCrit>%
 				But increases max minions by +<maxMinion> and movement speed by <moveSpd>%
 				All hits have a <regularChance>% chance (<summonChance>% for Summon hits) to summon
@@ -151,7 +197,7 @@ Mods: {
 				a table. Items vary from seeds to fruits. Plants
 				and herbs have a <plantChance>% chance, rare plants have a <rarePlantChance>%
 				and choppables have <choppableChance>%, 
-				Approximetaly every <eggMinute> minutes gives you an Egg.
+				Approximately every <eggMinute> minutes gives you an Egg.
 				'''
 			GlowTulip:
 				'''
@@ -257,11 +303,11 @@ Mods: {
 				Both the effects and experience gain are doubled when Junimo Pet is primary Pet in use
 				Levels are currently maxed at <maxLvl>, greater tasks may reward u with superior exp gain.
 				[c/CDFF00:Harvesting]: Plants and choppables gives you <harvestingProfit> copper, +<harvestingRare> for rare plants, +<bonusHealth>% (minimum +<flatHealth>) maximum health
-				Current level: [c/CDFF00:<harvestLevel>] Experience needed for next level: [c/CDFF00:<harvestNext>]
+				Current level: [c/CDFF00:<harvestLevel>] Experience needed for next level: [c/CDFF00:<harvestNext>] Current total experience: [c/CDFF00:<harvestCurrent>]
 				[c/96A8B0:Mining]: Ores, gems and extractables can drop +1 more with <miningBonusDrop>% chance, +<bonusReduction>% damage reduction
-				Current level: [c/96A8B0:<miningLevel>] Experience needed for next level: [c/96A8B0:<miningNext>]
+				Current level: [c/96A8B0:<miningLevel>] Experience needed for next level: [c/96A8B0:<miningNext>] Current total experience: [c/96A8B0:<miningCurrent>]
 				[c/0382E9:Fishing]: Increases Fishing Power by <fishingPower>% multiplicatively, +<bonusDamage>% increase to all types of damage
-				Current level: [c/0382E9:<fishingLevel>] Experience needed for next level: [c/0382E9:<fishingNext>]
+				Current level: [c/0382E9:<fishingLevel>] Experience needed for next level: [c/0382E9:<fishingNext>] Current total experience: [c/0382E9:<fishingCurrent>]
 				'''
 			BirdieRattle:
 				'''
@@ -337,9 +383,9 @@ Mods: {
 				[c/f6546a:Offensive Pet]
 				Damaging enemies apply Poisoned for <poisonTime> seconds and remove
 				target's Poisoned immunity if they are not immune to Venom
-				Any target that already is Poisoned will take <poiPerc>x+<poiFlat> more damage,
-				<poiKb>x more knockback and <poiCrit>% extra critical hit chance
-				This effect becomes <venomPerc>x+<venomFlat> more damage, <venomKb>x more knockback and
+				Any target that already is Poisoned will take <poiPerc>x+<poiFlat> damage,
+				<poiKb>x  knockback and <poiCrit>% extra critical hit chance
+				This effect becomes <venomPerc>x+<venomFlat> damage, <venomKb>x knockback and
 				<venomCrit>% extra critical hit chance for targets that have Venom
 				'''
 			OrnateShadowKey:
@@ -353,8 +399,8 @@ Mods: {
 			SharkBait:
 				'''
 				[c/716DAF:Fishing and Offensive Pet]
-				Gain <fishingPower> fishing power, deal <seaCreatureDmg>x more damage, and receive
-				<seaCreatureResist>x less damage from fished-up enemies and gives the player
+				Gain <fishingPower> fishing power, deal <seaCreatureDmg>x damage, and receive
+				<seaCreatureResist>x damage from fished-up enemies and gives the player
 				<shield> shield for <shieldTime> seconds upon catching anything
 				'''
 			SpiffoPlush:
@@ -428,9 +474,9 @@ Mods: {
 				'''
 				[c/FF1493:Supportive Pet]
 				Changes Slimy and Wet debuffs globally, Slimy debuff adds a bonus <burnHp>%
-				health damage if paired with a burn, (<burnCap> cap) and take <extraKb>x more kb.
+				health damage if paired with a burn, (<burnCap> cap) and take <extraKb>x kb.
 				Slimed grants affected players' <jumpSpd>% jump speed, <kbBoost>x knockback boost
-				and resist. Wet makes enemies receive <enemyDmgRecieve>x more damage and deal <enemyDmgDeal>x less damage
+				and resist. Wet makes enemies receive <enemyDmgRecieve>x damage and deal <enemyDmgDeal>x damage
 				Wet buffs players to have <dmg>% more damage, <def>% defense, and <moveSpd>% move speed
 				'''
 			QueenBeePetItem:
@@ -475,7 +521,7 @@ Mods: {
 				health respectively. All shields are <shieldMaxHealthAmount>% of your maximum health, and
 				1 shield gets recovered every <shieldCooldown> seconds. Also, gain
 				<dmg>% damage, <crit>% crit, and <def>x defense while u have any shield active.
-				Any shield persists for <shieldLifetime> seconds after receiveing damage
+				Any shield persists for <shieldLifetime> seconds after receiving damage
 				'''
 			DestroyerPetItem:
 				'''
