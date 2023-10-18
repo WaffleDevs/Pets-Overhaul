@@ -23,7 +23,7 @@ namespace PetsOverhaul.PetEffects.ThoriumMod
     {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {
-            if(!ModManager.Mods.ContainsKey("ThoriumMod")) return false;
+            if (!ModManager.IsModLoaded("ThoriumMod")) return false;
             if(ModManager.Mods["ThoriumMod"].InternalNameToModdedItemId == null) return false;
             if(!ModManager.Mods["ThoriumMod"].InternalNameToModdedItemId.ContainsKey("DelectableNut")) return false;
 
