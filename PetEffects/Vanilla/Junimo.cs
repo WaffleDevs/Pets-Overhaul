@@ -15,10 +15,6 @@ using System;
 using Terraria.Localization;
 using Terraria.GameInput;
 
-using PetsOverhaul.Config;
-using Terraria.GameInput;
-using Microsoft.Xna.Framework.Input;
-
 namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class Junimo : ModPlayer
@@ -153,13 +149,13 @@ namespace PetsOverhaul.PetEffects.Vanilla
             {4, new int[]{ ItemID.ChaosFish, ItemID.FlarefinKoi } },
             {6, new int[]{ ItemID.GoldenCarp } }
         };
-        public bool[] fish4 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.ChaosFish, ItemID.FlarefinKoi);
-        public bool[] fish2 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.BlueJellyfish, ItemID.GreenJellyfish, ItemID.PinkJellyfish, ItemID.Obsidifish, ItemID.Prismite, ItemID.Stinkfish, ItemID.ArmoredCavefish, ItemID.Damselfish, ItemID.DoubleCod, ItemID.Ebonkoi, ItemID.FrostMinnow, ItemID.Hemopiranha, ItemID.Honeyfin, ItemID.PrincessFish, ItemID.Shrimp, ItemID.VariegatedLardfish);
-        public bool[] fish0 = ItemID.Sets.Factory.CreateBoolSet(false, ItemID.FishingSeaweed, ItemID.OldShoe, ItemID.TinCan);
-
-        public bool[] seaCreature15 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.EyeballFlyingFish, NPCID.ZombieMerman);
-        public bool[] seaCreature30 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.GoblinShark, NPCID.BloodEelBody, NPCID.BloodEelTail, NPCID.BloodEelHead);
-        public bool[] seaCreature50 = NPCID.Sets.Factory.CreateBoolSet(false, NPCID.BloodNautilus);
+        public Dictionary<int, int[]> XpPerHarvestable = new Dictionary<int, int[]>
+        {
+            {0, new int[]{ ItemID.FishingSeaweed, ItemID.OldShoe, ItemID.TinCan } },
+            {2, new int[]{ ItemID.BlueJellyfish, ItemID.GreenJellyfish, ItemID.PinkJellyfish, ItemID.Obsidifish, ItemID.Prismite, ItemID.Stinkfish, ItemID.ArmoredCavefish, ItemID.Damselfish, ItemID.DoubleCod, ItemID.Ebonkoi, ItemID.FrostMinnow, ItemID.Hemopiranha, ItemID.Honeyfin, ItemID.PrincessFish, ItemID.Shrimp, ItemID.VariegatedLardfish } },
+            {4, new int[]{ ItemID.ChaosFish, ItemID.FlarefinKoi } },
+            {6, new int[]{ ItemID.GoldenCarp } }
+        };
         public bool junimoExpCheck()
         {
             if (ModContent.GetInstance<Personalization>().JunimoExpWhileNotInInv == false || Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem) || Pet.PetInUse(ItemID.JunimoPetItem))
@@ -182,7 +178,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     int[] value = xpNum.Value;
                     if (value.Contains(target.type))
                     {
-                        junimoMiningExp += key;
+                        junimoFishingExp += key;
                         hasXpValue = true;
                     };
                 }
@@ -190,13 +186,15 @@ namespace PetsOverhaul.PetEffects.Vanilla
             }
 
         }
+
         public override bool OnPickup(Item item)
         {
+            Console.WriteLine(string.Format("TSIS{0} Now-TSIS{1} {2}", item.timeSinceItemSpawned, DateTime.Now, item.netID));
             if (item.TryGetGlobalItem(out ItemPet itemChck))
             {
                 if (item.maxStack != 1 && Player.CanPullItem(item, Player.ItemSpace(item)) && itemChck.pickedUpBefore == false)
                 {
-                    if (itemChck.oreBoost)
+                    if (itemChck.oreBoost) // If its an ore.
                     {
                         if (junimoExpCheck())
                         {
@@ -216,7 +214,54 @@ namespace PetsOverhaul.PetEffects.Vanilla
                         if (Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem) || Pet.PetInUse(ItemID.JunimoPetItem))
                             item.stack += ItemPet.Randomizer(junimoMiningLevel * junimoInUseMultiplier * item.stack);
                     }
-                    if (itemChck.rareHerbBoost)
+
+                    if (itemChck.rareHerbBoost || itemChck.herbBoost || itemChck.tree || itemChck.gemTree)
+                    {
+                        if (junimoExpCheck())
+                        {
+                            bool hasXpValue = false;
+                            foreach (KeyValuePair<int, int[]> xpNum in MiningXpPerBlock)
+                            {
+                                int key = xpNum.Key;
+                                int[] value = xpNum.Value;
+                                if (value.Contains(item.type))
+                                {
+                                    junimoHarvestingExp += key * item.stack * junimoInUseMultiplier;
+                                    hasXpValue = true;
+                                };
+                            }
+                            if (!hasXpValue)
+                            {
+                                if (itemChck.rareHerbBoost) junimoMiningExp += 35 * item.stack * junimoInUseMultiplier;
+                                if (itemChck.herbBoost) junimoMiningExp += 2 * item.stack * junimoInUseMultiplier;
+                                if (itemChck.tree) junimoMiningExp += 1 * item.stack * junimoInUseMultiplier;
+                            };
+                        }
+                        if (Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem) || Pet.PetInUse(ItemID.JunimoPetItem))
+                        {
+                            int junimoCash = itemChck.rareHerbBoost
+                                ? junimoHarvestingLevel * 50 * junimoInUseMultiplier * item.stack
+                                : ItemPet.Randomizer(junimoHarvestingLevel * 25 * junimoInUseMultiplier * item.stack, 10);
+                            if (junimoCash > 1000000)
+                            {
+                                Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.PlatinumCoin, junimoCash / 1000000);
+                                junimoCash %= 1000000;
+                            }
+                            if (junimoCash > 10000)
+                            {
+                                Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.GoldCoin, junimoCash / 10000);
+                                junimoCash %= 10000;
+                            }
+                            if (junimoCash > 100)
+                            {
+                                Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.SilverCoin, junimoCash / 100);
+                                junimoCash %= 100;
+                            }
+                            Player.QuickSpawnItem(Player.GetSource_Misc("Junimo"), ItemID.CopperCoin, junimoCash);
+                        }
+                    }
+
+                    if (itemChck.rareHerbBoost) // If rare herb
                     {
                         if (junimoExpCheck())
                         {
@@ -248,8 +293,10 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     }
                     if (itemChck.herbBoost || itemChck.tree)
                     {
+                        // If can receive xp
                         if (junimoExpCheck())
                         {
+
                             if (itemChck.tree == true)
                             {
                                 junimoHarvestingExp += 1 * item.stack * junimoInUseMultiplier;
@@ -259,6 +306,8 @@ namespace PetsOverhaul.PetEffects.Vanilla
                                 junimoHarvestingExp += 2 * item.stack * junimoInUseMultiplier;
                             }
                         }
+
+                        // Coin stuff?
                         if (Player.HasItemInInventoryOrOpenVoidBag(ItemID.JunimoPetItem) || Pet.PetInUse(ItemID.JunimoPetItem))
                         {
                             int junimoCash = ItemPet.Randomizer(junimoHarvestingLevel * 25 * junimoInUseMultiplier * item.stack, 10);

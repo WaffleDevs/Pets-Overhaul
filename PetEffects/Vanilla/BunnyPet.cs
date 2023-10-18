@@ -7,7 +7,6 @@ using Terraria.Audio;
 using System.Collections.Generic;
 using Terraria.Localization;
 
-using PetsOverhaul.Config;
 using Terraria.GameInput;
 
 namespace PetsOverhaul.PetEffects.Vanilla
