@@ -18,7 +18,7 @@ Mods: {
 			/* NoticeTooltip:
 				'''
 				Disables message sent by Pets Overhaul upon logging into the world.
-				Notices may contain brief information about latest updates.
+				Notices may contain brief information about the latest updates.
 				''' */
 			// TooltipShiftToggleLabel: Enable Pet/Item tooltips to be toggleable
 			/* TooltipShiftToggleTooltip:
@@ -49,7 +49,7 @@ Mods: {
 			/* AbilitySoundTooltip:
 				'''
 				Disables Pet sound effects that play upon ability proccing, cooldown refreshing
-				and other similiar things. (not recommended, these sounds can help with your awareness.)
+				and other similar things. (not recommended, these sounds can help with your awareness.)
 				''' */
 			// LowCooldownSoundLabel: Disable short timer sound
 			/* LowCooldownSoundTooltip:
@@ -60,9 +60,9 @@ Mods: {
 			// MoreDifficultLabel: Set Player Handicap
 			/* MoreDifficultTooltip:
 				'''
-				Sets how much % lower damage Player will deal and how much % extra damage Player will recieve.
+				Sets how much % lower damage the Player will deal and how much % extra damage the Player will receive.
 				This is implemented due to Pets Overhaul adding extra Powercreep into the game.
-				Keep it at 0 if you wish it to be disabled. Its recommended it to be around 7 to 10%.
+				Keep it at 0 if you wish it to be disabled. It's recommended it to be around 7 to 10%.
 				''' */
 			// SwapCooldownLabel: Disable Pet Swap cooldown
 			/* SwapCooldownTooltip:
@@ -196,7 +196,7 @@ Mods: {
 				a table. Items vary from seeds to fruits. Plants
 				and herbs have a <plantChance>% chance, rare plants have a <rarePlantChance>%
 				and choppables have <choppableChance>%, 
-				Approximetaly every <eggMinute> minutes gives you an Egg.
+				Approximately every <eggMinute> minutes gives you an Egg.
 				''' */
 			GlowTulip:
 				'''

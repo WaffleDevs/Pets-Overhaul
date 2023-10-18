@@ -18,7 +18,7 @@ Mods: {
 			NoticeTooltip:
 				'''
 				Disables message sent by Pets Overhaul upon logging into the world.
-				Notices may contain brief information about latest updates.
+				Notices may contain brief information about the latest updates.
 				'''
 			TooltipShiftToggleLabel: Enable Pet/Item tooltips to be toggleable
 			TooltipShiftToggleTooltip:
@@ -49,7 +49,7 @@ Mods: {
 			AbilitySoundTooltip:
 				'''
 				Disables Pet sound effects that play upon ability proccing, cooldown refreshing
-				and other similiar things. (not recommended, these sounds can help with your awareness.)
+				and other similar things. (not recommended, these sounds can help with your awareness.)
 				'''
 			LowCooldownSoundLabel: Disable short timer sound
 			LowCooldownSoundTooltip:
@@ -60,9 +60,9 @@ Mods: {
 			MoreDifficultLabel: Set Player Handicap
 			MoreDifficultTooltip:
 				'''
-				Sets how much % lower damage Player will deal and how much % extra damage Player will recieve.
+				Sets how much % lower damage the Player will deal and how much % extra damage the Player will receive.
 				This is implemented due to Pets Overhaul adding extra Powercreep into the game.
-				Keep it at 0 if you wish it to be disabled. Its recommended it to be around 7 to 10%.
+				Keep it at 0 if you wish it to be disabled. It's recommended it to be around 7 to 10%.
 				'''
 			SwapCooldownLabel: Disable Pet Swap cooldown
 			SwapCooldownTooltip:
@@ -115,7 +115,7 @@ Mods: {
 				'''
 				[c/97C8DD:Summoner and Utility Pet]
 				If poisoned or inflicted by venom, heal <antidotePercent>% of max health
-				and remove both effects, heal has a <antidoteCd>-second cooldown
+				and remove both effects, heal has a <antidoteCd> second cooldown
 				Decreases defense by -<def>, all damage and crit chance by -<dmgCrit>%
 				But increases max minions by +<maxMinion> and movement speed by <moveSpd>%
 				All hits have a <regularChance>% chance (<summonChance>% for Summon hits) to summon
@@ -197,7 +197,7 @@ Mods: {
 				a table. Items vary from seeds to fruits. Plants
 				and herbs have a <plantChance>% chance, rare plants have a <rarePlantChance>%
 				and choppables have <choppableChance>%, 
-				Approximetaly every <eggMinute> minutes gives you an Egg.
+				Approximately every <eggMinute> minutes gives you an Egg.
 				'''
 			GlowTulip:
 				'''
@@ -383,9 +383,9 @@ Mods: {
 				[c/f6546a:Offensive Pet]
 				Damaging enemies apply Poisoned for <poisonTime> seconds and remove
 				target's Poisoned immunity if they are not immune to Venom
-				Any target that already is Poisoned will take <poiPerc>x+<poiFlat> more damage,
-				<poiKb>x more knockback and <poiCrit>% extra critical hit chance
-				This effect becomes <venomPerc>x+<venomFlat> more damage, <venomKb>x more knockback and
+				Any target that already is Poisoned will take <poiPerc>x+<poiFlat> damage,
+				<poiKb>x  knockback and <poiCrit>% extra critical hit chance
+				This effect becomes <venomPerc>x+<venomFlat> damage, <venomKb>x knockback and
 				<venomCrit>% extra critical hit chance for targets that have Venom
 				'''
 			OrnateShadowKey:
@@ -399,8 +399,8 @@ Mods: {
 			SharkBait:
 				'''
 				[c/716DAF:Fishing and Offensive Pet]
-				Gain <fishingPower> fishing power, deal <seaCreatureDmg>x more damage, and receive
-				<seaCreatureResist>x less damage from fished-up enemies and gives the player
+				Gain <fishingPower> fishing power, deal <seaCreatureDmg>x damage, and receive
+				<seaCreatureResist>x damage from fished-up enemies and gives the player
 				<shield> shield for <shieldTime> seconds upon catching anything
 				'''
 			SpiffoPlush:
@@ -474,9 +474,9 @@ Mods: {
 				'''
 				[c/FF1493:Supportive Pet]
 				Changes Slimy and Wet debuffs globally, Slimy debuff adds a bonus <burnHp>%
-				health damage if paired with a burn, (<burnCap> cap) and take <extraKb>x more kb.
+				health damage if paired with a burn, (<burnCap> cap) and take <extraKb>x kb.
 				Slimed grants affected players' <jumpSpd>% jump speed, <kbBoost>x knockback boost
-				and resist. Wet makes enemies receive <enemyDmgRecieve>x more damage and deal <enemyDmgDeal>x less damage
+				and resist. Wet makes enemies receive <enemyDmgRecieve>x damage and deal <enemyDmgDeal>x damage
 				Wet buffs players to have <dmg>% more damage, <def>% defense, and <moveSpd>% move speed
 				'''
 			QueenBeePetItem:
@@ -521,7 +521,7 @@ Mods: {
 				health respectively. All shields are <shieldMaxHealthAmount>% of your maximum health, and
 				1 shield gets recovered every <shieldCooldown> seconds. Also, gain
 				<dmg>% damage, <crit>% crit, and <def>x defense while u have any shield active.
-				Any shield persists for <shieldLifetime> seconds after receiveing damage
+				Any shield persists for <shieldLifetime> seconds after receiving damage
 				'''
 			DestroyerPetItem:
 				'''
