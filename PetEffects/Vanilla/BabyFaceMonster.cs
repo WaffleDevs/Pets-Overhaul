@@ -41,11 +41,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
                 }
                 if (timer <= 0)
                 {
-                    if (Pet.shieldAmount < (int)(Player.statLifeMax2 * stage2ShieldMult))
-                    {
-                        Pet.shieldAmount = (int)(Player.statLifeMax2 * stage2ShieldMult);
-                        Pet.shieldTimer = 1;
-                    }
+                    Pet.petShield.Add(((int)(Player.statLifeMax2 * stage2ShieldMult),1));
                     Player.lifeRegen += stage2regen;
                     Player.crimsonRegen = true;
                 }

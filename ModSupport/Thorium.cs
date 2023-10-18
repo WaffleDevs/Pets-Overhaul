@@ -60,6 +60,11 @@ namespace PetsOverhaul.ModSupport
         public override Dictionary<int, int[]> MiningXpPerModdedBlock
         {
             get { return null; }
+
+        public void MergeJunimoFishingXp()
+        {
+            if (FishingXpPerModdedFish != null) Main.LocalPlayer.GetModPlayer<Junimo>().FishingXpPerFish.Concat(FishingXpPerModdedFish);
+            if (FishingXpPerModdedKill != null) Main.LocalPlayer.GetModPlayer<Junimo>().FishingXpPerKill.Concat(FishingXpPerModdedKill);
         }
         public override Dictionary<int, int[]> FishingXpPerModdedFish
         {

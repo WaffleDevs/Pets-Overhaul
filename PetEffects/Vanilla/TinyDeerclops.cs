@@ -17,7 +17,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 {
     sealed public class TinyDeerclops : ModPlayer
     {
-        public List<Point> deerclopsTakenDamage = new(100);
+        public List<Point> deerclopsTakenDamage = new();
         public int damageStoreTime = 300;
         public float healthTreshold = 0.4f;
         public int range = 480;
@@ -48,11 +48,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
                         point.Y++;
                         deerclopsTakenDamage[i] = point;
                     }
-                    int indexToRemove = deerclopsTakenDamage.FindIndex(x => x.Y >= damageStoreTime);
-                    if (indexToRemove != -1)
-                    {
-                        deerclopsTakenDamage.RemoveAt(indexToRemove);
-                    }
+                    deerclopsTakenDamage.RemoveAll(x => x.Y >= damageStoreTime);
                     int totalDamage = 0;
                     deerclopsTakenDamage.ForEach(x => totalDamage += x.X);
                     if (totalDamage > Player.statLifeMax2 * healthTreshold && Pet.timer <= 0)

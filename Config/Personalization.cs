@@ -43,13 +43,16 @@ namespace PetsOverhaul.Config
         [TooltipKey("$Mods.PetsOverhaul.Config.LowCooldownSoundTooltip")]
         [DefaultValue(true)]
         public bool LowCooldownSoundDisabled;
+        [Slider()]
+        [Range(0,15)]
         [LabelKey("$Mods.PetsOverhaul.Config.MoreDifficultLabel")]
         [TooltipKey("$Mods.PetsOverhaul.Config.MoreDifficultTooltip")]
-        [DefaultValue(true)]
-        public bool MoreDifficult;
+        [DefaultValue(0)]
+        public int DifficultAmount;
         [LabelKey("$Mods.PetsOverhaul.Config.SwapCooldownLabel")]
         [TooltipKey("$Mods.PetsOverhaul.Config.SwapCooldownTooltip")]
         [DefaultValue(false)]
         public bool SwapCooldown;
+        
     }
 }

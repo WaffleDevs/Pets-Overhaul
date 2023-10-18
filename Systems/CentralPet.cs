@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 using Microsoft.Xna.Framework;
 
@@ -26,9 +27,10 @@ namespace PetsOverhaul.Systems
         public bool[] burnDebuffs = BuffID.Sets.Factory.CreateBoolSet(false, BuffID.Burning, BuffID.OnFire, BuffID.OnFire3, BuffID.Frostburn, BuffID.CursedInferno, BuffID.ShadowFlame, BuffID.Frostburn2);
         public Color skin;
         public bool skinColorChanged = false;
-        public static List<int> pool = new(100000);
-        public int shieldAmount = 0;
-        public int shieldTimer = -1;
+        public static List<int> pool = new();
+        public List<(int shieldAmount, int shieldTimer)> petShield = new();
+        public int currentShield = 0;
+        public int shieldToBeReduced = 0;
         public bool jumpRegistered = false;
 
         /// <summary>
@@ -224,34 +226,34 @@ namespace PetsOverhaul.Systems
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (ModContent.GetInstance<Personalization>().MoreDifficult == false)
-                modifiers.FinalDamage *= 0.95f;
+            if (ModContent.GetInstance<Personalization>().DifficultAmount != 0)
+                modifiers.FinalDamage *= 1f - ModContent.GetInstance<Personalization>().DifficultAmount * 0.01f;
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
-            if (ModContent.GetInstance<Personalization>().MoreDifficult == false)
-                modifiers.FinalDamage *= 1.05f;
+            if (ModContent.GetInstance<Personalization>().DifficultAmount != 0)
+                modifiers.FinalDamage *= 1f + ModContent.GetInstance<Personalization>().DifficultAmount * 0.01f;
             modifiers.ModifyHurtInfo += (ref Player.HurtInfo info) =>
             {
-                if (info.Damage > shieldAmount && shieldAmount <= 0 == false)
+                if (info.Damage > currentShield && currentShield > 0)
                 {
-                    CombatText.NewText(Player.Hitbox, Color.Cyan, -shieldAmount, true);
+                    CombatText.NewText(Player.Hitbox, Color.Cyan, -currentShield, true);
                     if (ModContent.GetInstance<Personalization>().AbilitySoundDisabled == false)
                         SoundEngine.PlaySound(SoundID.NPCDeath43 with { PitchVariance = 0.4f, Pitch = -0.8f, Volume = 0.2f }, Player.position);
-                    info.Damage -= shieldAmount;
-                    shieldAmount = 0;
+                    info.Damage -= currentShield;
+                    shieldToBeReduced += currentShield;
                 }
             };
         }
         public override bool ConsumableDodge(Player.HurtInfo info)
         {
-            if (info.Damage <= shieldAmount && shieldAmount <= 0 == false)
+            if (info.Damage <= currentShield && currentShield > 0)
             {
                 CombatText.NewText(Player.Hitbox, Color.Cyan, -info.Damage, true);
                 if (ModContent.GetInstance<Personalization>().AbilitySoundDisabled == false)
                     SoundEngine.PlaySound(SoundID.NPCDeath43 with { PitchVariance = 0.4f, Pitch = -0.8f, Volume = 0.2f }, Player.position);
                 info.SoundDisabled = true;
-                shieldAmount -= info.Damage;
+                shieldToBeReduced += info.Damage;
                 if (info.Damage <= 1)
                     Player.SetImmuneTimeForAllTypes(Player.longInvince ? 40 : 20);
                 else
@@ -279,17 +281,47 @@ namespace PetsOverhaul.Systems
             timerMax = (int)(timerMax * (1 / (1 + abilityHaste)));
             petSwapCooldown = 600;
             abilityHaste = 0;
-            if (shieldTimer <= 0)
-                shieldAmount = 0;
-            if (shieldTimer <= -1)
-                shieldTimer = -1;
-            shieldTimer--;
+        }
+        public override void PostUpdate()
+        {
+            if (petShield.Count > 0 && shieldToBeReduced > 0)
+            {
+                while (shieldToBeReduced > 0)
+                {
+                    var value = petShield.Find(x => x.shieldTimer == petShield.Min(x => x.shieldTimer));
+                    int index = petShield.IndexOf(value);
+                    if (value.shieldAmount <= shieldToBeReduced)
+                    {
+                        shieldToBeReduced -= value.shieldAmount;
+                        petShield.RemoveAt(index);
+                    }
+                    else if (value.shieldAmount > shieldToBeReduced)
+                    {
+                        value.shieldAmount -= shieldToBeReduced;
+                        shieldToBeReduced = 0;
+                        petShield[index] = value;
+                    }
+                }
+                shieldToBeReduced = 0;
+            }
+            currentShield = 0;
+            if (petShield.Count > 0)
+            {
+                petShield.ForEach(x => currentShield += x.shieldAmount);
+                for (int i = 0; i < petShield.Count; i++)
+                {
+                    var shieldValue = petShield[i];
+                    shieldValue.shieldTimer--;
+                    petShield[i] = shieldValue;
+                }
+                petShield.RemoveAll(x => x.shieldTimer <= 0 || x.shieldAmount <= 0);
+            }
         }
         public override void OnEnterWorld()
         {
             previousPetItem = Player.miscEquips[0].type;
             if (ModContent.GetInstance<Personalization>().DisableNotice == false)
-                Main.NewText("Pets Overhaul latest changes: Tooltips have been enhanced. Junimo Maximum level cap is fixed.\nIf you happen to come across any bugs, we encourage you to join our Discord\ncommunity and report them immediately. It is recommended that you do\nso even if you have not encountered any bugs, as the mod is constantly\nupdated with new features. This will keep you informed of all the latest\ndevelopments. You're welcome to give any sort of opinion or anything you want!");
+                Main.NewText("[c/90C2AA:Pets Overhaul 2.2 latest changes: Most Systems have been heavily improved.]\n[c/90C2AA:Mod Support's base structure has been implemented & more!]\nIf you happen to come across any bugs, our would like to be\nup to date with our constantly updating Mod and growing community,\nwe encourage you to join our community and our Discord server!");
         }
         public override void OnHurt(Player.HurtInfo info)
         {
@@ -319,7 +351,7 @@ namespace PetsOverhaul.Systems
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
             timer = -1;
-            shieldTimer = -1;
+            petShield.Clear();
         }
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
@@ -338,6 +370,7 @@ namespace PetsOverhaul.Systems
     sealed public class ItemPet : GlobalItem
     {
         public override bool InstancePerEntity => true;
+        public static List<Vector2> updateReplacedTile = new();
         public bool itemFromNpc = false;
         public bool sharkTooltipChangeRegular = false;
         public bool sharkTooltipChangeButMecha = false;
@@ -386,80 +419,7 @@ namespace PetsOverhaul.Systems
             }
             else
             {
-
                 itemFromNpc = false;
-            }
-            if (TileChecks.commonPlant == true && source is EntitySource_TileBreak)
-            {
-                herbBoost = true;
-            }
-            else
-            {
-                herbBoost = false;
-            }
-            if (TileChecks.rarePlant == true && source is EntitySource_TileBreak && TileChecks.tileIsPlacedByPlayer == false)
-            {
-                rareHerbBoost = true;
-            }
-            else
-            {
-                rareHerbBoost = false;
-            }
-            if (TileChecks.choppable == true && source is EntitySource_TileBreak)
-            {
-                tree = true;
-            }
-            else
-            {
-                tree = false;
-            }
-            if (source is EntitySource_TileBreak && TileChecks.tileIsOreGemOrExtractable == true && TileChecks.tileIsPlacedByPlayer == false)
-            {
-                oreBoost = true;
-            }
-            else
-            {
-                oreBoost = false;
-            }
-            if (source is EntitySource_TileBreak && TileChecks.bamboo == true && TileChecks.tileIsPlacedByPlayer == false)
-            {
-                bambooBoost = true;
-            }
-            else
-            {
-                bambooBoost = false;
-            }
-            if (source is EntitySource_TileBreak && TileChecks.dirt == true && TileChecks.tileIsPlacedByPlayer == false)
-            {
-                dirt = true;
-            }
-            else
-            {
-                dirt = false;
-            }
-            if (source is EntitySource_TileBreak && TileChecks.commonBlock == true && TileChecks.tileIsPlacedByPlayer == false)
-            {
-                commonBlock = true;
-            }
-            else
-            {
-                commonBlock = false;
-            }
-            if (source is EntitySource_TileBreak && TileChecks.tileIsPlacedByPlayer == false)
-            {
-                blockNotByPlayer = true;
-            }
-            else
-            {
-                blockNotByPlayer = false;
-            }
-            if (source is EntitySource_TileBreak && TileChecks.gemTree == true)
-            {
-                gemTree = true;
-            }
-            else
-            {
-                gemTree = false;
             }
             if (source is EntitySource_Loot lootSource && lootSource.Entity is NPC npc && (npc.boss == true || npc.GetGlobalNPC<NpcPet>().nonBossTrueBosses[npc.type]))
             {
@@ -467,7 +427,6 @@ namespace PetsOverhaul.Systems
             }
             else
             {
-
                 itemFromBoss = false;
             }
             if (source is EntitySource_ItemOpen)
@@ -477,6 +436,86 @@ namespace PetsOverhaul.Systems
             else
             {
                 itemFromBag = false;
+            }
+            if (source is EntitySource_TileBreak herb && TileChecks.commonPlantTile[Main.tile[herb.TileCoords].TileType] || (source is EntitySource_TileBreak herbWithSprite && TileChecks.plantTilesWithFrames.Exists(x => x.tileType == Main.tile[herbWithSprite.TileCoords].TileType && x.spriteFrame == Main.tile[herbWithSprite.TileCoords].TileFrameX)))
+            {
+                herbBoost = true;
+            }
+            else
+            {
+                herbBoost = false;
+            }
+            if (source is EntitySource_TileBreak rarePlant && TileChecks.rarePlantTile[Main.tile[rarePlant.TileCoords].TileType])
+            {
+                rareHerbBoost = true;
+            }
+            else
+            {
+                rareHerbBoost = false;
+            }
+            if (source is EntitySource_TileBreak choppable && TileChecks.choppableTiles[Main.tile[choppable.TileCoords].TileType])
+            {
+                tree = true;
+            }
+            else
+            {
+                tree = false;
+            }
+            if (source is EntitySource_TileBreak brokenOre && PlayerPlacedBlockList.placedBlocksByPlayer.Contains(brokenOre.TileCoords.ToVector2()) == false && (TileID.Sets.Ore[Main.tile[brokenOre.TileCoords].TileType] || TileChecks.gemTile[Main.tile[brokenOre.TileCoords].TileType] || TileChecks.extractableAndOthers[Main.tile[brokenOre.TileCoords].TileType]))
+            {
+                oreBoost = true;
+            }
+            else
+            {
+                oreBoost = false;
+            }
+            if (source is EntitySource_TileBreak bamboo && Main.tile[bamboo.TileCoords].TileType == TileID.Bamboo)
+            {
+                bambooBoost = true;
+            }
+            else
+            {
+                bambooBoost = false;
+            }
+            if (source is EntitySource_TileBreak brokenDirt && TileID.Sets.Dirt[Main.tile[brokenDirt.TileCoords].TileType] && PlayerPlacedBlockList.placedBlocksByPlayer.Contains(brokenDirt.TileCoords.ToVector2()))
+            {
+                dirt = true;
+            }
+            else
+            {
+                dirt = false;
+            }
+            if (source is EntitySource_TileBreak soil && (TileID.Sets.Conversion.Moss[Main.tile[soil.TileCoords].TileType] || TileChecks.commonTiles[Main.tile[soil.TileCoords].TileType]) && PlayerPlacedBlockList.placedBlocksByPlayer.Contains(soil.TileCoords.ToVector2()))
+            {
+                commonBlock = true;
+            }
+            else
+            {
+                commonBlock = false;
+            }
+            if (source is EntitySource_TileBreak brokenTile && PlayerPlacedBlockList.placedBlocksByPlayer.Contains(brokenTile.TileCoords.ToVector2()) == false)
+            {
+                blockNotByPlayer = true;
+            }
+            else
+            {
+                blockNotByPlayer = false;
+            }
+            if (source is EntitySource_TileBreak gemstoneTree && TileID.Sets.CountsAsGemTree[Main.tile[gemstoneTree.TileCoords].TileType])
+            {
+                gemTree = true;
+            }
+            else
+            {
+                gemTree = false;
+            }
+            if (source is EntitySource_TileBreak playerPlacedCheck)
+            {
+                PlayerPlacedBlockList.placedBlocksByPlayer.Remove(playerPlacedCheck.TileCoords.ToVector2());
+            }
+            if (updateReplacedTile.Count > 0)
+            {
+                PlayerPlacedBlockList.placedBlocksByPlayer.AddRange(updateReplacedTile);
             }
         }
         public override void NetSend(Item item, BinaryWriter writer)

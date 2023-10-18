@@ -45,11 +45,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
         {
             if (Pet.PetInUseWithSwapCd(ItemID.SharkBait))
             {
-                if (shieldOnCatch >= Pet.shieldAmount)
-                {
-                    Pet.shieldAmount = shieldOnCatch;
-                    Pet.shieldTimer = shieldTime;
-                }
+                Pet.petShield.Add((shieldOnCatch, shieldTime));
             }
         }
     }
