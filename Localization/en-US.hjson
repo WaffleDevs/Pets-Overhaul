@@ -303,11 +303,11 @@ Mods: {
 				Both the effects and experience gain are doubled when Junimo Pet is primary Pet in use
 				Levels are currently maxed at <maxLvl>, greater tasks may reward u with superior exp gain.
 				[c/CDFF00:Harvesting]: Plants and choppables gives you <harvestingProfit> copper, +<harvestingRare> for rare plants, +<bonusHealth>% (minimum +<flatHealth>) maximum health
-				Current level: [c/CDFF00:<harvestLevel>] Experience needed for next level: [c/CDFF00:<harvestNext>]
+				Current level: [c/CDFF00:<harvestLevel>] Experience needed for next level: [c/CDFF00:<harvestNext>] Current total experience: [c/CDFF00:<harvestCurrent>]
 				[c/96A8B0:Mining]: Ores, gems and extractables can drop +1 more with <miningBonusDrop>% chance, +<bonusReduction>% damage reduction
-				Current level: [c/96A8B0:<miningLevel>] Experience needed for next level: [c/96A8B0:<miningNext>]
+				Current level: [c/96A8B0:<miningLevel>] Experience needed for next level: [c/96A8B0:<miningNext>] Current total experience: [c/96A8B0:<miningCurrent>]
 				[c/0382E9:Fishing]: Increases Fishing Power by <fishingPower>% multiplicatively, +<bonusDamage>% increase to all types of damage
-				Current level: [c/0382E9:<fishingLevel>] Experience needed for next level: [c/0382E9:<fishingNext>]
+				Current level: [c/0382E9:<fishingLevel>] Experience needed for next level: [c/0382E9:<fishingNext>] Current total experience: [c/0382E9:<fishingCurrent>]
 				'''
 			BirdieRattle:
 				'''

@@ -166,14 +166,16 @@ namespace PetsOverhaul.PetEffects.Vanilla
             {(150, new int[]{ ItemID.Wood,ItemID.AshWood,ItemID.BorealWood,ItemID.PalmWood,ItemID.Ebonwood,ItemID.Shadewood,ItemID.StoneBlock}) },
             {(220, new int[]{ ItemID.Daybloom,ItemID.Blinkroot,ItemID.Deathweed,ItemID.Fireblossom,ItemID.Moonglow,ItemID.Shiverthorn,ItemID.Waterleaf,ItemID.Mushroom,ItemID.GlowingMushroom,ItemID.VileMushroom,ItemID.ViciousMushroom,ItemID.Pumpkin }) },
             {(250, new int[]{ ItemID.GemTreeAmberSeed,ItemID.GemTreeAmethystSeed,ItemID.GemTreeDiamondSeed,ItemID.GemTreeEmeraldSeed,ItemID.GemTreeRubySeed,ItemID.GemTreeSapphireSeed,ItemID.GemTreeTopazSeed,ItemID.Amethyst,ItemID.Topaz,ItemID.Sapphire,ItemID.Emerald,ItemID.Ruby,ItemID.Amber,ItemID.Diamond }) },
-            {(300, new int[]{ ItemID.Pearlwood,ItemID.SpookyWood}) }
+            {(300, new int[]{ ItemID.Pearlwood,ItemID.SpookyWood}) },
+            {(350, new int[]{ItemID.JungleSpores}) }
         };
         /// <summary>
         /// Remember to insert the expAmount as *100 from intended amount, eg. 2.5 exp should be written as 250.
         /// </summary>
         public List<(int expAmount, int[] rarePlantList)> HarvestingXpPerRare = new List<(int, int[])>
         {
-            {(10000, new int[]{ ItemID.LifeFruit}) },
+            {(3500, new int[] {ItemID.GreenMushroom,ItemID.TealMushroom,ItemID.SkyBlueFlower,ItemID.YellowMarigold,ItemID.BlueBerries,ItemID.LimeKelp,ItemID.PinkPricklyPear,ItemID.OrangeBloodroot,ItemID.StrangePlant1,ItemID.StrangePlant2,ItemID.StrangePlant3,ItemID.StrangePlant4})},
+            {(10000, new int[]{ ItemID.LifeFruit}) }
         };
         public bool junimoExpCheck()
         {
@@ -356,7 +358,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
 
             bool notificationOff = ModContent.GetInstance<Personalization>().JunimoNotifOff;
             bool soundOff = ModContent.GetInstance<Personalization>().AbilitySoundDisabled;
-            if (junimoHarvestingExp >= junimoHarvestingLevelsToXp[junimoHarvestingLevel] && junimoHarvestingLevel != maxLvls)
+            if (junimoHarvestingLevel < maxLvls && junimoHarvestingExp >= junimoHarvestingLevelsToXp[junimoHarvestingLevel])
             {
                 junimoHarvestingLevel++;
                 if (notificationOff == false)
@@ -364,11 +366,11 @@ namespace PetsOverhaul.PetEffects.Vanilla
                     if (soundOff == false)
                         SoundEngine.PlaySound(SoundID.Item35 with { PitchVariance = 0.2f, Pitch = 0.5f }, Player.position);
                     popupMessage.Color = Color.LightGreen;
-                    popupMessage.Text = $"Junimo harvesting level {(junimoHarvestingLevel == maxLvls ? "maxed" : "up")}!";
+                    popupMessage.Text = $"Junimo harvesting level {(junimoHarvestingLevel >= maxLvls ? "maxed" : "up")}!";
                     PopupText.NewText(popupMessage, Player.position);
                 }
             }
-            if (junimoMiningExp >= junimoMiningLevelsToXp[junimoMiningLevel] && junimoMiningLevel != maxLvls)
+            if (junimoMiningLevel < maxLvls && junimoMiningExp >= junimoMiningLevelsToXp[junimoMiningLevel])
             {
                 junimoMiningLevel++;
                 if (notificationOff == false)
@@ -380,12 +382,12 @@ namespace PetsOverhaul.PetEffects.Vanilla
                             Pitch = 0.5f
                         }, Player.position);
                     popupMessage.Color = Color.LightGray;
-                    popupMessage.Text = $"Junimo mining level {(junimoMiningLevel == maxLvls ? "maxed" : "up")}!";
+                    popupMessage.Text = $"Junimo mining level {(junimoMiningLevel >= maxLvls ? "maxed" : "up")}!";
                     PopupText.NewText(popupMessage, Player.position);
                 }
             }
 
-            if (junimoFishingExp >= junimoFishingLevelsToXp[junimoFishingLevel] && junimoFishingLevel != maxLvls)
+            if (junimoFishingLevel < maxLvls && junimoFishingExp >= junimoFishingLevelsToXp[junimoFishingLevel])
             {
                 junimoFishingLevel++;
                 if (notificationOff == false)
@@ -397,7 +399,7 @@ namespace PetsOverhaul.PetEffects.Vanilla
                             Pitch = 0.5f
                         }, Player.position);
                     popupMessage.Color = Color.LightSkyBlue;
-                    popupMessage.Text = $"Junimo fishing level {(junimoFishingLevel == maxLvls ? "maxed" : "up")}!";
+                    popupMessage.Text = $"Junimo fishing level {(junimoFishingLevel >= maxLvls ? "maxed" : "up")}!";
                     PopupText.NewText(popupMessage, Player.position);
                 }
             }
@@ -440,14 +442,17 @@ namespace PetsOverhaul.PetEffects.Vanilla
                         .Replace("<flatHealth>", (junimo.junimoHarvestingLevel * junimo.junimoInUseMultiplier).ToString())
                         .Replace("<harvestLevel>", junimo.junimoHarvestingLevel.ToString())
                         .Replace("<harvestNext>", junimo.junimoHarvestingLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoHarvestingLevelsToXp[junimo.junimoHarvestingLevel] - junimo.junimoHarvestingExp).ToString())
+                        .Replace("<harvestCurrent>", junimo.junimoHarvestingExp.ToString())
                         .Replace("<miningBonusDrop>", (junimo.junimoMiningLevel * junimo.junimoInUseMultiplier).ToString())
                         .Replace("<bonusReduction>", (junimo.junimoMiningLevel * junimo.junimoInUseMultiplier * 0.2f).ToString())
                         .Replace("<miningLevel>", junimo.junimoMiningLevel.ToString())
                         .Replace("<miningNext>", junimo.junimoMiningLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoMiningLevelsToXp[junimo.junimoMiningLevel] - junimo.junimoMiningExp).ToString())
+                        .Replace("<miningCurrent>", junimo.junimoMiningExp.ToString())
                         .Replace("<fishingPower>", (junimo.junimoFishingLevel * junimo.junimoInUseMultiplier * 0.5f).ToString())
                         .Replace("<bonusDamage>", (junimo.junimoFishingLevel * junimo.junimoInUseMultiplier * 0.2f).ToString())
                         .Replace("<fishingLevel>", junimo.junimoFishingLevel.ToString())
                         .Replace("<fishingNext>", junimo.junimoFishingLevel >= junimo.maxLvls ? "Max Level!" : (junimo.junimoFishingLevelsToXp[junimo.junimoFishingLevel] - junimo.junimoFishingExp).ToString())
+                        .Replace("<fishingCurrent>", junimo.junimoFishingExp.ToString())
                         ));
         }
     }
